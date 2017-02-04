@@ -18,7 +18,7 @@ var api = new ParseServer({
   appId: process.env.APP_ID || 'codeconomy',
   masterKey: process.env.MASTER_KEY || 'flatstanley', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
-  javascriptKey: process.env.JAVASCRIPT_KEY || '',  //** add this line no need to set values, they will be overwritten by heroku config vars
+  javascriptKey: process.env.JAVASCRIPT_KEY || 'myJsKey',  //** add this line no need to set values, they will be overwritten by heroku config vars
   restAPIKey: process.env.REST_API_KEY || '', //** add this line
   dotNetKey: process.env.DOT_NET_KEY || '', //** add this line
   clientKey: process.env.CLIENT_KEY || '', //** add this line
