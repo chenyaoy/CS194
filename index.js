@@ -54,8 +54,5 @@ httpServer.listen(port, function() {
     console.log('parse-server-example running on port ' + port + '.');
 });
 
-app.set('views', path.join(__dirname, 'views'));
-
-
 // This will enable the Live Query real-time server
 ParseServer.createLiveQueryServer(httpServer);
