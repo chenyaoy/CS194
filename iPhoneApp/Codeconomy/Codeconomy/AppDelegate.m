@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "ExploreViewController.h"
+#import "ProfileViewController.h"
 #import <Parse/Parse.h>
 
 @interface AppDelegate ()
@@ -26,9 +27,13 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    ViewController *exploreViewController = [[ViewController alloc] init];
-    UIViewController *couponsViewController = [[UIViewController alloc] init];
-    UIViewController *profileViewController = [[UIViewController alloc] init];
+    UINavigationController *exploreViewController = [[UINavigationController alloc] initWithRootViewController:[[ExploreViewController alloc] init]];
+    UINavigationController *couponsViewController = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] init]];
+    UINavigationController *profileViewController = [[UINavigationController alloc] initWithRootViewController:[[ProfileViewController alloc] init]];
+    
+    exploreViewController.navigationBar.topItem.title = @"Explore";
+    couponsViewController.navigationBar.topItem.title = @"My Listings";
+    profileViewController.navigationBar.topItem.title = @"Me";
     
     NSString *exploreEmoji = @"🏬";
     NSString *couponsEmoji = @"🏷";
