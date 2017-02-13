@@ -7,6 +7,7 @@
 //
 
 #import "CodeconomyTileView.h"
+#import "Util.h"
 
 @interface CodeconomyTileView ()
 @property (nonatomic, strong) Coupon *couponData;
@@ -25,7 +26,7 @@
         _title = [[UILabel alloc] init];
         _expires = [[UILabel alloc] init];
         _posted = [[UILabel alloc] init];
-        [self setBackgroundColor:[UIColor whiteColor]];
+        [self setBackgroundColor: [[Util sharedManager] colorWithHexString:@"FFFFFF"]];
         self.layer.cornerRadius = 10;
         self.layer.masksToBounds = YES;
     }
@@ -38,22 +39,31 @@
 }
 
 - (void)setLabels {
-    self.credits.text = [NSString stringWithFormat:@"🔑%d", self.couponData.price];
-    [self.credits setFont:[UIFont systemFontOfSize:22.0f]];
+    self.credits.text = [NSString stringWithFormat:@"%d🔑", self.couponData.price];
+    [self.credits setFont:[UIFont boldSystemFontOfSize:22.0f]];
     [self addSubview:self.credits];
     [self.credits sizeToFit];
     
-    self.title.text = [NSString stringWithFormat:@"%@ %@", self.couponData.storeName, self.couponData.title];
-    [self.title setFont:[UIFont systemFontOfSize:18.0f]];
+    NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", self.couponData.storeName, self.couponData.title]];
+    [titleString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18.0f] range:NSMakeRange(0, self.couponData.storeName.length)];
+    [titleString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0f] range:NSMakeRange(self.couponData.storeName.length + 1, self.couponData.title.length)];
+    self.title.attributedText = titleString;
     [self addSubview:self.title];
     [self.title sizeToFit];
     
-    self.expires.text = [NSString stringWithFormat:@"expires %@", self.couponData.expirationDate.description];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    dateFormatter.dateFormat = @"MM/dd/yy";
+    NSString *dateString = [dateFormatter stringFromDate: self.couponData.expirationDate];
+    
+    self.expires.text = [NSString stringWithFormat:@"expires %@", dateString];
     [self.expires setFont:[UIFont systemFontOfSize:14.0f]];
     [self addSubview:self.expires];
     [self.expires sizeToFit];
     
-    self.posted.text = [NSString stringWithFormat:@"posted %@h ago", self.couponData.createdDate.description];
+    NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:self.couponData.createdDate];
+    int hoursBetweenDates = distanceBetweenDates / 3600;
+    
+    self.posted.text = [NSString stringWithFormat:@"posted %dh ago", hoursBetweenDates];
     [self.posted setFont:[UIFont systemFontOfSize:14.0f]];
     [self addSubview:self.posted];
     [self.posted sizeToFit];

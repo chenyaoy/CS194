@@ -11,7 +11,8 @@
 @implementation Coupon
 - (instancetype)initWithCouponId:(int)couponId
                         sellerId:(int)sellerId
-                          status:(int)status price:(float)price
+                          status:(int)status
+                           price:(float)price
                   expirationDate:(NSDate *)expirationDate
                      createdDate:(NSDate *)createdDate
                        storeName:(NSString *)storeName
@@ -24,6 +25,7 @@
         self.couponId = couponId;
         self.sellerId = sellerId;
         self.status = status;
+        self.price = price;
         self.expirationDate = expirationDate;
         self.createdDate = createdDate;
         self.storeName = storeName;
