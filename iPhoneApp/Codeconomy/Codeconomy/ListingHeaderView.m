@@ -7,6 +7,7 @@
 //
 
 #import "ListingHeaderView.h"
+#import "Util.h"
 
 @interface ListingHeaderView ()
 @property (nonatomic, strong) UILabel *storeName;
@@ -21,17 +22,33 @@
                       description:(NSString *)couponDescription {
     self = [super init];
     if (self) {
+        self.backgroundColor = [[Util sharedManager] colorWithHexString:@"FFFFFF"];
+        
         _storeName = [[UILabel alloc] init];
         _storeName.text = storeName;
+        _storeName.font = [UIFont boldSystemFontOfSize:40.0f];
         [self addSubview:_storeName];
         _title = [[UILabel alloc] init];
         _title.text = title;
+        _title.font = [UIFont systemFontOfSize:30.0f];
         [self addSubview:_title];
         _couponDescription = [[UILabel alloc] init];
         _couponDescription.text = couponDescription;
+        _couponDescription.font = [UIFont systemFontOfSize:20.0f];
         [self addSubview:_couponDescription];
+        self.layer.cornerRadius = 10;
+        self.layer.masksToBounds = YES;
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [self.storeName sizeToFit];
+    [self.title sizeToFit];
+    [self.couponDescription sizeToFit];
+    self.storeName.frame = CGRectMake(self.frame.size.width / 2.0 - self.storeName.frame.size.width / 2.0, 12.0, self.storeName.frame.size.width, self.storeName.frame.size.height);
+    self.title.frame = CGRectMake(self.frame.size.width / 2.0 - self.title.frame.size.width / 2.0, self.storeName.frame.origin.y + self.storeName.frame.size.height + 4.0, self.title.frame.size.width, self.title.frame.size.height);
+    self.couponDescription.frame = CGRectMake(20.0, self.frame.size.height - self.couponDescription.frame.size.height - 12.0, self.couponDescription.frame.size.width, self.couponDescription.frame.size.height);
 }
 
 /*
