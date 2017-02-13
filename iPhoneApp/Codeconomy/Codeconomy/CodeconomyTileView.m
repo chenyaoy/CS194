@@ -7,7 +7,6 @@
 //
 
 #import "CodeconomyTileView.h"
-#import "Coupon.h"
 
 @interface CodeconomyTileView ()
 @property (nonatomic, strong) Coupon *couponData;

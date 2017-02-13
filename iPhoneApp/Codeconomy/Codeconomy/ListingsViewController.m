@@ -8,6 +8,7 @@
 
 #import "ListingsViewController.h"
 #import "Coupon.h"
+#import "Util.h"
 
 @interface ListingsViewController ()
 @property (nonatomic, strong) UITableView *listings;
@@ -19,7 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _listings = [[UITableView alloc] init];
+    [self.view addSubview:_listings];
     _allListings = [[NSMutableArray alloc] init];
+    [self.view setBackgroundColor: [[Util sharedManager] colorWithHexString:@"F7F7F7"]];
     
     [self generateMockData];
 }
@@ -27,6 +30,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillLayoutSubviews {
+    self.listings.frame = CGRectMake(20.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 15.0, self.view.frame.size.width - 40.0, self.tabBarController.tabBar.frame.origin.y - (self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 30.0));
 }
 
 - (void)generateMockData {

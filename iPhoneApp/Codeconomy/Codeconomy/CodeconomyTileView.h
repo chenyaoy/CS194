@@ -6,6 +6,7 @@
 //  Copyright © 2017 Stanford. All rights reserved.
 //
 
+#import "Coupon.h"
 #import <UIKit/UIKit.h>
 
 @interface CodeconomyTileView : UIView

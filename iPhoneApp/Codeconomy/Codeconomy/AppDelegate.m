@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ExploreViewController.h"
 #import "ProfileViewController.h"
+#import "ListingsViewController.h"
 #import <Parse/Parse.h>
 
 @interface AppDelegate ()
@@ -28,7 +29,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     UINavigationController *exploreViewController = [[UINavigationController alloc] initWithRootViewController:[[ExploreViewController alloc] init]];
-    UINavigationController *couponsViewController = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] init]];
+    UINavigationController *couponsViewController = [[UINavigationController alloc] initWithRootViewController:[[ListingsViewController alloc] init]];
     UINavigationController *profileViewController = [[UINavigationController alloc] initWithRootViewController:[[ProfileViewController alloc] init]];
     
     exploreViewController.navigationBar.topItem.title = @"Explore";
