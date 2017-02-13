@@ -49,7 +49,7 @@ app.get('/test', function(req, res) {
 });
 
 app.get('/about', function(req, res) {
-  res.sendFile('.views/hello_world.html');
+  res.sendFile('./views/hello_world.html');
 });
 
 var port = process.env.PORT || 1337;
