@@ -48,7 +48,7 @@ app.get('/test', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
 
-app.get('about', function(req, res) {
+app.get('/about', function(req, res) {
   res.sendFile('.views/hello_world.html');
 });
 
