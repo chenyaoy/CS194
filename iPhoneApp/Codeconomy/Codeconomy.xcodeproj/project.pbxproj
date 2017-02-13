@@ -15,7 +15,7 @@
 		3D5EB5141E512A2D00E67C91 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB5131E512A2D00E67C91 /* Coupon.m */; };
 		3D5EB5171E51306800E67C91 /* CodeconomyTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB5161E51306800E67C91 /* CodeconomyTileView.m */; };
 		3D7A9B811E516CD200FD6812 /* ListingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A9B801E516CD200FD6812 /* ListingsTableViewCell.m */; };
-		3D7A9B841E51860000FD6812 /* ListingsDetailViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A9B831E51860000FD6812 /* ListingsDetailViewViewController.m */; };
+		3D7A9B841E51860000FD6812 /* ListingsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A9B831E51860000FD6812 /* ListingsDetailViewController.m */; };
 		3D7A9B871E518B0500FD6812 /* ListingHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A9B861E518B0500FD6812 /* ListingHeaderView.m */; };
 		3D7A9B8A1E518B3100FD6812 /* ListingDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A9B891E518B3100FD6812 /* ListingDetailView.m */; };
 		3D7A9B8D1E518B4900FD6812 /* ListingTimeCreatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A9B8C1E518B4900FD6812 /* ListingTimeCreatedView.m */; };
@@ -64,8 +64,8 @@
 		3D5EB5161E51306800E67C91 /* CodeconomyTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeconomyTileView.m; sourceTree = "<group>"; };
 		3D7A9B7F1E516CD200FD6812 /* ListingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListingsTableViewCell.h; sourceTree = "<group>"; };
 		3D7A9B801E516CD200FD6812 /* ListingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListingsTableViewCell.m; sourceTree = "<group>"; };
-		3D7A9B821E51860000FD6812 /* ListingsDetailViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListingsDetailViewViewController.h; sourceTree = "<group>"; };
-		3D7A9B831E51860000FD6812 /* ListingsDetailViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListingsDetailViewViewController.m; sourceTree = "<group>"; };
+		3D7A9B821E51860000FD6812 /* ListingsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListingsDetailViewController.h; sourceTree = "<group>"; };
+		3D7A9B831E51860000FD6812 /* ListingsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListingsDetailViewController.m; sourceTree = "<group>"; };
 		3D7A9B851E518B0500FD6812 /* ListingHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListingHeaderView.h; sourceTree = "<group>"; };
 		3D7A9B861E518B0500FD6812 /* ListingHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListingHeaderView.m; sourceTree = "<group>"; };
 		3D7A9B881E518B3100FD6812 /* ListingDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListingDetailView.h; sourceTree = "<group>"; };
@@ -180,8 +180,8 @@
 		3D7A9B8F1E518B5F00FD6812 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				3D7A9B821E51860000FD6812 /* ListingsDetailViewViewController.h */,
-				3D7A9B831E51860000FD6812 /* ListingsDetailViewViewController.m */,
+				3D7A9B821E51860000FD6812 /* ListingsDetailViewController.h */,
+				3D7A9B831E51860000FD6812 /* ListingsDetailViewController.m */,
 				3D7A9B851E518B0500FD6812 /* ListingHeaderView.h */,
 				3D7A9B861E518B0500FD6812 /* ListingHeaderView.m */,
 				3D7A9B881E518B3100FD6812 /* ListingDetailView.h */,
@@ -559,7 +559,7 @@
 				3D5EB5091E5105BB00E67C91 /* Util.m in Sources */,
 				3D5EB50C1E51078B00E67C91 /* ProfileTile.m in Sources */,
 				3D7A9B8A1E518B3100FD6812 /* ListingDetailView.m in Sources */,
-				3D7A9B841E51860000FD6812 /* ListingsDetailViewViewController.m in Sources */,
+				3D7A9B841E51860000FD6812 /* ListingsDetailViewController.m in Sources */,
 				3D5EB5101E51274300E67C91 /* ListingsViewController.m in Sources */,
 				3D7A9B8D1E518B4900FD6812 /* ListingTimeCreatedView.m in Sources */,
 				3D7A9B871E518B0500FD6812 /* ListingHeaderView.m in Sources */,

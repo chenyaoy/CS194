@@ -6,43 +6,55 @@
 //  Copyright © 2017 Stanford. All rights reserved.
 //
 
-#import "ListingsDetailViewViewController.h"
+#import "ListingsDetailViewController.h"
 #import "ListingHeaderView.h"
 #import "ListingDetailView.h"
 #import "ListingTimeCreatedView.h"
+#import "Util.h"
 #import "Coupon.h"
 
-@interface ListingsDetailViewViewController ()
+@interface ListingsDetailViewController ()
 @property (nonatomic, strong) Coupon *couponData;
-@property (nonatomic, strong) UILabel *credits;
+@property (nonatomic, strong) UILabel *price;
 @property (nonatomic, strong) ListingHeaderView *headerView;
 @property (nonatomic, strong) ListingDetailView *detailView;
 @property (nonatomic, strong) ListingTimeCreatedView *createdView;
 @property (nonatomic, strong) UIButton *buy;
 @end
 
-@implementation ListingsDetailViewViewController
+@implementation ListingsDetailViewController
 
 - (instancetype)initWithCoupon:(Coupon *)couponData {
     self = [super init];
     if (self) {
+        _price = [[UILabel alloc] init];
+        _price.text = @"36🔑";
         _couponData = couponData;
-        _credits = [[UILabel alloc] init];
-        [self.view addSubview:_credits];
         _headerView = [[ListingHeaderView alloc] initWithStoreName:_couponData.storeName title:_couponData.title description:_couponData.couponDescription];
-        [self.view addSubview:_headerView];
         _detailView = [[ListingDetailView alloc] initWithPrice:_couponData.price expirationDate:_couponData.expirationDate category:@"Clothing 👖"];
-        [self.view addSubview:_detailView];
         _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdDate seller:[NSString stringWithFormat:@"%d", _couponData.sellerId]];
-        [self.view addSubview:_createdView];
+        _buy = [[UIButton alloc] init];
+        
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [[Util sharedManager] colorWithHexString:@"F7F7F7"];
     
+    [_price sizeToFit];
+    [self.view addSubview:_headerView];
+    [self.view addSubview:_detailView];
+    [self.view addSubview:_createdView];
+    [self.view addSubview:_buy];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.price];
+    self.navigationItem.rightBarButtonItem = item;
+    self.navigationItem.title = @"Code";
+    [self.buy setTitle: @"Buy" forState: UIControlStateNormal];
+    _buy.backgroundColor = [[Util sharedManager] colorWithHexString:@"9FCBFE"];
+    _buy.layer.cornerRadius = 10;
+    _buy.layer.masksToBounds = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,7 +63,10 @@
 }
 
 - (void)viewWillLayoutSubviews {
-    
+    self.headerView.frame = CGRectMake(20.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 15.0, self.view.frame.size.width - 40.0, 147.0);
+    self.detailView.frame = CGRectMake(20.0, self.headerView.frame.origin.y + self.headerView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 127.0);
+    self.createdView.frame = CGRectMake(20.0, self.detailView.frame.origin.y + self.detailView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 72.0);
+    self.buy.frame = CGRectMake(20.0, self.createdView.frame.origin.y + self.createdView.frame.size.height + 25.0, self.view.frame.size.width - 40.0, 50.0);
 }
 
 /*

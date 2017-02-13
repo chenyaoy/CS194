@@ -8,6 +8,7 @@
 
 #import "ListingsViewController.h"
 #import "ListingsTableViewCell.h"
+#import "ListingsDetailViewController.h"
 #import "Coupon.h"
 #import "Util.h"
 
@@ -43,13 +44,13 @@
 }
 
 - (void)generateMockData {
-    Coupon *coupon1 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon2 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon3 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon4 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon5 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon6 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon7 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon1 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"excludes sale items" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon2 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"excludes sale items" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon3 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"excludes sale items" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon4 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"excludes sale items" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon5 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"excludes sale items" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon6 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"excludes sale items" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon7 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"excludes sale items" code:@"fuckmeinthedick" deleted:0];
     
     [self.allListings addObject:coupon1];
     [self.allListings addObject:coupon2];
@@ -84,7 +85,12 @@
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    ListingsDetailViewController *listingDetailsVC = [[ListingsDetailViewController alloc] initWithCoupon:[self.allListings objectAtIndex:indexPath.section]];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationItem.backBarButtonItem = barButton;
+    [self.navigationController pushViewController:listingDetailsVC animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
