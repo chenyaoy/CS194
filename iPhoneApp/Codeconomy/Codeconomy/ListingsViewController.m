@@ -7,10 +7,11 @@
 //
 
 #import "ListingsViewController.h"
+#import "ListingsTableViewCell.h"
 #import "Coupon.h"
 #import "Util.h"
 
-@interface ListingsViewController ()
+@interface ListingsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *listings;
 @property (nonatomic, strong) NSMutableArray *allListings;
 @end
@@ -20,6 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _listings = [[UITableView alloc] init];
+    _listings.delegate = self;
+    _listings.dataSource = self;
+    [_listings setBackgroundColor:[[Util sharedManager] colorWithHexString:@"F7F7F7"]];
+    _listings.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _listings.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
     [self.view addSubview:_listings];
     _allListings = [[NSMutableArray alloc] init];
     [self.view setBackgroundColor: [[Util sharedManager] colorWithHexString:@"F7F7F7"]];
@@ -37,13 +43,13 @@
 }
 
 - (void)generateMockData {
-    Coupon *coupon1 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[NSDate date] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon2 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[NSDate date] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon3 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[NSDate date] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon4 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[NSDate date] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon5 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[NSDate date] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon6 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[NSDate date] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
-    Coupon *coupon7 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[NSDate date] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon1 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon2 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon3 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon4 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon5 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon6 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
+    Coupon *coupon7 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"30% off ANY ITEM" code:@"fuckmeinthedick" deleted:0];
     
     [self.allListings addObject:coupon1];
     [self.allListings addObject:coupon2];
@@ -53,6 +59,48 @@
     [self.allListings addObject:coupon6];
     [self.allListings addObject:coupon7];
 }
+
+#pragma mark - Table View Data Source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.allListings count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil) {
+        cell = [[ListingsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
+    [(ListingsTableViewCell *)cell setCoupon:[self.allListings objectAtIndex:indexPath.section]];
+    return cell;
+}
+
+#pragma mark - Table View Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 60.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 8.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
+
 /*
 #pragma mark - Navigation
 
