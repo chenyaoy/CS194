@@ -11,6 +11,9 @@
 		3D5EB5041E50FE3A00E67C91 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB5031E50FE3A00E67C91 /* ProfileViewController.m */; };
 		3D5EB5091E5105BB00E67C91 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB5081E5105BB00E67C91 /* Util.m */; };
 		3D5EB50C1E51078B00E67C91 /* ProfileTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB50B1E51078B00E67C91 /* ProfileTile.m */; };
+		3D5EB5101E51274300E67C91 /* ListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB50F1E51274300E67C91 /* ListingsViewController.m */; };
+		3D5EB5141E512A2D00E67C91 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB5131E512A2D00E67C91 /* Coupon.m */; };
+		3D5EB5171E51306800E67C91 /* CodeconomyTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB5161E51306800E67C91 /* CodeconomyTileView.m */; };
 		3DE3CD2D1E47D8BB007EEC70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3CD2C1E47D8BB007EEC70 /* main.m */; };
 		3DE3CD301E47D8BB007EEC70 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3CD2F1E47D8BB007EEC70 /* AppDelegate.m */; };
 		3DE3CD331E47D8BB007EEC70 /* ExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3CD321E47D8BB007EEC70 /* ExploreViewController.m */; };
@@ -48,6 +51,12 @@
 		3D5EB5081E5105BB00E67C91 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		3D5EB50A1E51078B00E67C91 /* ProfileTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTile.h; sourceTree = "<group>"; };
 		3D5EB50B1E51078B00E67C91 /* ProfileTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTile.m; sourceTree = "<group>"; };
+		3D5EB50E1E51274300E67C91 /* ListingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListingsViewController.h; sourceTree = "<group>"; };
+		3D5EB50F1E51274300E67C91 /* ListingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListingsViewController.m; sourceTree = "<group>"; };
+		3D5EB5121E512A2D00E67C91 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coupon.h; sourceTree = "<group>"; };
+		3D5EB5131E512A2D00E67C91 /* Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coupon.m; sourceTree = "<group>"; };
+		3D5EB5151E51306800E67C91 /* CodeconomyTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeconomyTileView.h; sourceTree = "<group>"; };
+		3D5EB5161E51306800E67C91 /* CodeconomyTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeconomyTileView.m; sourceTree = "<group>"; };
 		3DE3CD281E47D8BB007EEC70 /* Codeconomy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Codeconomy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE3CD2C1E47D8BB007EEC70 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3DE3CD2E1E47D8BB007EEC70 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -125,8 +134,21 @@
 			children = (
 				3D5EB5071E5105BB00E67C91 /* Util.h */,
 				3D5EB5081E5105BB00E67C91 /* Util.m */,
+				3D5EB5121E512A2D00E67C91 /* Coupon.h */,
+				3D5EB5131E512A2D00E67C91 /* Coupon.m */,
+				3D5EB5151E51306800E67C91 /* CodeconomyTileView.h */,
+				3D5EB5161E51306800E67C91 /* CodeconomyTileView.m */,
 			);
 			name = Shared;
+			sourceTree = "<group>";
+		};
+		3D5EB5111E51274D00E67C91 /* Listings */ = {
+			isa = PBXGroup;
+			children = (
+				3D5EB50E1E51274300E67C91 /* ListingsViewController.h */,
+				3D5EB50F1E51274300E67C91 /* ListingsViewController.m */,
+			);
+			name = Listings;
 			sourceTree = "<group>";
 		};
 		3DE3CD1F1E47D8BB007EEC70 = {
@@ -157,6 +179,7 @@
 				3DE3CD2E1E47D8BB007EEC70 /* AppDelegate.h */,
 				3DE3CD2F1E47D8BB007EEC70 /* AppDelegate.m */,
 				3D5EB5061E50FF7500E67C91 /* Explore */,
+				3D5EB5111E51274D00E67C91 /* Listings */,
 				3D5EB5051E50FE4400E67C91 /* Profile */,
 				3D5EB50D1E51079900E67C91 /* Shared */,
 				3DE3CD371E47D8BB007EEC70 /* Assets.xcassets */,
@@ -494,10 +517,13 @@
 			files = (
 				3D5EB5091E5105BB00E67C91 /* Util.m in Sources */,
 				3D5EB50C1E51078B00E67C91 /* ProfileTile.m in Sources */,
+				3D5EB5101E51274300E67C91 /* ListingsViewController.m in Sources */,
 				3DE3CD331E47D8BB007EEC70 /* ExploreViewController.m in Sources */,
+				3D5EB5171E51306800E67C91 /* CodeconomyTileView.m in Sources */,
 				3DE3CD301E47D8BB007EEC70 /* AppDelegate.m in Sources */,
 				3D5EB5041E50FE3A00E67C91 /* ProfileViewController.m in Sources */,
 				3DE3CD2D1E47D8BB007EEC70 /* main.m in Sources */,
+				3D5EB5141E512A2D00E67C91 /* Coupon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
