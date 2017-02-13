@@ -6,17 +6,18 @@
 //  Copyright © 2017 Stanford. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ExploreViewController.h"
+#import "Util.h"
 
-@interface ViewController ()
+@interface ExploreViewController ()
 
 @end
 
-@implementation ViewController
+@implementation ExploreViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    [self.view setBackgroundColor: [[Util sharedManager] colorWithHexString:@"F7F7F7"]];
 }
 
 - (void)didReceiveMemoryWarning {
