@@ -1,8 +1,13 @@
 var express = require('express');
+var coupons = require('./routes/coupons');
+var users = require('./routes/users');
+
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
+app.use('/coupons',  coupons);
+app.use('/users', users);
 app.use(express.static(__dirname + '/public'));
 
 // views is directory for all template files
