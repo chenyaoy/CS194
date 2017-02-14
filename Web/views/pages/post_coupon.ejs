@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/navbar.ejs %>  
+    <form>
+      <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <label for="store">Store</label>
+          <input type="text" class="form-control" id="store" placeholder="Enter store name">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <label for="description">Description</label>
+          <input type="text" class="form-control" id="description" placeholder="Enter a short description">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <label for="expire-bool">Does it expire?</label>
+          <select class="form-control" id="expire-bool">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <label for="expire-date">If so, when does it expire?</label>
+          <input type="datetime-local" class="form-control" id="expire-date">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <label for="additional-info">Any additional information?</label>
+          <input type="text" class="form-control" id="additional-info" placeholder="e.g. Excludes sale items">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <label for="price">Price</label>
+          <input type="number" class="form-control" id="price">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <label for="category">Please select a category</label>
+          <select class="form-control" id="category">
+            <option>Clothing</option>
+            <option>Food</option>
+            <option>Concerts</option>
+            <option>Electronics</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <label for="additional-info">What is the code?</label>
+          <input type="text" class="form-control" id="code" placeholder="S@V3th@tm0n3y">
+        </div>
+      </div>
+      <div class="row">
+        <div class="text-center">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+    </form>
+</body>
+</html>

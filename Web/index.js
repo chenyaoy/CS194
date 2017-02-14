@@ -1,8 +1,10 @@
 var express = require('express');
 var coupons = require('./routes/coupons');
 var users = require('./routes/users');
+var Parse = require('parse');
 
 var app = express();
+Parse.serverURL = 'http://codeconomy.herokuapp.com/parse';
 
 app.set('port', (process.env.PORT || 5000));
 
