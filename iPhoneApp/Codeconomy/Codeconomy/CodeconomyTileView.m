@@ -67,6 +67,7 @@
     [self.posted setFont:[UIFont systemFontOfSize:14.0f]];
     [self addSubview:self.posted];
     [self.posted sizeToFit];
+    [self setNeedsLayout];
 }
 
 - (void) layoutSubviews {
