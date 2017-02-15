@@ -15,11 +15,9 @@ router.post('/postCoupon/submit', function(req, res) {
         var coupon = new Coupon();
         coupon.set("storeName", req.body.store);
         coupon.set("description", req.body.couponDescription);
-        coupon.set("expirationDate", new Date());
         coupon.set("expirationDate", 
-            typeof(req.body.expireDate) == undefined ? null : new Date(req.body.expireDate));
-        coupon.set("additionalInfo", 
-            typeof(req.body.additionalInfo) == undefined ? "" : req.body.additionalInfo);
+            req.body.expireDate.length == 0 ? null : new Date(req.body.expireDate));
+        coupon.set("additionalInfo", req.body.additionalInfo);
         coupon.set("price", req.body.price);
         coupon.set("code", req.body.code);
         coupon.set("category", req.body.category);
@@ -54,9 +52,31 @@ router.get('/myCoupons', function(req, res) {
     res.render('pages/index',{balance:50});
 });
 
-router.get('/coupon', function(req, res) {
+router.get('/purchaseCoupon', function(req, res) {
+     res.render('pages/index',{balance:50});
+});
 
-    res.render('pages/coupon_page',{balance:50});
+router.get('/coupon', function(req, res) {
+    var Coupon = Parse.Object.extend("Coupon");
+    var query = new Parse.Query(Coupon);
+    query.get(req.query.id, {
+        success: function(result) {
+            var coupon = {};
+            coupon.storeName = result.get('storeName');
+            coupon.description = result.get('description');
+            coupon.price = result.get('price');
+            coupon.category = result.get('category');
+            coupon.additionalInfo = result.get('additionalInfo');
+            coupon.id = req.query.id;
+            if(result.has('expirationDate')) {
+                coupon.expirationDate = result.get('expirationDate');
+            }
+            res.render('pages/display_coupon', {balance:50, coupon:coupon});
+        },
+        error: function(object, error) {
+            res.render('pages/error_try_again');
+        }
+    });
 });
 
 router.get('/clothing', function(req, res) {
@@ -124,7 +144,7 @@ function validateRequiredCouponParams(req) {
     if(typeof(req.body.couponDescription) == 'undefined') {
         return false;
     }
-    if(req.body.expireBool && typeof(req.body.expireDate) == 'undefined') {
+    if(req.body.expireBool == 'Yes' && req.body.expireDate.length == 0) {
         return false;
     }
     if(typeof(req.body.price) == undefined || req.body.price < 0) {
