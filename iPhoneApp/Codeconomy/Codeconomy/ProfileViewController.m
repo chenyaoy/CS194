@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "ListingsViewController.h"
 #import "ProfileTile.h"
 #import "Util.h"
 
@@ -16,6 +17,9 @@
 @property (nonatomic, strong) ProfileTile *manageKeys;
 @property (nonatomic, strong) ProfileTile *transactionHistory;
 @property (nonatomic, strong) ProfileTile *accountSettings;
+@property (nonatomic, strong) UITapGestureRecognizer *transactionHistoryTap;
+
+@property (nonatomic, strong) NSMutableArray *allListings;
 @end
 
 @implementation ProfileViewController
@@ -45,11 +49,15 @@
     [self.view addSubview:self.transactionHistory];
     [self.transactionHistory setLeftLabel:@"📜"];
     [self.transactionHistory setRightLabel:@"Transaction History ➡️"];
+    _transactionHistoryTap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTransactionHistory)];
+    [_transactionHistory addGestureRecognizer:_transactionHistoryTap];
     
     self.accountSettings = [[ProfileTile alloc] init];
     [self.view addSubview:self.accountSettings];
     [self.accountSettings setLeftLabel:@"⚙"];
     [self.accountSettings setRightLabel:@"Account Settings ➡️"];
+    
+    _allListings = [[NSMutableArray alloc] init];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -67,6 +75,17 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Listeners
+
+- (void)tapTransactionHistory {
+    ListingsViewController *listingsVC = [[ListingsViewController alloc] init];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationItem.backBarButtonItem = barButton;
+    listingsVC.navigationItem.title = @"Transaction History";
+    [self.navigationController pushViewController:listingsVC animated:YES];
 }
 
 /*

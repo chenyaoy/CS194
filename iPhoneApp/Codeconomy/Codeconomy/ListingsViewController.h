@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ListingsViewController : UIViewController
-
+- (instancetype)initWithNew;
 @end
