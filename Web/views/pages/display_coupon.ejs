@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/navbar.ejs %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <h1><%= coupon.storeName %></h1>
+    <h2><%=coupon.category%></h2>
+    <p><%=coupon.description %></p>
+    <h2><%=coupon.price%> credits</h2>
+    <% if(typeof(coupon.expirationDate) !== 'undefined') {%>
+    <h2> Expires <%=coupon.expirationDate %></h2>
+    <% } %>
+  </div>
+</div>
+
+<% if(coupon.additionalInfo.length > 0) {%>
+<div class="container">
+  <div class="alert alert-info text-center" role="alert">
+      <%=coupon.additionalInfo %>
+  </div>
+</div>
+<% } %>
+
+<div class="row">
+  <div class="text-center">
+    <a href="/coupons/purchaseCoupon?id=<%=coupon.id%>" class="btn btn-success" role="button">Buy!</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/navbar.ejs %>
+  <div class="jumbotron text-center">
+    <div class="container">
+      <h1>Buy and sell coupons!</h1>
+      <p>Select a category below, explore all listings, or post your own code!</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3">
+      <div class="text-center">
+        <a type="button" class="btn-primary btn-lg btn-block" href="/coupons/clothing">Clothing</a>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="text-center">
+        <a type="button" class="btn-primary btn-lg btn-block" href="/coupons/food">Food</a>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+
+  <div class="col-xs-12" style="height:30px;"></div>
+
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3">
+      <div class="text-center">
+        <a type="button" class="btn-primary btn-lg btn-block" href="/coupons/electronics">Electronics</a>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="text-center">
+        <a type="button" class="btn-primary btn-lg btn-block" href="/coupons/concerts">Concerts</a>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+  
+  <div class="col-xs-12" style="height:30px;"></div>
+
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <div class="text-center">
+        <a type="button" class="btn-primary btn-lg btn-block" href="/coupons/explore">Explore all categories</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12" style="height:30px;"></div>
+
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <div class="text-center">
+        <a type="button" class="btn-primary btn-lg btn-block" href="/coupons/postCoupon">Post a coupon</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

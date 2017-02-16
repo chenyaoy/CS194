@@ -6,26 +6,26 @@
 
 <body>
   <% include ../partials/navbar.ejs %>  
-    <form>
+    <form action="/coupons/postCoupon/submit" method="post">
       <div class="form-group row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
           <label for="store">Store</label>
-          <input type="text" class="form-control" id="store" placeholder="Enter store name">
+          <input type="text" class="form-control" id="store" name="store" placeholder="Enter store name">
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-          <label for="description">Description</label>
-          <input type="text" class="form-control" id="description" placeholder="Enter a short description">
+          <label for="couponDescription">Description</label>
+          <input type="text" class="form-control" id="couponDescription" name="couponDescription" placeholder="Enter a short description">
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-          <label for="expire-bool">Does it expire?</label>
-          <select class="form-control" id="expire-bool">
+          <label for="expireBool">Does it expire?</label>
+          <select class="form-control" id="expireBool" name="expireBool">
             <option>Yes</option>
             <option>No</option>
           </select>
@@ -34,29 +34,29 @@
       <div class="form-group row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-          <label for="expire-date">If so, when does it expire?</label>
-          <input type="datetime-local" class="form-control" id="expire-date">
+          <label for="expireDate">If so, when does it expire?</label>
+          <input type="datetime-local" class="form-control" id="expireDate" name="expireDate">
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-          <label for="additional-info">Any additional information?</label>
-          <input type="text" class="form-control" id="additional-info" placeholder="e.g. Excludes sale items">
+          <label for="additionalInfo">Any additional information?</label>
+          <input type="text" class="form-control" id="additionalInfo" name="additionalInfo" placeholder="e.g. Excludes sale items">
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
           <label for="price">Price</label>
-          <input type="number" class="form-control" id="price">
+          <input type="number" class="form-control" id="price" name="price">
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
           <label for="category">Please select a category</label>
-          <select class="form-control" id="category">
+          <select class="form-control" id="category" name="category">
             <option>Clothing</option>
             <option>Food</option>
             <option>Concerts</option>
@@ -67,7 +67,7 @@
       <div class="form-group row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-          <label for="additional-info">What is the code?</label>
+          <label for="code">What is the code?</label>
           <input type="text" class="form-control" id="code" placeholder="S@V3th@tm0n3y">
         </div>
       </div>
