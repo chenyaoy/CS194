@@ -17,7 +17,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-  res.render('pages/index', {balance:50});
+  res.render('pages/codeconomy_home', {balance:50});
 });
 
 app.listen(app.get('port'), function() {

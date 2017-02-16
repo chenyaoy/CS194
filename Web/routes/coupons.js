@@ -41,19 +41,19 @@ router.get('/postCoupon', function(req, res) {
 });
 
 router.get('/myCoupons/purchased', function(req, res) {
-    res.render('pages/index',{balance:50});
+    res.render('pages/error_try_again',{balance:50});
 });
 
 router.get('/myCoupons/sold', function(req, res) {
-    res.render('pages/index',{balance:50});
+    res.render('pages/error_try_again',{balance:50});
 });
 
 router.get('/myCoupons', function(req, res) {
-    res.render('pages/index',{balance:50});
+    res.render('pages/error_try_again',{balance:50});
 });
 
 router.get('/purchaseCoupon', function(req, res) {
-     res.render('pages/index',{balance:50});
+     res.render('pages/error_try_again',{balance:50});
 });
 
 router.get('/coupon', function(req, res) {
@@ -103,9 +103,13 @@ router.get('/food', function(req, res) {
     serveQuery(query, res, "Food");
 });
 
-router.get('/', function(req, res) {
+router.get('/explore', function(req, res) {
     query = unsoldQuery();
     serveQuery(query, res, "All");
+});
+
+router.get('/', function(req, res) {
+    res.render('pages/coupon_home',{balance:50});
 });
 
 function unsoldQuery() {

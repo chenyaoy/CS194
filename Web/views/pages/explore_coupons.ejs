@@ -8,31 +8,7 @@
 
   <% include ../partials/navbar.ejs %>
 
-<div class="container">
-  <h2><%=category %> coupons</h2>      
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Store</th>
-        <th>Description</th>
-        <th>Category</th>
-        <th>Price</th>
-        <th>Link</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% coupons.forEach(function(coupon){ %>
-      <tr>
-        <td><%= coupon.storeName %></td>
-        <td><%= coupon.description %></td>
-        <td><%= coupon.category %></td>
-        <td><%= coupon.price %></td>
-       <td><a href="/coupons/coupon?id=<%=coupon.id%>" class="btn btn-primary" role="button">Learn More</a></td>
-      </tr>
-      <% });%>
-    </tbody>
-  </table>
-</div>
+  <% include ../partials/coupon_table.ejs %>
 
 </body>
 </html>
