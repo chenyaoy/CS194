@@ -10,5 +10,5 @@
 #import "Coupon.h"
 
 @interface ListingsDetailViewController : UIViewController
-- (instancetype)initWithCoupon:(Coupon *)couponData;
+- (instancetype)initWithCoupon:(Coupon *)couponData buy:(BOOL)buy;
 @end

@@ -9,6 +9,7 @@
 #import "ListingsViewController.h"
 #import "ListingsTableViewCell.h"
 #import "ListingsDetailViewController.h"
+#import "NewListingViewController.h"
 #import "Coupon.h"
 #import "Util.h"
 
@@ -30,6 +31,9 @@
     [self.view addSubview:_listings];
     _allListings = [[NSMutableArray alloc] init];
     [self.view setBackgroundColor: [[Util sharedManager] colorWithHexString:@"F7F7F7"]];
+    
+    UIBarButtonItem *postListing = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self action:@selector(refreshPropertyList:)];
+    self.navigationItem.rightBarButtonItem = postListing;
     
     [self generateMockData];
 }
@@ -85,7 +89,7 @@
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ListingsDetailViewController *listingDetailsVC = [[ListingsDetailViewController alloc] initWithCoupon:[self.allListings objectAtIndex:indexPath.section]];
+    ListingsDetailViewController *listingDetailsVC = [[ListingsDetailViewController alloc] initWithCoupon:[self.allListings objectAtIndex:indexPath.section] buy:NO];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @"Back";
     self.navigationItem.backBarButtonItem = barButton;
@@ -105,6 +109,13 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     return view;
+}
+
+#pragma mark - Segue
+
+- (void)refreshPropertyList:(UIBarButtonItem *)button {
+    NewListingViewController *newListing = [[NewListingViewController alloc] init];
+    [self presentViewController:newListing animated:YES completion:nil];
 }
 
 /*

@@ -24,7 +24,7 @@
 
 @implementation ListingsDetailViewController
 
-- (instancetype)initWithCoupon:(Coupon *)couponData {
+- (instancetype)initWithCoupon:(Coupon *)couponData buy:(BOOL)buy{
     self = [super init];
     if (self) {
         _price = [[UILabel alloc] init];
@@ -34,7 +34,9 @@
         _detailView = [[ListingDetailView alloc] initWithPrice:_couponData.price expirationDate:_couponData.expirationDate category:@"Clothing 👖"];
         _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdDate seller:[NSString stringWithFormat:@"%d", _couponData.sellerId]];
         _buy = [[UIButton alloc] init];
-        
+        if (!buy) {
+            _buy.hidden = YES;
+        }
     }
     return self;
 }
@@ -52,6 +54,7 @@
     self.navigationItem.rightBarButtonItem = item;
     self.navigationItem.title = @"Code";
     [self.buy setTitle: @"Buy" forState: UIControlStateNormal];
+    _buy.titleLabel.font = [UIFont systemFontOfSize:30.0f weight:UIFontWeightMedium];
     _buy.backgroundColor = [[Util sharedManager] colorWithHexString:@"9FCBFE"];
     _buy.layer.cornerRadius = 10;
     _buy.layer.masksToBounds = YES;

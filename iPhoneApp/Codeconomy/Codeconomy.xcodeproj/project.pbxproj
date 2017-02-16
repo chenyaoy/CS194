@@ -21,6 +21,7 @@
 		3D7A9B8D1E518B4900FD6812 /* ListingTimeCreatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A9B8C1E518B4900FD6812 /* ListingTimeCreatedView.m */; };
 		3D7A9B921E52D45A00FD6812 /* ExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A9B911E52D45A00FD6812 /* ExploreCollectionViewCell.m */; };
 		3D7A9B951E52D4E700FD6812 /* CategoryTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A9B941E52D4E700FD6812 /* CategoryTileView.m */; };
+		3D7A9B981E55664100FD6812 /* NewListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A9B971E55664100FD6812 /* NewListingViewController.m */; };
 		3DE3CD2D1E47D8BB007EEC70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3CD2C1E47D8BB007EEC70 /* main.m */; };
 		3DE3CD301E47D8BB007EEC70 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3CD2F1E47D8BB007EEC70 /* AppDelegate.m */; };
 		3DE3CD331E47D8BB007EEC70 /* ExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3CD321E47D8BB007EEC70 /* ExploreViewController.m */; };
@@ -78,6 +79,8 @@
 		3D7A9B911E52D45A00FD6812 /* ExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExploreCollectionViewCell.m; sourceTree = "<group>"; };
 		3D7A9B931E52D4E700FD6812 /* CategoryTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTileView.h; sourceTree = "<group>"; };
 		3D7A9B941E52D4E700FD6812 /* CategoryTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTileView.m; sourceTree = "<group>"; };
+		3D7A9B961E55664100FD6812 /* NewListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewListingViewController.h; sourceTree = "<group>"; };
+		3D7A9B971E55664100FD6812 /* NewListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewListingViewController.m; sourceTree = "<group>"; };
 		3DE3CD281E47D8BB007EEC70 /* Codeconomy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Codeconomy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE3CD2C1E47D8BB007EEC70 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3DE3CD2E1E47D8BB007EEC70 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -202,6 +205,15 @@
 			name = Detail;
 			sourceTree = "<group>";
 		};
+		3D7A9B991E55664800FD6812 /* New Listing */ = {
+			isa = PBXGroup;
+			children = (
+				3D7A9B961E55664100FD6812 /* NewListingViewController.h */,
+				3D7A9B971E55664100FD6812 /* NewListingViewController.m */,
+			);
+			name = "New Listing";
+			sourceTree = "<group>";
+		};
 		3DE3CD1F1E47D8BB007EEC70 = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +244,7 @@
 				3D5EB5061E50FF7500E67C91 /* Explore */,
 				3D5EB5111E51274D00E67C91 /* Listings */,
 				3D5EB5051E50FE4400E67C91 /* Profile */,
+				3D7A9B991E55664800FD6812 /* New Listing */,
 				3D5EB50D1E51079900E67C91 /* Shared */,
 				3DE3CD371E47D8BB007EEC70 /* Assets.xcassets */,
 				3DE3CD391E47D8BB007EEC70 /* LaunchScreen.storyboard */,
@@ -574,6 +587,7 @@
 				3D5EB5101E51274300E67C91 /* ListingsViewController.m in Sources */,
 				3D7A9B8D1E518B4900FD6812 /* ListingTimeCreatedView.m in Sources */,
 				3D7A9B871E518B0500FD6812 /* ListingHeaderView.m in Sources */,
+				3D7A9B981E55664100FD6812 /* NewListingViewController.m in Sources */,
 				3DE3CD331E47D8BB007EEC70 /* ExploreViewController.m in Sources */,
 				3D5EB5171E51306800E67C91 /* CodeconomyTileView.m in Sources */,
 				3DE3CD301E47D8BB007EEC70 /* AppDelegate.m in Sources */,
