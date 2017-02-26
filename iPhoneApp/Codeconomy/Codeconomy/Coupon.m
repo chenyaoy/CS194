@@ -19,6 +19,10 @@
 @dynamic code;
 @dynamic deleted;
 
++ (void)load {
+    [self registerSubclass];
+}
+
 + (NSString *)parseClassName {
     return @"Coupon";
 }
