@@ -1,35 +1,31 @@
 //
-//  Coupon.h
+//  CouponCode.h
 //  Codeconomy
 //
-//  Created by studio on 2/12/17.
+//  Created by studio on 2/26/17.
 //  Copyright © 2017 Stanford. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
-@interface Coupon : NSObject
-@property (nonatomic) int couponId;
-@property (nonatomic) int sellerId;
-@property (nonatomic) int status;
-@property (nonatomic) int price;
-@property (nonatomic, strong) NSDate *expirationDate;
-@property (nonatomic, strong) NSDate *createdDate;
-@property (nonatomic, strong) NSString *storeName;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *couponDescription;
-@property (nonatomic, strong) NSString *code;
-@property (nonatomic) BOOL deleted;
-
-- (instancetype)initWithCouponId:(int)couponId
-                        sellerId:(int)sellerId
+@interface Coupon : PFObject<PFSubclassing>
++ (NSString *)parseClassName;
+@property int sellerId;
+@property int status;
+@property int price;
+@property (retain) NSDate *expirationDate;
+@property (retain) NSString *storeName;
+@property (retain) NSString *couponDescription;
+@property (retain) NSString *additionalInfo;
+@property (retain) NSString *code;
+@property BOOL deleted;
+- (instancetype)initWithSellerId:(int)sellerId
                           status:(int)status
-                           price:(float)price
+                           price:(int)price
                   expirationDate:(NSDate *)expirationDate
-                     createdDate:(NSDate *)createdDate
                        storeName:(NSString *)storeName
-                           title:(NSString *)title
                couponDescription:(NSString *)couponDescription
+                  additionalInfo:(NSString *)additionalInfo
                             code:(NSString *)code
                          deleted:(BOOL)deleted;
 @end

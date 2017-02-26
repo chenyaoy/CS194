@@ -44,9 +44,9 @@
     [self addSubview:self.credits];
     [self.credits sizeToFit];
     
-    NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", self.couponData.storeName, self.couponData.title]];
+    NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", self.couponData.storeName, self.couponData.couponDescription]];
     [titleString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18.0f] range:NSMakeRange(0, self.couponData.storeName.length)];
-    [titleString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0f] range:NSMakeRange(self.couponData.storeName.length + 1, self.couponData.title.length)];
+    [titleString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0f] range:NSMakeRange(self.couponData.storeName.length + 1, self.couponData.couponDescription.length)];
     self.title.attributedText = titleString;
     [self addSubview:self.title];
     [self.title sizeToFit];
@@ -60,7 +60,8 @@
     [self addSubview:self.expires];
     [self.expires sizeToFit];
     
-    NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:self.couponData.createdDate];
+//    NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:self.couponData.createdAt];
+    NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:[[NSDate date] dateByAddingTimeInterval:-3600*4]];
     int hoursBetweenDates = distanceBetweenDates / 3600;
     
     self.posted.text = [NSString stringWithFormat:@"posted %dh ago", hoursBetweenDates];

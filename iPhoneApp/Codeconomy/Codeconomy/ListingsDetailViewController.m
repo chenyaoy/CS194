@@ -30,9 +30,10 @@
         _price = [[UILabel alloc] init];
         _price.text = @"36🔑";
         _couponData = couponData;
-        _headerView = [[ListingHeaderView alloc] initWithStoreName:_couponData.storeName title:_couponData.title description:_couponData.couponDescription];
+        _headerView = [[ListingHeaderView alloc] initWithStoreName:_couponData.storeName title:_couponData.couponDescription description:_couponData.additionalInfo];
         _detailView = [[ListingDetailView alloc] initWithPrice:_couponData.price expirationDate:_couponData.expirationDate category:@"Clothing 👖"];
-        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdDate seller:[NSString stringWithFormat:@"%d", _couponData.sellerId]];
+//        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdAt seller:[NSString stringWithFormat:@"%d", _couponData.sellerId]];
+        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] seller:[NSString stringWithFormat:@"%d", _couponData.sellerId]];
         _buy = [[UIButton alloc] init];
         if (!buy) {
             _buy.hidden = YES;
