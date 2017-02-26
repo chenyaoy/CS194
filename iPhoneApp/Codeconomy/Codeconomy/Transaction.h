@@ -10,14 +10,14 @@
 
 @interface Transaction : PFObject<PFSubclassing>
 + (NSString *)parseClassName;
-@property int buyerId;
-@property int sellerId;
-@property int couponId;
+@property (retain) NSString *buyerId;
+@property (retain) NSString *sellerId;
+@property (retain) NSString *couponId;
 @property (retain) NSString *reviewDescription;
 @property int stars;
-- (instancetype)initWithBuyerId:(int)buyerId
-                       sellerId:(int)sellerId
-                       couponId:(int)couponId
+- (instancetype)initWithBuyerId:(NSString *)buyerId
+                       sellerId:(NSString *)sellerId
+                       couponId:(NSString *)couponId
               reviewDescription:(NSString *)reviewDescription
                           stars:(int)stars;
 @end

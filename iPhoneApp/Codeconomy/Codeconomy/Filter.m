@@ -21,7 +21,7 @@
 }
 
 - (instancetype)initWithCategory:(int)category
-                        couponId:(int)couponId {
+                        couponId:(NSString *)couponId {
     self = [super init];
     if (self) {
         self.category = category;

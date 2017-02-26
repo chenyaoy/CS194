@@ -11,7 +11,7 @@
 @interface Filter : PFObject<PFSubclassing>
 + (NSString *)parseClassName;
 @property int category;
-@property int couponId;
+@property (retain) NSString *couponId;
 - (instancetype)initWithCategory:(int)category
-                       couponId:(int)couponId;
+                       couponId:(NSString *)couponId;
 @end

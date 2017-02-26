@@ -27,7 +27,7 @@
     return @"Coupon";
 }
 
-- (instancetype)initWithSellerId:(int)sellerId
+- (instancetype)initWithSellerId:(NSString *)sellerId
                           status:(int)status
                            price:(int)price
                   expirationDate:(NSDate *)expirationDate

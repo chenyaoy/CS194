@@ -23,9 +23,9 @@
     return @"Transaction";
 }
 
-- (instancetype)initWithBuyerId:(int)buyerId
-                       sellerId:(int)sellerId
-                       couponId:(int)couponId
+- (instancetype)initWithBuyerId:(NSString *)buyerId
+                       sellerId:(NSString *)sellerId
+                       couponId:(NSString *)couponId
               reviewDescription:(NSString *)reviewDescription
                           stars:(int)stars {
     self = [super init];

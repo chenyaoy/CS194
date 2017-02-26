@@ -287,7 +287,15 @@
 }
 
 - (void)tapPostIt:(UIButton *)sender {
-    Coupon *coupon1 = [[Coupon alloc] initWithSellerId:1 status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"SUCKAMYDEEEK" deleted:0];
+    Coupon *coupon1 = [[Coupon alloc] initWithSellerId:@"1"
+                                                status:1
+                                                 price:2
+                                        expirationDate:[NSDate date]
+                                             storeName:@"J.Crew"
+                                     couponDescription:@"30% off ANY ITEM"
+                                        additionalInfo:@"excludes sale items"
+                                                  code:@"SUCKAMYDEEEK"
+                                               deleted:0];
     [coupon1 saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"sick");

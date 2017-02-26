@@ -54,13 +54,13 @@
 }
 
 - (void)generateMockData {
-    Coupon *coupon1 = [[Coupon alloc] initWithSellerId:1 status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon2 = [[Coupon alloc] initWithSellerId:1 status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon3 = [[Coupon alloc] initWithSellerId:1 status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon4 = [[Coupon alloc] initWithSellerId:1 status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon5 = [[Coupon alloc] initWithSellerId:1 status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon6 = [[Coupon alloc] initWithSellerId:1 status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon7 = [[Coupon alloc] initWithSellerId:1 status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
+    Coupon *coupon1 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
+    Coupon *coupon2 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
+    Coupon *coupon3 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
+    Coupon *coupon4 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
+    Coupon *coupon5 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
+    Coupon *coupon6 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
+    Coupon *coupon7 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
     
     [self.allListings addObject:coupon1];
     [self.allListings addObject:coupon2];
