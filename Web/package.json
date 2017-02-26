@@ -10,11 +10,14 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.16.1",
     "ejs": "2.4.1",
     "express": "4.13.3",
     "parse": "~1.8.0",
-    "parse-server": "*"
+    "parse-server": "*",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1"
   },
   "repository": {
     "type": "git",
