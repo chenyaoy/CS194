@@ -23,6 +23,26 @@
     // Should never be called, but just here for clarity really.
 }
 
++ (NSString *)getRedColorHex {
+    return @"FE3824";
+}
+
++ (NSString *)getBlueColorHex {
+    return @"9FCBFE";
+}
+
++ (NSString *)getWhiteColorHex {
+    return @"FFFFFFF";
+}
+
++ (NSString *)getLightGrayColorHex {
+    return @"F7F7F7";
+}
+
++ (NSString *)getDarkGrayColorHex {
+    return @"7A797B";
+}
+
 -(UIColor *)colorWithHexString:(NSString *)hex
 {
     NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];

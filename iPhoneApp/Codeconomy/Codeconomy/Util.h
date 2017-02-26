@@ -11,5 +11,10 @@
 
 @interface Util : NSObject
 + (id)sharedManager;
++ (NSString *)getRedColorHex;
++ (NSString *)getBlueColorHex;
++ (NSString *)getWhiteColorHex;
++ (NSString *)getLightGrayColorHex;
++ (NSString *)getDarkGrayColorHex;
 - (UIColor *)colorWithHexString:(NSString *)hex;
 @end
