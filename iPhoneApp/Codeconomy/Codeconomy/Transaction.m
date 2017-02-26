@@ -11,6 +11,9 @@
 @implementation Transaction
 @dynamic buyerId;
 @dynamic sellerId;
+@dynamic couponId;
+@dynamic reviewDescription;
+@dynamic stars;
 
 + (void)load {
     [self registerSubclass];
@@ -21,11 +24,17 @@
 }
 
 - (instancetype)initWithBuyerId:(int)buyerId
-                       sellerId:(int)sellerId {
+                       sellerId:(int)sellerId
+                       couponId:(int)couponId
+              reviewDescription:(NSString *)reviewDescription
+                          stars:(int)stars {
     self = [super init];
     if (self) {
         self.buyerId = buyerId;
         self.sellerId = sellerId;
+        self.couponId = couponId;
+        self.reviewDescription = reviewDescription;
+        self.stars = stars;
     }
     return self;
 }
