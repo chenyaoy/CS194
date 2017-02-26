@@ -7,6 +7,7 @@
 //
 
 #import "NewListingViewController.h"
+#import "Coupon.h"
 #import "Util.h"
 
 @interface NewListingViewController ()
@@ -233,6 +234,7 @@
     _postIt.titleLabel.font = [UIFont systemFontOfSize:30.0f weight:UIFontWeightMedium];
     _postIt.layer.cornerRadius = 10;
     _postIt.layer.masksToBounds = YES;
+    [_postIt addTarget:self action:@selector(tapPostIt:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:_postIt];
 }
 
@@ -282,6 +284,17 @@
 
 - (void)tapX {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)tapPostIt:(UIButton *)sender {
+    Coupon *coupon1 = [[Coupon alloc] initWithSellerId:1 status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"SUCKAMYDEEEK" deleted:0];
+    [coupon1 saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"sick");
+        } else {
+            NSLog(@"fuck");
+        }
+    }];
 }
 
 -(void)updateTextField:(id)sender
