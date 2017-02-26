@@ -12,6 +12,8 @@
 #import "ListingTimeCreatedView.h"
 #import "Util.h"
 #import "Coupon.h"
+#import "User.h"
+#import "Transaction.h"
 
 @interface ListingsDetailViewController ()
 @property (nonatomic, strong) Coupon *couponData;
@@ -20,6 +22,7 @@
 @property (nonatomic, strong) ListingDetailView *detailView;
 @property (nonatomic, strong) ListingTimeCreatedView *createdView;
 @property (nonatomic, strong) UIButton *buy;
+@property BOOL userOwns;
 @end
 
 @implementation ListingsDetailViewController
@@ -33,11 +36,9 @@
         _headerView = [[ListingHeaderView alloc] initWithStoreName:_couponData.storeName title:_couponData.couponDescription description:_couponData.additionalInfo];
         _detailView = [[ListingDetailView alloc] initWithPrice:_couponData.price expirationDate:_couponData.expirationDate category:@"Clothing 👖"];
 //        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdAt seller:[NSString stringWithFormat:@"%d", _couponData.sellerId]];
-        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] seller:[NSString stringWithFormat:@"%d", _couponData.sellerId]];
+        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] seller:_couponData.sellerId]; // TODO: this should be the seller display name or user name
         _buy = [[UIButton alloc] init];
-        if (!buy) {
-            _buy.hidden = YES;
-        }
+        _userOwns = !buy;
     }
     return self;
 }
@@ -54,9 +55,16 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.price];
     self.navigationItem.rightBarButtonItem = item;
     self.navigationItem.title = @"Code";
-    [self.buy setTitle: @"Buy" forState: UIControlStateNormal];
+    if (_userOwns) {
+        [_buy setTitle: @"Delete" forState: UIControlStateNormal];
+        _buy.backgroundColor = [[Util sharedManager] colorWithHexString:[Util getRedColorHex]];
+        [_buy addTarget:self action:@selector(tapDelete:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        [_buy setTitle: @"Buy" forState: UIControlStateNormal];
+        _buy.backgroundColor = [[Util sharedManager] colorWithHexString:[Util getBlueColorHex]];
+        [_buy addTarget:self action:@selector(tapBuy:) forControlEvents:UIControlEventTouchUpInside];
+    }
     _buy.titleLabel.font = [UIFont systemFontOfSize:30.0f weight:UIFontWeightMedium];
-    _buy.backgroundColor = [[Util sharedManager] colorWithHexString:@"9FCBFE"];
     _buy.layer.cornerRadius = 10;
     _buy.layer.masksToBounds = YES;
 }
@@ -72,6 +80,102 @@
     self.createdView.frame = CGRectMake(20.0, self.detailView.frame.origin.y + self.detailView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 72.0);
     self.buy.frame = CGRectMake(20.0, self.createdView.frame.origin.y + self.createdView.frame.size.height + 25.0, self.view.frame.size.width - 40.0, 50.0);
 }
+
+#pragma mark - Helpers
+
+- (void)purchaseCoupon {
+//    --- UNCOMMENT BELOW WHEN REAL PARSE DATA IS HOOKED UP ---
+//    PFUser *currentUser = [User currentUser];
+//    _couponData.status = 0;
+//    [_couponData saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//        if (succeeded) {
+//            // TODO: update ExploreViewController
+//        } else {
+//            
+//        }
+//    }];
+    
+//    Transaction *transaction = [[Transaction alloc] initWithBuyerId:currentUser.objectId sellerId:_couponData.sellerId couponId:_couponData.objectId reviewDescription:nil stars:nil];
+//    [transaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//        if (succeeded) {
+//
+//        } else {
+//
+//        }
+//    }];
+    
+//    currentUser.credits -= _couponData.price;
+//    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//        if (succeeded) {
+//
+//        } else {
+//
+//        }
+//    }];
+//    --- END UNCOMMENT ---
+}
+
+- (void)deleteCoupon {
+//    --- UNCOMMENT BELOW WHEN REAL PARSE DATA IS HOOKED UP ---
+//    _couponData.deleted = true;
+//    [_couponData saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//        if (succeeded) {
+//            // TODO: update the data source for ListingsViewController
+//        } else {
+//            NSLog(@"failed to mark coupon as deleted");
+//        }
+//    }];
+//    --- END UNCOMMENT ---
+}
+
+#pragma mark - Listeners
+
+- (void)tapBuy:(UIButton *)sender {
+//    int keyDifference = abs([User currentUser].credits - _couponData.price);
+    int keyDifference = abs(36 - _couponData.price);
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Purchase"
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    if (keyDifference >= 0) {
+        NSString *message = [NSString stringWithFormat:@"This code will cost %d🔑. Are you sure you want to purchase it?", _couponData.price];
+        [alert setMessage:message];
+        
+        UIAlertAction* yesAction = [UIAlertAction actionWithTitle:@"Yes"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              [self purchaseCoupon];
+                                                          }];
+        UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"No"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * action) {}];
+        [alert addAction:yesAction];
+        [alert addAction:noAction];
+    } else {
+        NSString *message = [NSString stringWithFormat:@"You do not have enough 🔑 to purchase this code. You need %d more 🔑.", keyDifference];
+        [alert setMessage:message];
+        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {}];
+        [alert addAction:okAction];
+    }
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)tapDelete:(UIButton *)sender {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete"
+                                                                   message:@"Are you sure you want to delete this listing?"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
+                                                          handler:^(UIAlertAction * action) {
+                                                              [self deleteCoupon];
+                                                          }];
+    UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel
+                                                     handler:^(UIAlertAction * action) {}];
+    [alert addAction:yesAction];
+    [alert addAction:noAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 /*
 #pragma mark - Navigation
