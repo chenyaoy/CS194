@@ -160,10 +160,10 @@ function validateRequiredCouponParams(req) {
     if(req.body.expireBool == 'Yes' && req.body.expireDate.length == 0) {
         return false;
     }
-    if(typeof(req.body.price) == undefined || req.body.price < 0) {
+    if(typeof(req.body.price) == 'undefined' || req.body.price < 0) {
         return false;
     }
-    if(typeof(req.body.code) == undefined) {
+    if(typeof(req.body.code) == 'undefined') {
         return false;
     }
     return true;
