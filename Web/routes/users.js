@@ -9,6 +9,42 @@ var router = express.Router();
 router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true }));
 
+router.get('/myCoupons/purchased', function(req, res) {
+    res.render('pages/error_try_again',{balance:50});
+});
+
+router.get('/myCoupons/sold', function(req, res) {
+    res.render('pages/error_try_again',{balance:50});
+});
+
+router.get('/myCoupons', function(req, res) {
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+        var Coupon = Parse.Object.extend("Coupon");
+        var query = new Parse.Query(Coupon);
+        query.equalTo("sellerId", currentUser.objectId);
+        query.equalTo("deleted", false);
+        serveQuery(query, res, "All");
+    } else {
+        res.send("Error: Not logged in");
+    }
+});
+
+router.get('/rateTransaction', function(req, res) {
+    var Transaction = Parse.Object.extend("Transaction");
+    var query = new Parse.Query(Transaction);
+    query.get(req.query.transaction, {
+        success: function(result) {
+            //Check current user against buyer (in transaction)
+            //Make sure transaction hasn't already been reviewed
+            //If both pass, take them to the rate transaction page
+        },
+        error: function(object, error) {
+            res.render('pages/error_try_again');
+        }
+    });
+});
+
 router.get('/', function(req, res) {
     res.render('pages/index');
 });
