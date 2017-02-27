@@ -60,8 +60,8 @@ router.get('/login', function(req, res) {
 router.post('/login/submit', function(req, res) {
     Parse.User.logIn(req.body.username, req.body.password, {
       success: function(user) {
-        // Do stuff after successful login.
-        res.send("Successfully logged in");
+        req.session.token = user.getSessionToken();
+        res.send("Logged in successfully");
       },
       error: function(user, error) {
         // The login failed. Check error to see why.
@@ -79,12 +79,12 @@ router.post('/signup/submit', function(req, res) {
     user.set("username", req.body.username);
     user.set("password", req.body.password);
     user.set("email", req.body.email);
-    user.set()
 
     user.signUp(null, {
       success: function(user) {
         // Hooray! Let them use the app now.
-        res.send("User signed up successfully.");
+        req.session.token = user.getSessionToken();
+        res.send("Created account successfully");
       },
       error: function(user, error) {
         // Show the error message somewhere and let the user try again.
@@ -94,10 +94,8 @@ router.post('/signup/submit', function(req, res) {
 });
 
 
-router.post('/logout', function(res, res) {
-    Parse.User.logOut().then(() => {
-        var currentUser = Parse.User.current();  // this will now be null
-    });
+router.post('/logout', function(req, res) {
+  req.session.token = null;
 });
 
 module.exports = router;

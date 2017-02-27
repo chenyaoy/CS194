@@ -6,6 +6,18 @@ var Parse = require('parse');
 var app = express();
 Parse.serverURL = 'http://codeconomy.herokuapp.com/parse';
 
+var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
+
+var COOKIE_NAME = "session";
+var COOKIE_SECRET = "flat_stanley_loves_cookies";
+
+app.use(cookieSession({
+  name: COOKIE_NAME,
+  secret: COOKIE_SECRET,
+  maxAge: 15724800000
+}));
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use('/coupons',  coupons);
