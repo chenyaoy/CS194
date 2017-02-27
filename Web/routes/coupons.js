@@ -2,6 +2,7 @@ var express = require('express');
 var Parse = require('parse/node');
 Parse.initialize("codeconomy");
 Parse.serverURL = 'http://codeconomy.herokuapp.com/parse';
+Parse.User.enableRevocableSession();
 
 var bodyParser = require('body-parser');
 
@@ -22,13 +23,13 @@ router.post('/postCoupon/submit', function(req, res) {
         coupon.set("price", req.body.price);
         coupon.set("code", req.body.code);
         coupon.set("category", req.body.category);
-        coupon.set("status", "unsold");
+        coupon.set("status", 1);
         coupon.set("deleted", false);
-        coupon.set("seller", user);
+        coupon.set("sellerId", user.objectId);
         coupon.save(null, {
             success: function(coupon) {
                 var query = new Parse.Query(Coupon);
-                query.equalTo("seller", user);
+                query.equalTo("sellerId", user.objectId);
                 query.find({
                     success: function(userCoupons) {
                         res.send(userCoupons);
@@ -57,8 +58,18 @@ router.get('/myCoupons/sold', function(req, res) {
     res.render('pages/error_try_again',{balance:50});
 });
 
+/* Move to Users */
 router.get('/myCoupons', function(req, res) {
-    res.render('pages/error_try_again',{balance:50});
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+        var Coupon = Parse.Object.extend("Coupon");
+        var query = new Parse.Query(Coupon);
+        query.equalTo("sellerId", currentUser.objectId);
+        query.equalTo("deleted", false);
+        serveQuery(query, res, "All");
+    } else {
+        res.send("Error: Not logged in");
+    }
 });
 
 router.get('/purchaseCoupon', function(req, res) {

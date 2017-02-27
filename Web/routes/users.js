@@ -43,6 +43,7 @@ router.post('/signup/submit', function(req, res) {
     user.set("username", req.body.username);
     user.set("password", req.body.password);
     user.set("email", req.body.email);
+    user.set()
 
     user.signUp(null, {
       success: function(user) {
