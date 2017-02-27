@@ -50,27 +50,6 @@ router.get('/postCoupon', function(req, res) {
     res.render('pages/post_coupon',{balance:50});
 });
 
-router.get('/myCoupons/purchased', function(req, res) {
-    res.render('pages/error_try_again',{balance:50});
-});
-
-router.get('/myCoupons/sold', function(req, res) {
-    res.render('pages/error_try_again',{balance:50});
-});
-
-/* Move to Users */
-router.get('/myCoupons', function(req, res) {
-    var currentUser = Parse.User.current();
-    if (currentUser) {
-        var Coupon = Parse.Object.extend("Coupon");
-        var query = new Parse.Query(Coupon);
-        query.equalTo("sellerId", currentUser.objectId);
-        query.equalTo("deleted", false);
-        serveQuery(query, res, "All");
-    } else {
-        res.send("Error: Not logged in");
-    }
-});
 
 router.get('/purchaseCoupon', function(req, res) {
      res.render('pages/error_try_again',{balance:50});
