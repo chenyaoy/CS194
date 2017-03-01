@@ -2,6 +2,7 @@ var express = require('express');
 var Parse = require('parse/node');
 Parse.initialize("codeconomy");
 Parse.serverURL = 'http://codeconomy.herokuapp.com/parse';
+Parse.masterKey = 'flatstanley';
 
 var bodyParser = require('body-parser');
 

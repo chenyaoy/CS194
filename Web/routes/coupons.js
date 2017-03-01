@@ -12,56 +12,61 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 router.post('/postCoupon/submit', function(req, res) {
     if(req.session.token) {
-        var sq = new Parse.Query('_Session')
-                          .equalTo('sessionToken', req.session.token)
-                          .include('user');
+        console.log(req.session.token);
+        Parse.Cloud.useMasterKey();
+        var sq = new Parse.Query('_Session');
+        sq.equalTo('sessionToken', req.session.token);
+
         sq.first().then(function(sessionResult) {
             if (!sessionResult) {
+                console.log("No matching session");
                 res.send("No matching session");
             } else {
                 req.user = sessionResult.get('user');
                 res.locals.session = req.session;
                 res.locals.user = req.user;
+
+                console.log(req.user);
+                if(validateRequiredCouponParams(req)) {
+                    var Coupon = Parse.Object.extend("Coupon");
+                    var coupon = new Coupon();
+                    coupon.set("storeName", req.body.store);
+                    coupon.set("couponDescription", req.body.couponDescription);
+                    coupon.set("expirationDate",
+                        req.body.expireDate.length == 0 ? null : new Date(req.body.expireDate));
+                    coupon.set("additionalInfo", req.body.additionalInfo);
+                    coupon.set("price", parseInt(req.body.price));
+                    coupon.set("code", req.body.code);
+                    coupon.set("status", 1);
+                    coupon.set("deleted", false);
+                    coupon.set("sellerId", req.user.id);
+                    coupon.save(null, {
+                        success: function(coupon) {
+                            var query = new Parse.Query(Coupon);
+                            query.equalTo("sellerId", user.objectId);
+                            query.find({
+                                success: function(userCoupons) {
+                                    res.send(userCoupons);
+                                }
+                            });
+                            // res.send("Coupon uploaded successfully.");
+                        },
+                        error: function(coupon, error) {
+                            res.send("Coupon upload failed. Please try again. " + error.message)
+                        }
+                    });
+                } else {
+                    res.send("Error in provided coupon data. Please verify that all information was entered correctly.")
+                }
             }
         }, function(err) {
-            debug("Error or no matching session: " + err);
-            res.redirect('/account/pub/login');
+            console.log("Error or no matching session: " + err.message);
+            res.send("error");
         });
     } else {
-        //redirect to user
-        res.send("User not logged in");
-    }
-    console.log(req.user);
-    if(validateRequiredCouponParams(req)) {
-        var Coupon = Parse.Object.extend("Coupon");
-        var coupon = new Coupon();
-        coupon.set("storeName", req.body.store);
-        coupon.set("couponDescription", req.body.couponDescription);
-        coupon.set("expirationDate",
-            req.body.expireDate.length == 0 ? null : new Date(req.body.expireDate));
-        coupon.set("additionalInfo", req.body.additionalInfo);
-        coupon.set("price", parseInt(req.body.price));
-        coupon.set("code", req.body.code);
-        coupon.set("status", 1);
-        coupon.set("deleted", false);
-        coupon.set("sellerId", user.objectId);
-        coupon.save(null, {
-            success: function(coupon) {
-                var query = new Parse.Query(Coupon);
-                query.equalTo("sellerId", user.objectId);
-                query.find({
-                    success: function(userCoupons) {
-                        res.send(userCoupons);
-                    }
-                });
-                // res.send("Coupon uploaded successfully.");
-            },
-            error: function(coupon, error) {
-                res.send("Coupon upload failed. Please try again. " + error.message)
-            }
-        });
-    } else {
-        res.send("Error in provided coupon data. Please verify that all information was entered correctly.")
+        //redirect to user login
+        console.log("User not logged in");
+        res.send("user not logged in");
     }
 });
 

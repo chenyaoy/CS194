@@ -5,6 +5,7 @@ var Parse = require('parse');
 
 var app = express();
 Parse.serverURL = 'http://codeconomy.herokuapp.com/parse';
+Parse.masterKey = 'flatstanley';
 
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
