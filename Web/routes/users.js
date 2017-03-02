@@ -95,8 +95,13 @@ router.post('/signup/submit', function(req, res) {
 });
 
 
-router.post('/logout', function(req, res) {
-  req.session.token = null;
+router.get('/logout', function(req, res) {
+  res.render('pages/users/logout', {balance:50});
 });
+
+router.post('/logout/submit', function(req, res) {
+    req.session.token = null;
+    res.redirect('/')
+  });
 
 module.exports = router;

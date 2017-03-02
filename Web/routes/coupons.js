@@ -2,6 +2,7 @@ var express = require('express');
 var Parse = require('parse/node');
 Parse.initialize("codeconomy");
 Parse.serverURL = 'http://codeconomy.herokuapp.com/parse';
+Parse.masterKey = 'flatstanley';
 Parse.User.enableRevocableSession();
 
 var bodyParser = require('body-parser');
@@ -43,7 +44,7 @@ router.post('/postCoupon/submit', function(req, res) {
                     coupon.save(null, {
                         success: function(coupon) {
                             var query = new Parse.Query(Coupon);
-                            query.equalTo("sellerId", user.objectId);
+                            query.equalTo("sellerId", req.user.id);
                             query.find({
                                 success: function(userCoupons) {
                                     res.send(userCoupons);
