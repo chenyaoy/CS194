@@ -28,11 +28,14 @@
 </div>
 <% } %>
 
-<div class="row">
-  <div class="text-center">
-    <a href="/coupons/purchaseCoupon?id=<%=coupon.id%>" class="btn btn-success" role="button">Buy!</a>
+<form action="/coupons/purchaseCoupon" method="post">
+  <input type="hidden" id="id" name="id" value=<%=coupon.id %>>
+  <div class="row">
+    <div class="text-center">
+      <button type="submit" class="btn btn-success">Buy!</button>
+    </div>
   </div>
-</div>
+
 
 </body>
 </html>

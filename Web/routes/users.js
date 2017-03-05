@@ -12,8 +12,6 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 function checkLogin(req, res) {
     return new Promise(function(resolve, reject) {
-        var reject = false;
-        var rejectString = "";
         if(req.session.token) {
             Parse.Cloud.useMasterKey();
             var sq = new Parse.Query('_Session');
@@ -57,7 +55,7 @@ router.get('/myCoupons', function(req, res) {
         var query = new Parse.Query(Coupon);
         query.equalTo("sellerId", res.locals.user.id);
         query.equalTo("deleted", false);
-        serveQuery(query, res, "All");
+        serveQuery(query, req, res, "All");
     }, function(err) {
         res.redirect('/users/login');
     });
@@ -104,11 +102,6 @@ router.get('/', function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-    // if(!checkLogin(req, res)) {
-    //     res.redirect('/users/login');
-    // }
-    // res.redirect('/coupons');
-
     checkLogin(req, res).then(function(res) {
         res.redirect('/coupons');
     }, function(err) {
@@ -124,7 +117,7 @@ router.post('/login/submit', function(req, res) {
       },
       error: function(user, error) {
         // The login failed. Check error to see why.
-        res.send("Error: " + error.code + " " + error.message);
+        res.render('pages/users/login_error', {error:error});
       }
     });
 });
@@ -165,6 +158,6 @@ router.get('/logout', function(req, res) {
 router.post('/logout/submit', function(req, res) {
     req.session.token = null;
     res.redirect('/')
-  });
+});
 
 module.exports = router;
