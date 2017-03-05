@@ -10,11 +10,11 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="/coupons">Explore</a></li>
-        <li><a href="/coupons/myCoupons">My Coupons</a></li>
+        <li><a href="/users/myCoupons">My Coupons</a></li>
         <li><a href="/profile">My Profile</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/balance">Account Balance: <%= balance %></a></li>
+        <li><a href="/balance">Account Balance: <%= user.get("credits") %></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
           <ul class="dropdown-menu">

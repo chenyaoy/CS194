@@ -10,26 +10,79 @@ var router = express.Router();
 router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true }));
 
+function checkLogin(req, res) {
+    return new Promise(function(resolve, reject) {
+        var reject = false;
+        var rejectString = "";
+        if(req.session.token) {
+            Parse.Cloud.useMasterKey();
+            var sq = new Parse.Query('_Session');
+            sq.equalTo('sessionToken', req.session.token).include('user');
+            sq.first().then(function(sessionResult) {
+                if (!sessionResult) {
+                    reject("No matching session");
+                } else {
+                    res.locals.session = req.session;
+                    res.locals.user = sessionResult.get('user');
+                    resolve(res);
+                }
+            }, function(err) {
+                reject("Error or no matching session: " + err.message);
+            });
+        } else {
+            reject("User not logged in");
+        }
+    });
+}
+
 router.get('/myCoupons/purchased', function(req, res) {
-    res.render('pages/error_try_again',{balance:50});
+    checkLogin(req, res).then(function(res) {
+        res.render('pages/error_try_again',{user:res.locals.user});
+    }, function(err) {
+        res.redirect('/users/login');
+    });
 });
 
 router.get('/myCoupons/sold', function(req, res) {
-    res.render('pages/error_try_again',{balance:50});
+    checkLogin(req, res).then(function(res) {
+        res.render('pages/error_try_again',{user:res.locals.user});
+    }, function(err) {
+        res.redirect('/users/login');
+    });
 });
 
 router.get('/myCoupons', function(req, res) {
-    var currentUser = Parse.User.current();
-    if (currentUser) {
+    checkLogin(req, res).then(function(res) {
         var Coupon = Parse.Object.extend("Coupon");
         var query = new Parse.Query(Coupon);
-        query.equalTo("sellerId", currentUser.objectId);
+        query.equalTo("sellerId", res.locals.user.id);
         query.equalTo("deleted", false);
         serveQuery(query, res, "All");
-    } else {
-        res.send("Error: Not logged in");
-    }
+    }, function(err) {
+        res.redirect('/users/login');
+    });
 });
+
+function serveQuery(query, req, res, category) {
+    query.find({
+        success: function(results) {
+            var coupons = [];
+            for(var i = 0; i < results.length; i++) {
+                var coupon = {};
+                coupon.storeName = results[i].get('storeName');
+                coupon.description = results[i].get('description');
+                coupon.price = results[i].get('price');
+                coupon.category = results[i].get('category');
+                coupon.id = results[i].id;
+                coupons.push(coupon);
+            }
+            res.render('pages/explore_coupons', {coupons:coupons, user:res.locals.user, category:category});
+        },
+        error: function(error) {
+            res.render('pages/error_try_again');
+        }
+    });
+}
 
 router.get('/rateTransaction', function(req, res) {
     var Transaction = Parse.Object.extend("Transaction");
@@ -50,19 +103,24 @@ router.get('/', function(req, res) {
     res.render('pages/index');
 });
 
-router.post('/', function(req, res) {
-    res.send('POST handler for /users route.');
-});
-
 router.get('/login', function(req, res) {
-    res.render('pages/users/login',{balance:50});
+    // if(!checkLogin(req, res)) {
+    //     res.redirect('/users/login');
+    // }
+    // res.redirect('/coupons');
+
+    checkLogin(req, res).then(function(res) {
+        res.redirect('/coupons');
+    }, function(err) {
+        res.render('pages/users/login');
+    });
 });
 
 router.post('/login/submit', function(req, res) {
     Parse.User.logIn(req.body.username, req.body.password, {
       success: function(user) {
         req.session.token = user.getSessionToken();
-        res.send("Logged in successfully");
+        res.redirect('/coupons');
       },
       error: function(user, error) {
         // The login failed. Check error to see why.
@@ -72,7 +130,7 @@ router.post('/login/submit', function(req, res) {
 });
 
 router.get('/signup', function(req, res) {
-    res.render('pages/users/signup',{balance:50});
+    res.render('pages/users/signup');
 });
 
 router.post('/signup/submit', function(req, res) {
@@ -80,6 +138,7 @@ router.post('/signup/submit', function(req, res) {
     user.set("username", req.body.username);
     user.set("password", req.body.password);
     user.set("email", req.body.email);
+    user.set("credits", 50);
 
     user.signUp(null, {
       success: function(user) {
@@ -96,7 +155,11 @@ router.post('/signup/submit', function(req, res) {
 
 
 router.get('/logout', function(req, res) {
-  res.render('pages/users/logout', {balance:50});
+    checkLogin(req, res).then(function(res) {
+        res.render('pages/users/logout',{user:res.locals.user});
+    }, function(err) {
+        res.redirect('/users/login');
+    });
 });
 
 router.post('/logout/submit', function(req, res) {
