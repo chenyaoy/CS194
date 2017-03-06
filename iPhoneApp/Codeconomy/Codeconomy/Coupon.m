@@ -9,7 +9,7 @@
 #import "Coupon.h"
 
 @implementation Coupon
-@dynamic sellerId;
+@dynamic seller;
 @dynamic status;
 @dynamic price;
 @dynamic expirationDate;
@@ -27,18 +27,18 @@
     return @"Coupon";
 }
 
-- (instancetype)initWithSellerId:(NSString *)sellerId
-                          status:(int)status
-                           price:(int)price
-                  expirationDate:(NSDate *)expirationDate
-                       storeName:(NSString *)storeName
-               couponDescription:(NSString *)couponDescription
-                  additionalInfo:(NSString *)additionalInfo
-                            code:(NSString *)code
-                         deleted:(BOOL)deleted {
+- (instancetype)initWithSeller:(User *)seller
+                        status:(int)status
+                         price:(int)price
+                expirationDate:(NSDate *)expirationDate
+                     storeName:(NSString *)storeName
+             couponDescription:(NSString *)couponDescription
+                additionalInfo:(NSString *)additionalInfo
+                          code:(NSString *)code
+                       deleted:(BOOL)deleted {
     self = [super init];
     if (self) {
-        self.sellerId = sellerId;
+        self.seller = seller;
         self.status = status;
         self.price = price;
         self.expirationDate = expirationDate;

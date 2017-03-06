@@ -7,10 +7,11 @@
 //
 
 #import <Parse/Parse.h>
+#import "User.h"
 
 @interface Coupon : PFObject<PFSubclassing>
 + (NSString *)parseClassName;
-@property (retain) NSString *sellerId;
+@property (retain) User *seller;
 @property int status; // 0 = sold, 1 = for sale
 @property int price;
 @property (retain) NSDate *expirationDate;
@@ -19,13 +20,13 @@
 @property (retain) NSString *additionalInfo;
 @property (retain) NSString *code;
 @property BOOL deleted;
-- (instancetype)initWithSellerId:(NSString *)sellerId
-                          status:(int)status
-                           price:(int)price
-                  expirationDate:(NSDate *)expirationDate
-                       storeName:(NSString *)storeName
-               couponDescription:(NSString *)couponDescription
-                  additionalInfo:(NSString *)additionalInfo
-                            code:(NSString *)code
-                         deleted:(BOOL)deleted;
+- (instancetype)initWithSeller:(User *)seller
+                        status:(int)status
+                         price:(int)price
+                expirationDate:(NSDate *)expirationDate
+                     storeName:(NSString *)storeName
+             couponDescription:(NSString *)couponDescription
+                additionalInfo:(NSString *)additionalInfo
+                          code:(NSString *)code
+                       deleted:(BOOL)deleted;
 @end

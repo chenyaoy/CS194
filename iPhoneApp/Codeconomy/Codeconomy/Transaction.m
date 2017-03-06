@@ -9,9 +9,10 @@
 #import "Transaction.h"
 
 @implementation Transaction
-@dynamic buyerId;
-@dynamic sellerId;
-@dynamic couponId;
+@dynamic buyer;
+@dynamic seller;
+@dynamic coupon;
+@dynamic transactionDate;
 @dynamic reviewDescription;
 @dynamic stars;
 
@@ -23,16 +24,18 @@
     return @"Transaction";
 }
 
-- (instancetype)initWithBuyerId:(NSString *)buyerId
-                       sellerId:(NSString *)sellerId
-                       couponId:(NSString *)couponId
-              reviewDescription:(NSString *)reviewDescription
-                          stars:(int)stars {
+- (instancetype)initWithBuyer:(User *)buyer
+                       seller:(User *)seller
+                       coupon:(Coupon *)coupon
+              transactionDate:(NSDate *)transactionDate
+            reviewDescription:(NSString *)reviewDescription
+                        stars:(int)stars {
     self = [super init];
     if (self) {
-        self.buyerId = buyerId;
-        self.sellerId = sellerId;
-        self.couponId = couponId;
+        self.buyer = buyer;
+        self.seller = seller;
+        self.coupon = coupon;
+        self.transactionDate = transactionDate;
         self.reviewDescription = reviewDescription;
         self.stars = stars;
     }

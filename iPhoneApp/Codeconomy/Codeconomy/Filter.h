@@ -7,11 +7,12 @@
 //
 
 #import <Parse/Parse.h>
+#import "Coupon.h"
 
 @interface Filter : PFObject<PFSubclassing>
 + (NSString *)parseClassName;
 @property int category;
-@property (retain) NSString *couponId;
+@property (retain) Coupon *coupon;
 - (instancetype)initWithCategory:(int)category
-                       couponId:(NSString *)couponId;
+                          coupon:(Coupon *)coupon;
 @end

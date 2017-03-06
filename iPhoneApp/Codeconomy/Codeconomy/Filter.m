@@ -10,7 +10,7 @@
 
 @implementation Filter
 @dynamic category;
-@dynamic couponId;
+@dynamic coupon;
 
 + (void)load {
     [self registerSubclass];
@@ -21,11 +21,11 @@
 }
 
 - (instancetype)initWithCategory:(int)category
-                        couponId:(NSString *)couponId {
+                        coupon:(Coupon *)coupon {
     self = [super init];
     if (self) {
         self.category = category;
-        self.couponId = couponId;
+        self.coupon = coupon;
     }
     return self;
 }

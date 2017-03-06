@@ -7,17 +7,21 @@
 //
 
 #import <Parse/Parse.h>
+#import "User.h"
+#import "Coupon.h"
 
 @interface Transaction : PFObject<PFSubclassing>
 + (NSString *)parseClassName;
-@property (retain) NSString *buyerId;
-@property (retain) NSString *sellerId;
-@property (retain) NSString *couponId;
+@property (retain) User *buyer;
+@property (retain) User *seller;
+@property (retain) Coupon *coupon;
+@property (retain) NSDate *transactionDate;
 @property (retain) NSString *reviewDescription;
 @property int stars;
-- (instancetype)initWithBuyerId:(NSString *)buyerId
-                       sellerId:(NSString *)sellerId
-                       couponId:(NSString *)couponId
-              reviewDescription:(NSString *)reviewDescription
-                          stars:(int)stars;
+- (instancetype)initWithBuyer:(User *)buyer
+                       seller:(User *)seller
+                       coupon:(Coupon *)coupon
+              transactionDate:(NSDate *)transactionDate
+            reviewDescription:(NSString *)reviewDescription
+                        stars:(int)stars;
 @end
