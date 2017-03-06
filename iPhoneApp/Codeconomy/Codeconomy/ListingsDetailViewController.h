@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Coupon.h"
+#import "User.h"
 
 @interface ListingsDetailViewController : UIViewController
-- (instancetype)initWithCoupon:(Coupon *)couponData buy:(BOOL)buy;
+- (instancetype)initWithCoupon:(Coupon *)couponData buy:(BOOL)buy user:(User *)user;
 @end

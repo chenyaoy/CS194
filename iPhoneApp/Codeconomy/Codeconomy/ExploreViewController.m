@@ -15,6 +15,7 @@
 #import <Parse/Parse.h>
 
 @interface ExploreViewController () <UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) User *user;
 @property (nonatomic, strong) NSMutableArray *allListings;
 @property (nonatomic, strong) NSMutableArray *allCategories;
 @property (nonatomic, strong) NSMutableArray *allEmojis;
@@ -27,11 +28,13 @@
 
 @implementation ExploreViewController
 
-- (instancetype)init {
+- (instancetype)initWithUser:(User *)user {
     self = [super init];
     if (self) {
+        _user = user;
+        
         _price = [[UILabel alloc] init];
-        _price.text = @"36🔑";
+        _price.text = [NSString stringWithFormat:@"%d🔑", self.user.credits];
         _searchBar = [[UISearchBar alloc] init];
         _searchBar.delegate = self;
         _searchBar.backgroundImage = [[UIImage alloc] init];
@@ -150,7 +153,7 @@
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ListingsDetailViewController *listingDetailsVC = [[ListingsDetailViewController alloc] initWithCoupon:[self.allListings objectAtIndex:indexPath.section] buy:YES];
+    ListingsDetailViewController *listingDetailsVC = [[ListingsDetailViewController alloc] initWithCoupon:[self.allListings objectAtIndex:indexPath.section] buy:YES user:self.user];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @"Back";
     self.navigationItem.backBarButtonItem = barButton;

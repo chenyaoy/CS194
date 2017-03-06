@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface ListingsViewController : UIViewController
-- (instancetype)initWithNew;
+- (instancetype)initWithUser:(User *)user;
 @end

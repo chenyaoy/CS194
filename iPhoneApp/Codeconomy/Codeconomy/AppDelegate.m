@@ -10,6 +10,7 @@
 #import "ExploreViewController.h"
 #import "ProfileViewController.h"
 #import "ListingsViewController.h"
+#import "User.h"
 #import <Parse/Parse.h>
 
 @interface AppDelegate ()
@@ -25,12 +26,14 @@
         configuration.clientKey = @"";
         configuration.server = @"http://codeconomy.herokuapp.com/parse";
     }]];
+    // [self addMockUser];
+    User *currentUser = [[[PFQuery queryWithClassName:@"_User"] whereKey:@"username" equalTo:@"garythung"] getFirstObject];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    UINavigationController *exploreViewController = [[UINavigationController alloc] initWithRootViewController:[[ExploreViewController alloc] init]];
-    UINavigationController *couponsViewController = [[UINavigationController alloc] initWithRootViewController:[[ListingsViewController alloc] initWithNew]];
-    UINavigationController *profileViewController = [[UINavigationController alloc] initWithRootViewController:[[ProfileViewController alloc] init]];
+    UINavigationController *exploreViewController = [[UINavigationController alloc] initWithRootViewController:[[ExploreViewController alloc] initWithUser:currentUser]];
+    UINavigationController *couponsViewController = [[UINavigationController alloc] initWithRootViewController:[[ListingsViewController alloc] initWithUser:currentUser]];
+    UINavigationController *profileViewController = [[UINavigationController alloc] initWithRootViewController:[[ProfileViewController alloc] initWithUser:currentUser]];
     
     exploreViewController.navigationBar.topItem.title = @"Explore";
     couponsViewController.navigationBar.topItem.title = @"My Listings";
@@ -94,6 +97,17 @@
     CGSize measuredSize = [str sizeWithAttributes:@{NSFontAttributeName: label.font}];
     label.frame = CGRectMake(0, 0, measuredSize.width, measuredSize.height);
     return [self hg_imageFromView:label];
+}
+
+- (void) addMockUser {
+    User *user = [[User alloc] initWithUsername:@"garythung" password:@"garythung" displayName:@"Gary Thung" status:0 credits:36 rating:5.0];
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"sick");
+        } else {
+            NSLog(@"fuck");
+        }
+    }];
 }
 
 @end

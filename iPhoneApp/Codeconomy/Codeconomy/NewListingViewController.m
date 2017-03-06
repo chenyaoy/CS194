@@ -11,6 +11,8 @@
 #import "Util.h"
 
 @interface NewListingViewController ()
+@property (nonatomic, strong) User *user;
+
 @property (nonatomic, strong) UILabel *xButton;
 @property (nonatomic, strong) UITapGestureRecognizer *xButtonRecognizer;
 @property (nonatomic, strong) UILabel *listingTitle;
@@ -47,6 +49,14 @@
 @end
 
 @implementation NewListingViewController
+
+- (instancetype)initWithUser:(User *)user {
+    self = [super init];
+    if (self) {
+        _user = user;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

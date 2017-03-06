@@ -16,6 +16,7 @@
 #import "Transaction.h"
 
 @interface ListingsDetailViewController ()
+@property (nonatomic, strong) User *user;
 @property (nonatomic, strong) Coupon *couponData;
 @property (nonatomic, strong) UILabel *price;
 @property (nonatomic, strong) ListingHeaderView *headerView;
@@ -27,11 +28,13 @@
 
 @implementation ListingsDetailViewController
 
-- (instancetype)initWithCoupon:(Coupon *)couponData buy:(BOOL)buy{
+- (instancetype)initWithCoupon:(Coupon *)couponData buy:(BOOL)buy user:(User *)user{
     self = [super init];
     if (self) {
+        _user = user;
+        
         _price = [[UILabel alloc] init];
-        _price.text = @"36🔑";
+        _price.text = [NSString stringWithFormat:@"%d🔑", self.user.credits];
         _couponData = couponData;
         _headerView = [[ListingHeaderView alloc] initWithStoreName:_couponData.storeName title:_couponData.couponDescription description:_couponData.additionalInfo];
         _detailView = [[ListingDetailView alloc] initWithPrice:_couponData.price expirationDate:_couponData.expirationDate category:@"Clothing 👖"];
@@ -132,7 +135,7 @@
 
 - (void)tapBuy:(UIButton *)sender {
 //    int keyDifference = abs([User currentUser].credits - _couponData.price);
-    int keyDifference = abs(36 - _couponData.price);
+    int keyDifference = abs(self.user.credits - _couponData.price);
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Purchase"
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];

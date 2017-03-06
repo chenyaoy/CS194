@@ -15,15 +15,18 @@
 #import <Parse/Parse.h>
 
 @interface ListingsViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) User *user;
 @property (nonatomic, strong) UITableView *listings;
 @property (nonatomic, strong) NSMutableArray *allListings;
 @end
 
 @implementation ListingsViewController
 
-- (instancetype)initWithNew {
+- (instancetype)initWithUser:(User *)user {
     self = [super init];
     if (self) {
+        _user = user;
+        
         UIBarButtonItem *postListing = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self action:@selector(refreshPropertyList:)];
         self.navigationItem.rightBarButtonItem = postListing;
     }
@@ -90,7 +93,7 @@
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ListingsDetailViewController *listingDetailsVC = [[ListingsDetailViewController alloc] initWithCoupon:[self.allListings objectAtIndex:indexPath.section] buy:NO];
+    ListingsDetailViewController *listingDetailsVC = [[ListingsDetailViewController alloc] initWithCoupon:[self.allListings objectAtIndex:indexPath.section] buy:NO user:self.user];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @"Back";
     self.navigationItem.backBarButtonItem = barButton;
@@ -115,7 +118,7 @@
 #pragma mark - Segue
 
 - (void)refreshPropertyList:(UIBarButtonItem *)button {
-    NewListingViewController *newListing = [[NewListingViewController alloc] init];
+    NewListingViewController *newListing = [[NewListingViewController alloc] initWithUser:self.user];
     [self presentViewController:newListing animated:YES completion:nil];
 }
 
