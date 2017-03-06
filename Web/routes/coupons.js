@@ -26,23 +26,19 @@ router.post('/postCoupon/submit', function(req, res) {
             coupon.set("code", req.body.code);
             coupon.set("status", 1);
             coupon.set("deleted", false);
-            coupon.set("sellerId", res.locals.user.id);
+            coupon.set("seller", res.locals.user);
             coupon.save(null, {
                 success: function(coupon) {
-                    var query = new Parse.Query(Coupon);
-                    query.equalTo("sellerId", res.locals.user.id);
-                    query.find({
-                        success: function(userCoupons) {
-                            res.redirect('/');
-                        }
-                    });
+                    res.redirect('/users/myCoupons');
                 },
                 error: function(coupon, error) {
-                    res.send("Coupon upload failed. Please try again. " + error.message)
+                    console.log("Coupon upload failed. Please try again. " + error.message);
+                    res.render('pages/error_try_again');
                 }
             });
         } else {
-            res.send("Error in provided coupon data. Please verify that all information was entered correctly.")
+            console.log("Error in provided coupon data. Please verify that all information was entered correctly.");
+            res.render('pages/error_try_again');
         }
     }, function(err) {
         res.redirect('/users/login');
@@ -87,51 +83,41 @@ router.post('/purchaseCoupon', function(req, res) {
         var query = new Parse.Query(Coupon);
         query.get(req.body.id, {
             success: function(result) {
-                var sellerId = result.get("sellerId");
+                var seller = result.get("seller");
                 var price = result.get("price");
                 if(price > res.locals.user.get("credits")) {
                     res.render("pages/error_try_again");
                 }
                 var Transaction = Parse.Object.extend("Transaction");
                 var transaction = new Transaction();
-                transaction.set("buyerId", res.locals.user.id);
-                transaction.set("sellerId", sellerId);
-                transaction.set("couponId", req.query.id);
+                transaction.set("buyer", res.locals.user);
+                transaction.set("seller", seller);
+                transaction.set("coupon", result);
                 transaction.set("reviewDescription", null);
                 transaction.set("stars", null);
+                transaction.set("transactionDate", new Date());
                 transaction.save(null, {
                     success: function(transaction) {
                         Parse.Cloud.useMasterKey();
-                        var sq = new Parse.Query('_User');
-                        sq.get(sellerId, {
-                            success: function(seller) {
-                                seller.set("credits", seller.get("credits") + price);
-                                res.locals.user.set("credits", res.locals.user.get("credits") - price);
-                                result.set("status", 0);
-                                result.save(null, {
-                                    error: function(error) {
-                                        console.log(error.message);
-                                    }
-                                });
-                                res.locals.user.save(null, {
-                                    error: function(error) {
-                                        console.log(error.message);
-                                    }
-                                });
-                                seller.save(null, {
-                                    error: function(error) {
-                                        console.log(error.message);
-                                    }
-                                });
-                                res.redirect('/users/myCoupons');
-                            },
+                        seller.set("credits", seller.get("credits") + price);
+                        res.locals.user.set("credits", res.locals.user.get("credits") - price);
+                        result.set("status", 0);
+                        result.save(null, {
                             error: function(error) {
-                                console.log("Couldn't get seller: " + error.message);
+                                console.log(error.message);
                             }
-                        }, 
-                        function(error) {
-                            console.log("Couldn't save transaction: " + error.message);
                         });
+                        res.locals.user.save(null, {
+                            error: function(error) {
+                                console.log(error.message);
+                            }
+                        });
+                        seller.save(null, {
+                            error: function(error) {
+                                console.log(error.message);
+                            }
+                        });
+                        res.redirect('/users/myCoupons/purchased');
                     },
                     error: function(transaction, error) {
                         res.send("Transaction failed. Please try again. " + error.message)
@@ -154,18 +140,18 @@ router.get('/coupon', function(req, res) {
         var query = new Parse.Query(Coupon);
         query.get(req.query.id, {
             success: function(result) {
-                var coupon = {};
-                coupon.storeName = result.get('storeName');
-                coupon.description = result.get('description');
-                coupon.price = result.get('price');
-                coupon.category = result.get('category');
-                coupon.additionalInfo = result.get('additionalInfo');
-                coupon.id = req.query.id;
-                coupon.sellerId = result.get('sellerId');
-                if(result.has('expirationDate')) {
-                    coupon.expirationDate = result.get('expirationDate');
-                }
-                res.render('pages/display_coupon', {user:res.locals.user, coupon:coupon});
+                // var coupon = {};
+                // coupon.storeName = result.get('storeName');
+                // coupon.description = result.get('description');
+                // coupon.price = result.get('price');
+                // coupon.category = result.get('category');
+                // coupon.additionalInfo = result.get('additionalInfo');
+                // coupon.id = req.query.id;
+                // coupon.sellerId = result.get('sellerId');
+                // if(result.has('expirationDate')) {
+                //     coupon.expirationDate = result.get('expirationDate');
+                // }
+                res.render('pages/display_coupon', {user:res.locals.user, coupon:result});
             },
             error: function(object, error) {
                 res.render('pages/error_try_again');
@@ -248,7 +234,7 @@ function serveQuery(query, req, res, category) {
             for(var i = 0; i < results.length; i++) {
                 var coupon = {};
                 coupon.storeName = results[i].get('storeName');
-                coupon.description = results[i].get('description');
+                coupon.couponDescription = results[i].get('couponDescription');
                 coupon.price = results[i].get('price');
                 coupon.category = results[i].get('category');
                 coupon.id = results[i].id;

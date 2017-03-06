@@ -10,20 +10,19 @@
 
 <div class="jumbotron text-center">
   <div class="container">
-    <h1><%= coupon.storeName %></h1>
-    <h2><%=coupon.category%></h2>
-    <p><%=coupon.description %></p>
-    <h2><%=coupon.price%> credits</h2>
+    <h1><%= coupon.get("storeName")%></h1>
+    <p><%=coupon.get("couponDescription")%></p>
+    <h2><%=coupon.get("price")%> credits</h2>
     <% if(typeof(coupon.expirationDate) !== 'undefined') {%>
-    <h2> Expires <%=coupon.expirationDate %></h2>
+    <h2> Expires <%=coupon.get("expirationDate")%></h2>
     <% } %>
   </div>
 </div>
 
-<% if(coupon.additionalInfo.length > 0) {%>
+<% if(coupon.get("additionalInfo").length > 0) {%>
 <div class="container">
   <div class="alert alert-info text-center" role="alert">
-      <%=coupon.additionalInfo %>
+      <%=coupon.get("additionalInfo")%>
   </div>
 </div>
 <% } %>
