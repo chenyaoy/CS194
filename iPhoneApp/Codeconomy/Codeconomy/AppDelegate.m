@@ -123,7 +123,7 @@
 - (void) addMockTransaction {
     User *buyer = [[[PFQuery queryWithClassName:@"_User"] whereKey:@"username" equalTo:@"garythung"] getFirstObject];
     User *seller = [[[PFQuery queryWithClassName:@"_User"] whereKey:@"username" equalTo:@"whuang"] getFirstObject];
-    Coupon *coupon = [[Coupon alloc] initWithSeller:seller status:0 price:3 expirationDate:[NSDate date] storeName:@"testStore" couponDescription:@"1 free item" additionalInfo:@"less than $50" code:@"freeitem50" deleted:false];
+    Coupon *coupon = [[Coupon alloc] initWithSeller:seller status:0 price:3 expirationDate:[NSDate date] storeName:@"testStore" couponDescription:@"1 free item" additionalInfo:@"less than $50" code:@"freeitem50" category:@"Clothing" deleted:false];
     
     [coupon saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
