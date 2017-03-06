@@ -109,6 +109,7 @@
 - (void)reloadUserData:(NSNotification *) notification {
     [self.user fetch];
     [self.manageKeys setLeftLabel:[NSString stringWithFormat:@"%d 🔑", self.user.credits]];
+    [self.view setNeedsLayout];
 }
 
 /*

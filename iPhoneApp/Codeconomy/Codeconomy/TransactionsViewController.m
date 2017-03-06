@@ -56,7 +56,12 @@
 }
 
 - (void)loadTransactions {
-    PFQuery *query = [PFQuery queryWithClassName:[Transaction parseClassName]];
+    PFQuery *query1 = [PFQuery queryWithClassName:[Transaction parseClassName]];
+    [query1 whereKey:@"buyer" equalTo:self.user];
+    PFQuery *query2 = [PFQuery queryWithClassName:[Transaction parseClassName]];
+    [query2 whereKey:@"seller" equalTo:self.user];
+    NSArray *arrQuery = [[NSArray alloc] initWithObjects:query1, query2, nil];
+    PFQuery *query = [PFQuery orQueryWithSubqueries:arrQuery];
     [query includeKey:@"buyer"];
     [query includeKey:@"seller"];
     [query includeKey:@"coupon"];

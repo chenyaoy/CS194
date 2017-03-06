@@ -64,6 +64,9 @@
 
 - (void)generateMockData {
     PFQuery *query = [PFQuery queryWithClassName:@"Coupon"];
+    [query whereKey:@"seller" equalTo:self.user];
+    [query whereKey:@"status" equalTo:@1];
+    [query whereKey:@"deleted" equalTo:@NO];
     [query includeKey:@"seller"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
         if(!error) {
