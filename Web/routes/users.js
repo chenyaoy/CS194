@@ -37,14 +37,15 @@ router.get('/myCoupons/purchased', function(req, res) {
     checkLogin(req, res).then(function(res) {
         var Transaction = Parse.Object.extend("Transaction");
         var query = new Parse.Query(Transaction);
-        query.equalTo("buyer", res.locals.user);
+        query.equalTo("buyer", res.locals.user).include("coupon");
         query.find({
             success: function(transactions) {
                 var coupons = [];
-                for (var t = 0; t < transactions.length; t++) {
-                    coupon_object = t.get("coupon");
-
+                for (var i = 0; i < transactions.length; i++) {
+                    coupon = transactions[i].get("coupon");
+                    coupons.push(coupon);
                 }
+                res.render('pages/explore_coupons', {coupons:coupons, user:res.locals.user, category:"All"});
             },
             error: function(error) {
                 res.render('pages/error_try_again');
@@ -158,7 +159,6 @@ router.post('/signup/submit', function(req, res) {
 
 router.get('/myprofile', function(req, res) {
     checkLogin(req, res).then(function(res) {
-        console.log(res.locals.user);
         res.render('pages/users/profile', {user: res.locals.user});
     }, function(err) {
         res.redirect('/users/login');
