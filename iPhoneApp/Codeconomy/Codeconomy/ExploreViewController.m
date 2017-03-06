@@ -12,6 +12,7 @@
 #import "ListingsTableViewCell.h"
 #import "Coupon.h"
 #import "Util.h"
+#import <Parse/Parse.h>
 
 @interface ExploreViewController () <UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *allListings;
@@ -184,23 +185,17 @@
     [self.allEmojis addObject:@"🍽"];
     [self.allEmojis addObject:@"🖥"];
     
-    Coupon *coupon1 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon2 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon3 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon4 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon5 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon6 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon7 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    
 //    Coupon *coupon1 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
     
-    [self.allListings addObject:coupon1];
-    [self.allListings addObject:coupon2];
-    [self.allListings addObject:coupon3];
-    [self.allListings addObject:coupon4];
-    [self.allListings addObject:coupon5];
-    [self.allListings addObject:coupon6];
-    [self.allListings addObject:coupon7];
+    PFQuery *query = [PFQuery queryWithClassName:@"Coupon"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
+        if(!error) {
+            self.allListings = objects.mutableCopy;
+            [self.couponTableView reloadData];
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
 }
 
 @end
