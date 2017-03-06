@@ -48,6 +48,11 @@
     [self generateMockData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self generateMockData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -59,6 +64,7 @@
 
 - (void)generateMockData {
     PFQuery *query = [PFQuery queryWithClassName:@"Coupon"];
+    [query includeKey:@"seller"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
         if(!error) {
             self.allListings = objects.mutableCopy;

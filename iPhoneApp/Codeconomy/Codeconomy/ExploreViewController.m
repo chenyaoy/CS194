@@ -84,6 +84,11 @@
     [self.view addSubview:_couponTableView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self loadMockData];
+}
+
 - (void)viewWillLayoutSubviews {
     self.searchBar.frame = CGRectMake(20.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 15.0, self.view.frame.size.width - 40.0, 28.0);
     self.categories.frame = CGRectMake(20.0, self.searchBar.frame.origin.y + self.searchBar.frame.size.height + 15.0, self.view.frame.size.width - 40.0, 215.0);
@@ -191,6 +196,7 @@
 //    Coupon *coupon1 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Coupon"];
+    [query includeKey:@"seller"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
         if(!error) {
             self.allListings = objects.mutableCopy;

@@ -35,7 +35,7 @@ function checkLogin(req, res) {
 
 router.get('/myCoupons/purchased', function(req, res) {
     checkLogin(req, res).then(function(res) {
-        res.render('pages/error_try_again',{user:res.locals.user});
+        res.send("This is where you'll be able to see the coupons you've purchased");
     }, function(err) {
         res.redirect('/users/login');
     });
@@ -43,7 +43,12 @@ router.get('/myCoupons/purchased', function(req, res) {
 
 router.get('/myCoupons/sold', function(req, res) {
     checkLogin(req, res).then(function(res) {
-        res.render('pages/error_try_again',{user:res.locals.user});
+        var Coupon = Parse.Object.extend("Coupon");
+        var query = new Parse.Query(Coupon);
+        query.equalTo("seller", res.locals.user);
+        query.equalTo("deleted", false);
+        query.equalTo("status", 0);
+        serveQuery(query, req, res, "All");
     }, function(err) {
         res.redirect('/users/login');
     });
@@ -53,8 +58,9 @@ router.get('/myCoupons', function(req, res) {
     checkLogin(req, res).then(function(res) {
         var Coupon = Parse.Object.extend("Coupon");
         var query = new Parse.Query(Coupon);
-        query.equalTo("sellerId", res.locals.user.id);
+        query.equalTo("seller", res.locals.user);
         query.equalTo("deleted", false);
+        query.equalTo("status", 1);
         serveQuery(query, req, res, "All");
     }, function(err) {
         res.redirect('/users/login');
