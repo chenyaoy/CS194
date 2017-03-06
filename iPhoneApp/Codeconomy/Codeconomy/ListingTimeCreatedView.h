@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface ListingTimeCreatedView : UIView
-- (instancetype)initWithCreatedDate:(NSDate *)createdDate seller:(NSString *)seller;
+- (instancetype)initWithCreatedDate:(NSDate *)createdDate seller:(User *)seller;
 @end

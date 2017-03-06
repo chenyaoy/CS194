@@ -15,7 +15,7 @@
 
 @implementation ListingTimeCreatedView
 
-- (instancetype)initWithCreatedDate:(NSDate *)createdDate seller:(NSString *)seller {
+- (instancetype)initWithCreatedDate:(NSDate *)createdDate seller:(User *)seller {
     self = [super init];
     if (self) {
         self.backgroundColor = [[Util sharedManager] colorWithHexString:@"FFFFFF"];
@@ -23,7 +23,7 @@
         _createdLabel = [[UILabel alloc] init];
         NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:createdDate];
         int hoursBetweenDates = distanceBetweenDates / 3600;
-        _createdLabel.text = [NSString stringWithFormat:@"This code was posted %d hours ago by %@.", hoursBetweenDates, seller];
+        _createdLabel.text = [NSString stringWithFormat:@"This code was posted %d hours ago by %@.", hoursBetweenDates, seller.displayName];
         _createdLabel.numberOfLines = 0;
         [self addSubview:_createdLabel];
         
