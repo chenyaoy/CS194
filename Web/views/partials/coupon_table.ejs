@@ -1,5 +1,5 @@
 <div class="container">
-  <h2><%=category %> coupons</h2>      
+  <h2><%=category %> coupons</h2>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -13,10 +13,10 @@
     <tbody>
       <% coupons.forEach(function(coupon){ %>
       <tr>
-        <td><%= coupon.storeName %></td>
-        <td><%= coupon.couponDescription %></td>
-        <td><%= coupon.category %></td>
-        <td><%= coupon.price %></td>
+        <td><%= coupon.get("storeName") %></td>
+        <td><%= coupon.get("couponDescription") %></td>
+        <td><%= coupon.get("category") %></td>
+        <td><%= coupon.get("price") %></td>
        <td><a href="/coupons/coupon?id=<%=coupon.id%>" class="btn btn-primary" role="button">Learn More</a></td>
       </tr>
       <% });%>

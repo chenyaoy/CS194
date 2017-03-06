@@ -12,39 +12,6 @@ router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true }));
 
 
-router.post('/postCoupon/submit', function(req, res) {
-    checkLogin(req, res).then(function(res) {
-        if(validateRequiredCouponParams(req)) {
-            var Coupon = Parse.Object.extend("Coupon");
-            var coupon = new Coupon();
-            coupon.set("storeName", req.body.store);
-            coupon.set("couponDescription", req.body.couponDescription);
-            coupon.set("expirationDate",
-                req.body.expireDate.length == 0 ? null : new Date(req.body.expireDate));
-            coupon.set("additionalInfo", req.body.additionalInfo);
-            coupon.set("price", parseInt(req.body.price));
-            coupon.set("code", req.body.code);
-            coupon.set("status", 1);
-            coupon.set("deleted", false);
-            coupon.set("seller", res.locals.user);
-            coupon.save(null, {
-                success: function(coupon) {
-                    res.redirect('/users/myCoupons');
-                },
-                error: function(coupon, error) {
-                    console.log("Coupon upload failed. Please try again. " + error.message);
-                    res.render('pages/error_try_again');
-                }
-            });
-        } else {
-            console.log("Error in provided coupon data. Please verify that all information was entered correctly.");
-            res.render('pages/error_try_again');
-        }
-    }, function(err) {
-        res.redirect('/users/login');
-    });
-});
-
 function checkLogin(req, res) {
     return new Promise(function(resolve, reject) {
         if(req.session.token) {
@@ -70,7 +37,41 @@ function checkLogin(req, res) {
 
 router.get('/postCoupon', function(req, res) {
     checkLogin(req, res).then(function(res) {
-        res.render('pages/post_coupon',{user:res.locals.user});
+        res.render('pages/post_coupon', {user:res.locals.user});
+    }, function(err) {
+        res.redirect('/users/login');
+    });
+});
+
+router.post('/postCoupon/submit', function(req, res) {
+    checkLogin(req, res).then(function(res) {
+        if(validateRequiredCouponParams(req)) {
+            var Coupon = Parse.Object.extend("Coupon");
+            var coupon = new Coupon();
+            coupon.set("storeName", req.body.store);
+            coupon.set("couponDescription", req.body.couponDescription);
+            coupon.set("expirationDate",
+                req.body.expireDate.length == 0 ? null : new Date(req.body.expireDate));
+            coupon.set("additionalInfo", req.body.additionalInfo);
+            coupon.set("price", parseInt(req.body.price));
+            coupon.set("code", req.body.code);
+            coupon.set("category", req.body.category);
+            coupon.set("status", 1);
+            coupon.set("deleted", false);
+            coupon.set("seller", res.locals.user);
+            coupon.save(null, {
+                success: function(coupon) {
+                    res.redirect('/users/myCoupons');
+                },
+                error: function(coupon, error) {
+                    console.log("Coupon upload failed. Please try again. " + error.message);
+                    res.render('pages/error_try_again');
+                }
+            });
+        } else {
+            console.log("Error in provided coupon data. Please verify that all information was entered correctly.");
+            res.render('pages/error_try_again');
+        }
     }, function(err) {
         res.redirect('/users/login');
     });
@@ -229,17 +230,7 @@ function unsoldQuery() {
 
 function serveQuery(query, req, res, category) {
     query.find({
-        success: function(results) {
-            var coupons = [];
-            for(var i = 0; i < results.length; i++) {
-                var coupon = {};
-                coupon.storeName = results[i].get('storeName');
-                coupon.couponDescription = results[i].get('couponDescription');
-                coupon.price = results[i].get('price');
-                coupon.category = results[i].get('category');
-                coupon.id = results[i].id;
-                coupons.push(coupon);
-            }
+        success: function(coupons) {
             res.render('pages/explore_coupons', {coupons:coupons, user:res.locals.user, category:category});
         },
         error: function(error) {

@@ -35,7 +35,21 @@ function checkLogin(req, res) {
 
 router.get('/myCoupons/purchased', function(req, res) {
     checkLogin(req, res).then(function(res) {
-        res.send("This is where you'll be able to see the coupons you've purchased");
+        var Transaction = Parse.Object.extend("Transaction");
+        var query = new Parse.Query(Transaction);
+        query.equalTo("buyer", res.locals.user);
+        query.find({
+            success: function(transactions) {
+                var coupons = [];
+                for (var t = 0; t < transactions.length; t++) {
+                    coupon_object = t.get("coupon");
+
+                }
+            },
+            error: function(error) {
+                res.render('pages/error_try_again');
+            }
+        });
     }, function(err) {
         res.redirect('/users/login');
     });
@@ -69,17 +83,7 @@ router.get('/myCoupons', function(req, res) {
 
 function serveQuery(query, req, res, category) {
     query.find({
-        success: function(results) {
-            var coupons = [];
-            for(var i = 0; i < results.length; i++) {
-                var coupon = {};
-                coupon.storeName = results[i].get('storeName');
-                coupon.description = results[i].get('description');
-                coupon.price = results[i].get('price');
-                coupon.category = results[i].get('category');
-                coupon.id = results[i].id;
-                coupons.push(coupon);
-            }
+        success: function(coupons) {
             res.render('pages/explore_coupons', {coupons:coupons, user:res.locals.user, category:category});
         },
         error: function(error) {
@@ -152,6 +156,14 @@ router.post('/signup/submit', function(req, res) {
     });
 });
 
+router.get('/myprofile', function(req, res) {
+    checkLogin(req, res).then(function(res) {
+        console.log(res.locals.user);
+        res.render('pages/users/profile', {user: res.locals.user});
+    }, function(err) {
+        res.redirect('/users/login');
+    });
+});
 
 router.get('/logout', function(req, res) {
     checkLogin(req, res).then(function(res) {
