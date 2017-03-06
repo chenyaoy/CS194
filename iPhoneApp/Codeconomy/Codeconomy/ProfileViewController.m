@@ -67,7 +67,7 @@
     self.memberSince.frame = CGRectMake(0, 0, self.memberSince.frame.size.width + 10.0, self.memberSince.frame.size.height);
     self.memberSince.textAlignment = NSTextAlignmentCenter;
     self.memberSince.center = CGPointMake(self.view.frame.size.width / 2.0, self.name.frame.origin.y + self.name.frame.size.height + 16.0);
-    self.manageKeys.frame = CGRectMake(self.view.frame.origin.x + 40.0, self.memberSince.frame.origin.y + self.memberSince.frame.size.height + 25.0, self.view.frame.size.width - 80.0, 60.0);
+    self.manageKeys.frame = CGRectMake(self.view.frame.origin.x + 20.0, self.memberSince.frame.origin.y + self.memberSince.frame.size.height + 25.0, self.view.frame.size.width - 40.0, 60.0);
     self.transactionHistory.frame = CGRectMake(self.manageKeys.frame.origin.x, self.manageKeys.frame.origin.y + self.manageKeys.frame.size.height + 15.0, self.manageKeys.frame.size.width, self.manageKeys.frame.size.height);
     self.accountSettings.frame = CGRectMake(self.transactionHistory.frame.origin.x, self.transactionHistory.frame.origin.y + self.transactionHistory.frame.size.height + 15.0, self.transactionHistory.frame.size.width, self.transactionHistory.frame.size.height);
 }
