@@ -297,7 +297,7 @@
 }
 
 - (void)tapPostIt:(UIButton *)sender {
-    Coupon *coupon1 = [[Coupon alloc] initWithSellerId:@"1"
+    Coupon *coupon1 = [[Coupon alloc] initWithSeller:_user
                                                 status:1
                                                  price:2
                                         expirationDate:[NSDate date]
