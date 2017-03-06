@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Transaction.h"
+#import "User.h"
 
 @interface TransactionsDetailViewController : UIViewController
-
+- (instancetype)initWithTransaction:(Transaction *)transactionData user:(User *)user;
 @end

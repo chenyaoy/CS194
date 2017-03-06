@@ -29,11 +29,16 @@
         _price.font = [UIFont systemFontOfSize:36.0];
         [self addSubview:_price];
         
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-        dateFormatter.dateFormat = @"MM/dd/yy";
-        NSString *dateString = [dateFormatter stringFromDate: expirationDate];
         _expirationDate = [[UILabel alloc] init];
-        _expirationDate.text = [NSString stringWithFormat:@"Expires on %@", dateString];
+        if (expirationDate != nil) {
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+            dateFormatter.dateFormat = @"M/d/yy 'at' h:mm a";
+            NSString *dateString = [dateFormatter stringFromDate: expirationDate];
+            _expirationDate.text = [NSString stringWithFormat:@"Expires on %@", dateString];
+        } else {
+            _expirationDate.text = @"This code does not expire.";
+        }
         _expirationDate.font = [UIFont systemFontOfSize:20.0];
         [self addSubview:_expirationDate];
         

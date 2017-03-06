@@ -1,5 +1,5 @@
 //
-//  TransactionHistoryViewController.h
+//  TransactionCodeView.h
 //  Codeconomy
 //
 //  Created by Gary on 03/05/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TransactionHistoryViewController : UIViewController
-
+@interface TransactionCodeView : UIView
+- (instancetype)initWithCode:(NSString *)code;
 @end

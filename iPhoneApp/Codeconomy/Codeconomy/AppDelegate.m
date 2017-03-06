@@ -11,6 +11,8 @@
 #import "ProfileViewController.h"
 #import "ListingsViewController.h"
 #import "User.h"
+#import "Coupon.h"
+#import "Transaction.h"
 #import <Parse/Parse.h>
 
 @interface AppDelegate ()
@@ -28,7 +30,8 @@
     }]];
     // [self addMockUser];
     User *currentUser = [[[PFQuery queryWithClassName:@"_User"] whereKey:@"username" equalTo:@"garythung"] getFirstObject];
-    
+    [PFUser logInWithUsername:@"garythung" password:@"garythung"];
+//    [self addMockTransaction];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     UINavigationController *exploreViewController = [[UINavigationController alloc] initWithRootViewController:[[ExploreViewController alloc] initWithUser:currentUser]];
@@ -100,8 +103,38 @@
 }
 
 - (void) addMockUser {
-    User *user = [[User alloc] initWithUsername:@"garythung" password:@"garythung" displayName:@"Gary Thung" status:0 credits:36 rating:5.0];
-    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+    User *gary = [[User alloc] initWithUsername:@"garythung" password:@"garythung" displayName:@"Gary Thung" status:0 credits:36 rating:5.0];
+    [gary signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"sick");
+        } else {
+            NSLog(@"fuck");
+        }
+    }];
+    User *will = [[User alloc] initWithUsername:@"whuang" password:@"whuang" displayName:@"Will Huang" status:0 credits:5 rating:5.0];
+    [will signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"sick");
+        } else {
+            NSLog(@"fuck");
+        }
+    }];
+}
+
+- (void) addMockTransaction {
+    User *buyer = [[[PFQuery queryWithClassName:@"_User"] whereKey:@"username" equalTo:@"garythung"] getFirstObject];
+    User *seller = [[[PFQuery queryWithClassName:@"_User"] whereKey:@"username" equalTo:@"whuang"] getFirstObject];
+    Coupon *coupon = [[Coupon alloc] initWithSeller:seller status:0 price:3 expirationDate:[NSDate date] storeName:@"testStore" couponDescription:@"1 free item" additionalInfo:@"less than $50" code:@"freeitem50" category:@"Clothing" deleted:false];
+    
+    [coupon saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"sick");
+        } else {
+            NSLog(@"fuck");
+        }
+    }];
+    Transaction *transaction = [[Transaction alloc] initWithBuyer:buyer seller:seller coupon:coupon transactionDate:[NSDate date] reviewDescription:nil stars:-1];
+    [transaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"sick");
         } else {

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Transaction.h"
+#import "Coupon.h"
 
 @interface TransactionsTableViewCell : UITableViewCell
-
+- (void)setTransaction:(Transaction *)transaction user:(User *)user;
 @end

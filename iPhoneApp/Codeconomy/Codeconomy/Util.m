@@ -23,22 +23,50 @@
     // Should never be called, but just here for clarity really.
 }
 
+/**
+ * Returns "FE3824", the hex color code for the Codeconomy red.
+ * @return hexString hex color code for red
+ */
 + (NSString *)getRedColorHex {
     return @"FE3824";
 }
 
+/**
+ * Returns "9FCBFE", the hex color code for the Codeconomy blue.
+ * @return hexString hex color code for blue
+ */
 + (NSString *)getBlueColorHex {
     return @"9FCBFE";
 }
 
-+ (NSString *)getWhiteColorHex {
-    return @"FFFFFFF";
+/**
+ * Returns "44DB5E", the hex color code for the Codeconomy green.
+ * @return hexString hex color code for green
+ */
++ (NSString *)getGreenColorHex {
+    return @"44DB5E";
 }
 
+/**
+ * Returns "FFFFFF", the hex color code for white.
+ * @return hexString hex color code for white
+ */
++ (NSString *)getWhiteColorHex {
+    return @"FFFFFF";
+}
+
+/**
+ * Returns "F7F7F7", the hex color code for the Codeconomy light gray.
+ * @return hexString hex color code for light gray
+ */
 + (NSString *)getLightGrayColorHex {
     return @"F7F7F7";
 }
 
+/**
+ * Returns "7A797B", the hex color code for the Codeconomy dark gray.
+ * @return hexString hex color code for dark gray
+ */
 + (NSString *)getDarkGrayColorHex {
     return @"7A797B";
 }

@@ -17,6 +17,7 @@
 @dynamic couponDescription;
 @dynamic additionalInfo;
 @dynamic code;
+@dynamic category;
 @dynamic deleted;
 
 + (void)load {
@@ -35,6 +36,7 @@
              couponDescription:(NSString *)couponDescription
                 additionalInfo:(NSString *)additionalInfo
                           code:(NSString *)code
+                      category:(NSString *)category
                        deleted:(BOOL)deleted {
     self = [super init];
     if (self) {
@@ -46,6 +48,7 @@
         self.couponDescription = couponDescription;
         self.additionalInfo = additionalInfo;
         self.code = code;
+        self.category = category;
         self.deleted = deleted;
     }
     return self;

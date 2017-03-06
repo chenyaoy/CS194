@@ -62,6 +62,11 @@
         _allListings = [[NSMutableArray alloc] init];
         _allCategories = [[NSMutableArray alloc] init];
         _allEmojis = [[NSMutableArray alloc] init];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reloadUserData:)
+                                                     name:@"reloadUserData"
+                                                   object:nil];
         [self loadMockData];
     }
     return self;
@@ -82,6 +87,11 @@
     [self.view addSubview:_whatsNew];
     [_whatsNew sizeToFit];
     [self.view addSubview:_couponTableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self loadMockData];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -175,6 +185,14 @@
     return view;
 }
 
+#pragma mark - Helpers
+
+- (void)reloadUserData:(NSNotification *) notification {
+    [self.user fetch];
+    self.price.text = [NSString stringWithFormat:@"%d🔑", self.user.credits];
+    [self.price sizeToFit];
+}
+
 #pragma mark - Mock Data
 
 - (void)loadMockData {
@@ -191,6 +209,9 @@
 //    Coupon *coupon1 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Coupon"];
+    [query whereKey:@"status" equalTo:@1];
+    [query whereKey:@"seller" notEqualTo:self.user];
+    [query includeKey:@"seller"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
         if(!error) {
             self.allListings = objects.mutableCopy;

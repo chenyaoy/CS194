@@ -19,6 +19,7 @@
 @property (retain) NSString *couponDescription;
 @property (retain) NSString *additionalInfo;
 @property (retain) NSString *code;
+@property (retain) NSString *category;
 @property BOOL deleted;
 - (instancetype)initWithSeller:(User *)seller
                         status:(int)status
@@ -28,5 +29,6 @@
              couponDescription:(NSString *)couponDescription
                 additionalInfo:(NSString *)additionalInfo
                           code:(NSString *)code
+                      category:(NSString *)category
                        deleted:(BOOL)deleted;
 @end

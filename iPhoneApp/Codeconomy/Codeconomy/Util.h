@@ -13,6 +13,7 @@
 + (id)sharedManager;
 + (NSString *)getRedColorHex;
 + (NSString *)getBlueColorHex;
++ (NSString *)getGreenColorHex;
 + (NSString *)getWhiteColorHex;
 + (NSString *)getLightGrayColorHex;
 + (NSString *)getDarkGrayColorHex;
