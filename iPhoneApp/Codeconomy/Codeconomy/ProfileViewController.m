@@ -44,9 +44,23 @@
     [self.name sizeToFit];
     [self.view addSubview:self.name];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    dateFormatter.dateFormat = @"MM/dd/yy";
-    NSString *dateString = [dateFormatter stringFromDate: self.user.createdAt];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"MMMM d, yyyy";
+    NSMutableString *dateString = [[dateFormatter stringFromDate: self.user.createdAt] mutableCopy];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSInteger dayOfMonth = components.day;
+    NSString *ordinalSuffix;
+    switch (dayOfMonth) {
+        case 1:
+        case 21:
+        case 31: ordinalSuffix = @"st";
+        case 2:
+        case 22: ordinalSuffix = @"nd";
+        case 3:
+        case 23: ordinalSuffix = @"rd";
+        default: ordinalSuffix = @"th";
+    }
+    [dateString insertString:ordinalSuffix atIndex:dateString.length - 6];
     
     self.memberSince = [[UILabel alloc] init];
     [self.memberSince setText:[NSString stringWithFormat:@"Member since %@", dateString]];
