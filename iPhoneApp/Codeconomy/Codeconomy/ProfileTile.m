@@ -47,7 +47,7 @@
     [super layoutSubviews];
     
     self.left.frame = CGRectMake(10.0, self.frame.size.height / 2.0 - self.left.frame.size.height / 2.0, self.left.frame.size.width, self.left.frame.size.height);
-    self.right.frame = CGRectMake(self.frame.size.width - self.right.frame.size.width - 10.0, self.frame.size.height / 2.0 - self.left.frame.size.height / 2.0, self.right.frame.size.width, self.right.frame.size.height);
+    self.right.frame = CGRectMake(self.frame.size.width - self.right.frame.size.width - 10.0, self.frame.size.height / 2.0 - self.right.frame.size.height / 2.0, self.right.frame.size.width, self.right.frame.size.height);
 }
 
 /*
