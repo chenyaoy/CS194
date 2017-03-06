@@ -51,7 +51,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self generateMockData];
-    [self.listings reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

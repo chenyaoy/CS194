@@ -84,6 +84,11 @@
     [self.view addSubview:_couponTableView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self loadMockData];
+}
+
 - (void)viewWillLayoutSubviews {
     self.searchBar.frame = CGRectMake(20.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 15.0, self.view.frame.size.width - 40.0, 28.0);
     self.categories.frame = CGRectMake(20.0, self.searchBar.frame.origin.y + self.searchBar.frame.size.height + 15.0, self.view.frame.size.width - 40.0, 215.0);
