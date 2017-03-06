@@ -30,6 +30,7 @@
     }]];
     // [self addMockUser];
     User *currentUser = [[[PFQuery queryWithClassName:@"_User"] whereKey:@"username" equalTo:@"garythung"] getFirstObject];
+    [PFUser logInWithUsername:@"garythung" password:@"garythung"];
 //    [self addMockTransaction];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
