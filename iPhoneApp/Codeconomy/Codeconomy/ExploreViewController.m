@@ -191,6 +191,7 @@
 //    Coupon *coupon1 = [[Coupon alloc] initWithCouponId:1 sellerId:1 status:1 price:2 expirationDate:[NSDate date] createdDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] storeName:@"J.Crew" title:@"30% off ANY ITEM" couponDescription:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Coupon"];
+    [query includeKey:@"seller"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
         if(!error) {
             self.allListings = objects.mutableCopy;

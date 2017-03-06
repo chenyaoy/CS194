@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UILabel *doesItExpire;
 @property (nonatomic, strong) UIButton *checkMark;
 @property (nonatomic, strong) UIButton *xMark;
+@property (nonatomic, strong) UIButton *selectedExpire;
 @property (nonatomic, strong) UILabel *when;
 @property (nonatomic, strong) UITextField *whenField;
 @property (nonatomic, strong) UIDatePicker *whenPickerView;
@@ -39,6 +40,7 @@
 @property (nonatomic, strong) UIButton *categoryConcerts;
 @property (nonatomic, strong) UIButton *categoryFood;
 @property (nonatomic, strong) UIButton *categoryElectronics;
+@property (nonatomic, strong) UIButton *selectedCategory;
 
 @property (nonatomic, strong) UILabel *couponCode;
 @property (nonatomic, strong) UITextField *codeField;
@@ -114,20 +116,24 @@
     [_scrollView addSubview:_doesItExpire];
     _checkMark = [[UIButton alloc] init];
     [_checkMark setTitle:@"✔" forState:UIControlStateNormal];
+    [_checkMark addTarget:self action:@selector(tapExpire:) forControlEvents:UIControlEventTouchUpInside];
     _checkMark.titleLabel.textAlignment = NSTextAlignmentCenter;
     _checkMark.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
     _checkMark.layer.borderWidth = 6.0f;
     _checkMark.layer.borderColor = [[UIColor blackColor] CGColor];
+    _checkMark.layer.opacity = 0.33;
     _checkMark.layer.cornerRadius = 10;
     _checkMark.layer.masksToBounds = YES;
     [_scrollView addSubview:_checkMark];
     _xMark = [[UIButton alloc] init];
     [_xMark setTitle:@"✕" forState:UIControlStateNormal];
     [_xMark setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_xMark addTarget:self action:@selector(tapExpire:) forControlEvents:UIControlEventTouchUpInside];
     _xMark.titleLabel.textAlignment = NSTextAlignmentCenter;
     _xMark.titleLabel.font = [UIFont boldSystemFontOfSize:24.0f];
     _xMark.layer.borderWidth = 6.0f;
     _xMark.layer.borderColor = [[UIColor blackColor] CGColor];
+    _xMark.layer.opacity = 0.33;
     _xMark.layer.cornerRadius = 10;
     _xMark.layer.masksToBounds = YES;
     [_scrollView addSubview:_xMark];
@@ -183,38 +189,45 @@
     _categoryClothing = [[UIButton alloc] init];
     [_categoryClothing setTitle:@"Clothing" forState:UIControlStateNormal];
     [_categoryClothing setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_categoryClothing addTarget:self action:@selector(tapCategory:) forControlEvents:UIControlEventTouchUpInside];
     _categoryClothing.titleLabel.textAlignment = NSTextAlignmentCenter;
     _categoryClothing.titleLabel.font = [UIFont systemFontOfSize:18.0f];
     _categoryClothing.layer.borderWidth = 1.0f;
     _categoryClothing.layer.borderColor = [[UIColor blackColor] CGColor];
     _categoryClothing.layer.cornerRadius = 10;
     _categoryClothing.layer.masksToBounds = YES;
+    _categoryClothing.layer.opacity = 0.33;
     [_categoryClothing sizeToFit];
     [_scrollView addSubview:_categoryClothing];
     _categoryConcerts = [[UIButton alloc] init];
     [_categoryConcerts setTitle:@"Concerts" forState:UIControlStateNormal];
     [_categoryConcerts setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_categoryConcerts addTarget:self action:@selector(tapCategory:) forControlEvents:UIControlEventTouchUpInside];
     _categoryConcerts.titleLabel.textAlignment = NSTextAlignmentCenter;
     _categoryConcerts.titleLabel.font = [UIFont systemFontOfSize:18.0f];
     _categoryConcerts.layer.borderWidth = 1.0f;
     _categoryConcerts.layer.borderColor = [[UIColor blackColor] CGColor];
     _categoryConcerts.layer.cornerRadius = 10;
     _categoryConcerts.layer.masksToBounds = YES;
+    _categoryConcerts.layer.opacity = 0.33;
     [_categoryConcerts sizeToFit];
     [_scrollView addSubview:_categoryConcerts];
     _categoryFood = [[UIButton alloc] init];
     [_categoryFood setTitle:@"Food" forState:UIControlStateNormal];
     [_categoryFood setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_categoryFood addTarget:self action:@selector(tapCategory:) forControlEvents:UIControlEventTouchUpInside];
     _categoryFood.titleLabel.textAlignment = NSTextAlignmentCenter;
     _categoryFood.titleLabel.font = [UIFont systemFontOfSize:18.0f];
     _categoryFood.layer.borderWidth = 1.0f;
     _categoryFood.layer.borderColor = [[UIColor blackColor] CGColor];
     _categoryFood.layer.cornerRadius = 10;
     _categoryFood.layer.masksToBounds = YES;
+    _categoryFood.layer.opacity = 0.33;
     [_categoryFood sizeToFit];
     [_scrollView addSubview:_categoryFood];
     _categoryElectronics = [[UIButton alloc] init];
     [_categoryElectronics setTitle:@"Electronics" forState:UIControlStateNormal];
+    [_categoryElectronics addTarget:self action:@selector(tapCategory:) forControlEvents:UIControlEventTouchUpInside];
     [_categoryElectronics setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     _categoryElectronics.titleLabel.textAlignment = NSTextAlignmentCenter;
     _categoryElectronics.titleLabel.font = [UIFont systemFontOfSize:18.0f];
@@ -222,6 +235,7 @@
     _categoryElectronics.layer.borderColor = [[UIColor blackColor] CGColor];
     _categoryElectronics.layer.cornerRadius = 10;
     _categoryElectronics.layer.masksToBounds = YES;
+    _categoryElectronics.layer.opacity = 0.33;
     [_categoryElectronics sizeToFit];
     [_scrollView addSubview:_categoryElectronics];
     
@@ -297,14 +311,28 @@
 }
 
 - (void)tapPostIt:(UIButton *)sender {
+    NSString *category = @"Clothing";
+    if (self.selectedCategory == self.categoryConcerts) {
+        category = @"Concerts";
+    } else if (self.selectedCategory == self.categoryFood) {
+        category = @"Food";
+    } else if (self.selectedCategory == self.categoryElectronics) {
+        category = @"Electronics";
+    }
+    NSDate *expirationDate = self.whenPickerView.date;
+    if (self.selectedExpire == self.xMark) {
+        expirationDate = NULL;
+    }
+    
     Coupon *coupon1 = [[Coupon alloc] initWithSeller:_user
                                                 status:1
-                                                 price:2
-                                        expirationDate:[NSDate date]
-                                             storeName:@"J.Crew"
-                                     couponDescription:@"30% off ANY ITEM"
-                                        additionalInfo:@"excludes sale items"
-                                                  code:@"SUCKAMYDEEEK"
+                                                 price:[self.creditsField.text intValue]
+                                        expirationDate:expirationDate
+                                             storeName:self.storeField.text
+                                     couponDescription:self.shortTitleField.text
+                                        additionalInfo:self.extraInfoField.text
+                                                  code:self.codeField.text
+                                              category:category
                                                deleted:0];
     [coupon1 saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
@@ -313,6 +341,7 @@
             NSLog(@"fuck");
         }
     }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)updateTextField:(id)sender
@@ -333,6 +362,62 @@
 
 - (void)touchScrollView {
     [self.whenField endEditing:YES];
+}
+
+- (void)tapExpire:(UIButton *)sender {
+    if (sender == self.xMark) {
+        self.xMark.layer.opacity = 1.0;
+        self.checkMark.layer.opacity = 0.33;
+        self.selectedExpire = self.xMark;
+    } else {
+        self.checkMark.layer.opacity = 1.0;
+        self.xMark.layer.opacity = 0.33;
+        self.selectedExpire = self.checkMark;
+    }
+}
+
+- (void)tapCategory:(UIButton *)sender {
+    if (sender == self.categoryClothing) {
+        self.categoryClothing.layer.opacity = 1.0;
+        self.categoryClothing.backgroundColor = [[Util sharedManager] colorWithHexString:@"9FCBFE"];
+        self.categoryConcerts.layer.opacity = 0.33;
+        self.categoryConcerts.backgroundColor = [UIColor clearColor];
+        self.categoryFood.layer.opacity = 0.33;
+        self.categoryFood.backgroundColor = [UIColor clearColor];
+        self.categoryElectronics.layer.opacity = 0.33;
+        self.categoryElectronics.backgroundColor = [UIColor clearColor];
+        self.selectedCategory = self.categoryClothing;
+    } else if (sender == self.categoryConcerts) {
+        self.categoryConcerts.layer.opacity = 1.0;
+        self.categoryConcerts.backgroundColor = [[Util sharedManager] colorWithHexString:@"9FCBFE"];
+        self.categoryClothing.layer.opacity = 0.33;
+        self.categoryClothing.backgroundColor = [UIColor clearColor];
+        self.categoryFood.layer.opacity = 0.33;
+        self.categoryFood.backgroundColor = [UIColor clearColor];
+        self.categoryElectronics.layer.opacity = 0.33;
+        self.categoryElectronics.backgroundColor = [UIColor clearColor];
+        self.selectedCategory = self.categoryConcerts;
+    } else if (sender == self.categoryFood) {
+        self.categoryFood.layer.opacity = 1.0;
+        self.categoryFood.backgroundColor = [[Util sharedManager] colorWithHexString:@"9FCBFE"];
+        self.categoryConcerts.layer.opacity = 0.33;
+        self.categoryConcerts.backgroundColor = [UIColor clearColor];
+        self.categoryClothing.layer.opacity = 0.33;
+        self.categoryClothing.backgroundColor = [UIColor clearColor];
+        self.categoryElectronics.layer.opacity = 0.33;
+        self.categoryElectronics.backgroundColor = [UIColor clearColor];
+        self.selectedCategory = self.categoryFood;
+    } else {
+        self.categoryElectronics.layer.opacity = 1.0;
+        self.categoryElectronics.backgroundColor = [[Util sharedManager] colorWithHexString:@"9FCBFE"];
+        self.categoryConcerts.layer.opacity = 0.33;
+        self.categoryConcerts.backgroundColor = [UIColor clearColor];
+        self.categoryFood.layer.opacity = 0.33;
+        self.categoryFood.backgroundColor = [UIColor clearColor];
+        self.categoryClothing.layer.opacity = 0.33;
+        self.categoryClothing.backgroundColor = [UIColor clearColor];
+        self.selectedCategory = self.categoryElectronics;
+    }
 }
 
 /*
