@@ -42,6 +42,10 @@
         _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] seller:_couponData.seller]; // TODO: this should be the seller display name or user name
         _buy = [[UIButton alloc] init];
         _userOwns = !buy;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reloadUserData:)
+                                                     name:@"reloadUserData"
+                                                   object:nil];
     }
     return self;
 }
@@ -87,48 +91,41 @@
 #pragma mark - Helpers
 
 - (void)purchaseCoupon {
-//    --- UNCOMMENT BELOW WHEN REAL PARSE DATA IS HOOKED UP ---
-//    PFUser *currentUser = [User currentUser];
-//    _couponData.status = 0;
-//    [_couponData saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//        if (succeeded) {
-//            // TODO: update ExploreViewController
-//        } else {
-//            
-//        }
-//    }];
+    self.couponData.status = 0;
+    [self.couponData saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (!succeeded) {
+            NSLog(@"failed to update coupon status");
+        }
+    }];
     
-//    Transaction *transaction = [[Transaction alloc] initWithBuyerId:currentUser.objectId sellerId:_couponData.sellerId couponId:_couponData.objectId reviewDescription:nil stars:nil];
-//    [transaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//        if (succeeded) {
-//
-//        } else {
-//
-//        }
-//    }];
+    Transaction *transaction = [[Transaction alloc] initWithBuyer:self.user seller:self.couponData.seller.fetchIfNeeded coupon:self.couponData transactionDate:[NSDate date] reviewDescription:nil stars:0];
+    [transaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (!succeeded) {
+            NSLog(@"failed to add transaction");
+        }
+    }];
     
-//    currentUser.credits -= _couponData.price;
-//    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//        if (succeeded) {
-//
-//        } else {
-//
-//        }
-//    }];
-//    --- END UNCOMMENT ---
+    self.user.credits -= self.couponData.price;
+    [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"reloadUserData"
+             object:self];
+        } else {
+            NSLog(@"failed to update user credits");
+        }
+    }];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)deleteCoupon {
-//    --- UNCOMMENT BELOW WHEN REAL PARSE DATA IS HOOKED UP ---
-//    _couponData.deleted = true;
-//    [_couponData saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//        if (succeeded) {
-//            // TODO: update the data source for ListingsViewController
-//        } else {
-//            NSLog(@"failed to mark coupon as deleted");
-//        }
-//    }];
-//    --- END UNCOMMENT ---
+    self.couponData.deleted = true;
+    [_couponData saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (!succeeded) {
+            NSLog(@"failed to mark coupon as deleted");
+        }
+    }];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Listeners
@@ -179,6 +176,10 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)reloadUserData:(NSNotification *) notification {
+    [self.user fetch];
+    self.price.text = [NSString stringWithFormat:@"%d🔑", self.user.credits];
+}
 
 /*
 #pragma mark - Navigation

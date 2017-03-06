@@ -30,6 +30,10 @@
     self = [super init];
     if (self) {
         _user = user;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reloadUserData:)
+                                                     name:@"reloadUserData"
+                                                   object:nil];
     }
     return self;
 }
@@ -100,6 +104,11 @@
     self.navigationItem.backBarButtonItem = barButton;
     transactionsVC.navigationItem.title = @"Transaction History";
     [self.navigationController pushViewController:transactionsVC animated:YES];
+}
+
+- (void)reloadUserData:(NSNotification *) notification {
+    [self.user fetch];
+    [self.manageKeys setLeftLabel:[NSString stringWithFormat:@"%d 🔑", self.user.credits]];
 }
 
 /*
