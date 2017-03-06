@@ -15,6 +15,7 @@
 @property float rating;
 - (instancetype)initWithUsername:(NSString *)username
                         password:(NSString *)password
+                     displayName:(NSString *)displayName
                           status:(int)status
                          credits:(int)credits
                           rating:(float)rating;

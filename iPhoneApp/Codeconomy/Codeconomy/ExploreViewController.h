@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface ExploreViewController : UIViewController
-
-
+- (instancetype)initWithUser:(User *)user;
 @end
 

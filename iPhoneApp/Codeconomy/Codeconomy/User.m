@@ -20,6 +20,7 @@
 
 - (instancetype)initWithUsername:(NSString *)username
                         password:(NSString *)password
+                     displayName:(NSString *)displayName
                           status:(int)status
                          credits:(int)credits
                           rating:(float)rating {
@@ -27,6 +28,7 @@
     if (self) {
         self.username = username;
         self.password = password;
+        self.displayName = displayName;
         self.status = status;
         self.credits = credits;
         self.rating = rating;

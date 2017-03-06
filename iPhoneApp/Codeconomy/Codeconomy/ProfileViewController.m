@@ -12,6 +12,7 @@
 #import "Util.h"
 
 @interface ProfileViewController ()
+@property (nonatomic, strong) User *user;
 @property (nonatomic, strong) UILabel *name;
 @property (nonatomic, strong) UILabel *memberSince;
 @property (nonatomic, strong) ProfileTile *manageKeys;
@@ -24,25 +25,37 @@
 
 @implementation ProfileViewController
 
+- (instancetype)initWithUser:(User *)user {
+    self = [super init];
+    if (self) {
+        _user = user;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor: [[Util sharedManager] colorWithHexString:@"F7F7F7"]];
     
     self.name = [[UILabel alloc] init];
-    [self.name setText:@"Gary Thung"];
+    [self.name setText:self.user.displayName];
     [self.name setFont:[UIFont systemFontOfSize:40.0f]];
     [self.name sizeToFit];
     [self.view addSubview:self.name];
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    dateFormatter.dateFormat = @"MM/dd/yy";
+    NSString *dateString = [dateFormatter stringFromDate: self.user.createdAt];
+    
     self.memberSince = [[UILabel alloc] init];
-    [self.memberSince setText:@"Member since 01/13/17"];
+    [self.memberSince setText:[NSString stringWithFormat:@"Member since %@", dateString]];
     self.memberSince.font = [UIFont italicSystemFontOfSize:20.0f];
     [self.memberSince sizeToFit];
     [self.view addSubview:self.memberSince];
     
     self.manageKeys = [[ProfileTile alloc] init];
     [self.view addSubview:self.manageKeys];
-    [self.manageKeys setLeftLabel:@"36 🔑"];
+    [self.manageKeys setLeftLabel:[NSString stringWithFormat:@"%d 🔑", self.user.credits]];
     [self.manageKeys setRightLabel:@"Manage Keys ➡️"];
     
     self.transactionHistory = [[ProfileTile alloc] init];

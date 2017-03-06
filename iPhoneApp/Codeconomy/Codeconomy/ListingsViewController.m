@@ -12,17 +12,21 @@
 #import "NewListingViewController.h"
 #import "Coupon.h"
 #import "Util.h"
+#import <Parse/Parse.h>
 
 @interface ListingsViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) User *user;
 @property (nonatomic, strong) UITableView *listings;
 @property (nonatomic, strong) NSMutableArray *allListings;
 @end
 
 @implementation ListingsViewController
 
-- (instancetype)initWithNew {
+- (instancetype)initWithUser:(User *)user {
     self = [super init];
     if (self) {
+        _user = user;
+        
         UIBarButtonItem *postListing = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self action:@selector(refreshPropertyList:)];
         self.navigationItem.rightBarButtonItem = postListing;
     }
@@ -54,21 +58,15 @@
 }
 
 - (void)generateMockData {
-    Coupon *coupon1 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon2 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon3 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon4 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon5 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon6 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    Coupon *coupon7 = [[Coupon alloc] initWithSellerId:@"1" status:1 price:2 expirationDate:[NSDate date] storeName:@"J.Crew" couponDescription:@"30% off ANY ITEM" additionalInfo:@"excludes sale items" code:@"adsfkljsdfjksdhf" deleted:0];
-    
-    [self.allListings addObject:coupon1];
-    [self.allListings addObject:coupon2];
-    [self.allListings addObject:coupon3];
-    [self.allListings addObject:coupon4];
-    [self.allListings addObject:coupon5];
-    [self.allListings addObject:coupon6];
-    [self.allListings addObject:coupon7];
+    PFQuery *query = [PFQuery queryWithClassName:@"Coupon"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
+        if(!error) {
+            self.allListings = objects.mutableCopy;
+            [self.listings reloadData];
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
 }
 
 #pragma mark - Table View Data Source
@@ -95,7 +93,7 @@
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ListingsDetailViewController *listingDetailsVC = [[ListingsDetailViewController alloc] initWithCoupon:[self.allListings objectAtIndex:indexPath.section] buy:NO];
+    ListingsDetailViewController *listingDetailsVC = [[ListingsDetailViewController alloc] initWithCoupon:[self.allListings objectAtIndex:indexPath.section] buy:NO user:self.user];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @"Back";
     self.navigationItem.backBarButtonItem = barButton;
@@ -120,7 +118,7 @@
 #pragma mark - Segue
 
 - (void)refreshPropertyList:(UIBarButtonItem *)button {
-    NewListingViewController *newListing = [[NewListingViewController alloc] init];
+    NewListingViewController *newListing = [[NewListingViewController alloc] initWithUser:self.user];
     [self presentViewController:newListing animated:YES completion:nil];
 }
 
