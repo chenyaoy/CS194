@@ -1,5 +1,5 @@
 //
-//  TransactionHistoryViewController.m
+//  TransactionsViewController.m
 //  Codeconomy
 //
 //  Created by Gary on 03/05/17.
@@ -20,13 +20,13 @@
 
 @implementation TransactionsViewController
 
-- (instancetype)initWithNew:(User *)user {
+- (instancetype)initWithUser:(User *)user {
     self = [super init];
     if (self) {
         _user = user;
         
-//        UIBarButtonItem *postListing = [[UIBarButtonItem alloc] initWithTitle:@"Options" style:UIBarButtonItemStylePlain target:self action:@selector(refreshPropertyList:)];
-//        self.navigationItem.rightBarButtonItem = postListing;
+        UIBarButtonItem *postListing = [[UIBarButtonItem alloc] initWithTitle:@"Options" style:UIBarButtonItemStylePlain target:self action:@selector(showTransactionOptions:)];
+        self.navigationItem.rightBarButtonItem = postListing;
     }
     return self;
 }
@@ -43,7 +43,7 @@
     _allTransactions = [[NSMutableArray alloc] init];
     [self.view setBackgroundColor: [[Util sharedManager] colorWithHexString:[Util getLightGrayColorHex]]];
     
-//    [self generateMockData];
+    [self loadTransactions];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,10 +55,25 @@
     self.transactions.frame = CGRectMake(20.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 15.0, self.view.frame.size.width - 40.0, self.tabBarController.tabBar.frame.origin.y - (self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 30.0));
 }
 
+- (void)loadTransactions {
+    PFQuery *query = [PFQuery queryWithClassName:[Transaction parseClassName]];
+    [query includeKey:@"buyer"];
+    [query includeKey:@"seller"];
+    [query includeKey:@"coupon"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
+        if(!error) {
+            self.allTransactions = objects.mutableCopy;
+            [self.transactions reloadData];
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [_allTransactions count];
+    return [self.allTransactions count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -72,7 +87,7 @@
     if (cell == nil) {
         cell = [[TransactionsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    [(TransactionsTableViewCell *)cell setTransaction:[_allTransactions objectAtIndex:indexPath.section]];
+    [(TransactionsTableViewCell *)cell setTransaction:[_allTransactions objectAtIndex:indexPath.section] user:self.user];
     return cell;
 }
 
@@ -100,6 +115,13 @@
     view.backgroundColor = [UIColor clearColor];
     return view;
 }
+
+#pragma mark - Segue
+
+- (void)showTransactionOptions:(UIBarButtonItem *)button {
+    // show some transaction filtering options
+}
+
 
 /*
 #pragma mark - Navigation

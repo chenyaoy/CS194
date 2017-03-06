@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0DF8DBC382B3836BAF4358E5 /* libPods-CodeconomyUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C22C3B36B1CC2ABA2A8B31C /* libPods-CodeconomyUITests.a */; };
+		1AA2DE191E6CE48600B3E82A /* TransactionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE181E6CE48600B3E82A /* TransactionsViewController.m */; };
+		1AA2DE1D1E6CE92400B3E82A /* TransactionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE1C1E6CE92400B3E82A /* TransactionsTableViewCell.m */; };
+		1AA2DE201E6CE96F00B3E82A /* TransactionsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE1F1E6CE96F00B3E82A /* TransactionsDetailViewController.m */; };
+		1AA2DE231E6CEC1000B3E82A /* TransactionTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE221E6CEC1000B3E82A /* TransactionTileView.m */; };
+		1AA2DE281E6D40EF00B3E82A /* TransactionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE271E6D40EF00B3E82A /* TransactionTimeView.m */; };
+		1AA2DE2B1E6D473E00B3E82A /* TransactionCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE2A1E6D473E00B3E82A /* TransactionCodeView.m */; };
 		3D5EB5041E50FE3A00E67C91 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB5031E50FE3A00E67C91 /* ProfileViewController.m */; };
 		3D5EB5091E5105BB00E67C91 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB5081E5105BB00E67C91 /* Util.m */; };
 		3D5EB50C1E51078B00E67C91 /* ProfileTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB50B1E51078B00E67C91 /* ProfileTile.m */; };
@@ -55,6 +61,18 @@
 
 /* Begin PBXFileReference section */
 		19D902E1EB4A817DD6278DF0 /* Pods-Codeconomy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Codeconomy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Codeconomy/Pods-Codeconomy.debug.xcconfig"; sourceTree = "<group>"; };
+		1AA2DE171E6CE48600B3E82A /* TransactionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsViewController.h; sourceTree = "<group>"; };
+		1AA2DE181E6CE48600B3E82A /* TransactionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsViewController.m; sourceTree = "<group>"; };
+		1AA2DE1B1E6CE92400B3E82A /* TransactionsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsTableViewCell.h; sourceTree = "<group>"; };
+		1AA2DE1C1E6CE92400B3E82A /* TransactionsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsTableViewCell.m; sourceTree = "<group>"; };
+		1AA2DE1E1E6CE96F00B3E82A /* TransactionsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsDetailViewController.h; sourceTree = "<group>"; };
+		1AA2DE1F1E6CE96F00B3E82A /* TransactionsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsDetailViewController.m; sourceTree = "<group>"; };
+		1AA2DE211E6CEC1000B3E82A /* TransactionTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTileView.h; sourceTree = "<group>"; };
+		1AA2DE221E6CEC1000B3E82A /* TransactionTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTileView.m; sourceTree = "<group>"; };
+		1AA2DE261E6D40EF00B3E82A /* TransactionTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTimeView.h; sourceTree = "<group>"; };
+		1AA2DE271E6D40EF00B3E82A /* TransactionTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTimeView.m; sourceTree = "<group>"; };
+		1AA2DE291E6D473E00B3E82A /* TransactionCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCodeView.h; sourceTree = "<group>"; };
+		1AA2DE2A1E6D473E00B3E82A /* TransactionCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCodeView.m; sourceTree = "<group>"; };
 		3C22C3B36B1CC2ABA2A8B31C /* libPods-CodeconomyUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CodeconomyUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D5EB5021E50FE3A00E67C91 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		3D5EB5031E50FE3A00E67C91 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
@@ -142,9 +160,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AA2DE1A1E6CE90700B3E82A /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				1AA2DE241E6D40C600B3E82A /* TableView */,
+				1AA2DE251E6D40D300B3E82A /* Detail */,
+			);
+			name = Transactions;
+			sourceTree = "<group>";
+		};
+		1AA2DE241E6D40C600B3E82A /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				1AA2DE171E6CE48600B3E82A /* TransactionsViewController.h */,
+				1AA2DE181E6CE48600B3E82A /* TransactionsViewController.m */,
+				1AA2DE1B1E6CE92400B3E82A /* TransactionsTableViewCell.h */,
+				1AA2DE1C1E6CE92400B3E82A /* TransactionsTableViewCell.m */,
+			);
+			name = TableView;
+			sourceTree = "<group>";
+		};
+		1AA2DE251E6D40D300B3E82A /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				1AA2DE1E1E6CE96F00B3E82A /* TransactionsDetailViewController.h */,
+				1AA2DE1F1E6CE96F00B3E82A /* TransactionsDetailViewController.m */,
+				1AA2DE211E6CEC1000B3E82A /* TransactionTileView.h */,
+				1AA2DE221E6CEC1000B3E82A /* TransactionTileView.m */,
+				1AA2DE261E6D40EF00B3E82A /* TransactionTimeView.h */,
+				1AA2DE271E6D40EF00B3E82A /* TransactionTimeView.m */,
+				1AA2DE291E6D473E00B3E82A /* TransactionCodeView.h */,
+				1AA2DE2A1E6D473E00B3E82A /* TransactionCodeView.m */,
+			);
+			name = Detail;
+			sourceTree = "<group>";
+		};
 		3D5EB5051E50FE4400E67C91 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1AA2DE1A1E6CE90700B3E82A /* Transactions */,
 				3D5EB5021E50FE3A00E67C91 /* ProfileViewController.h */,
 				3D5EB5031E50FE3A00E67C91 /* ProfileViewController.m */,
 				3D5EB50A1E51078B00E67C91 /* ProfileTile.h */,
@@ -603,17 +657,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D5EB5091E5105BB00E67C91 /* Util.m in Sources */,
+				1AA2DE201E6CE96F00B3E82A /* TransactionsDetailViewController.m in Sources */,
 				3D5EB50C1E51078B00E67C91 /* ProfileTile.m in Sources */,
 				3D7A9B8A1E518B3100FD6812 /* ListingDetailView.m in Sources */,
 				3D7A9B841E51860000FD6812 /* ListingsDetailViewController.m in Sources */,
 				3D7A9B951E52D4E700FD6812 /* CategoryTileView.m in Sources */,
 				3D94BE761E62D6A700C049C1 /* Transaction.m in Sources */,
+				1AA2DE231E6CEC1000B3E82A /* TransactionTileView.m in Sources */,
 				3D5EB5101E51274300E67C91 /* ListingsViewController.m in Sources */,
 				3D7A9B8D1E518B4900FD6812 /* ListingTimeCreatedView.m in Sources */,
 				3D94BE7C1E62D9A000C049C1 /* User.m in Sources */,
 				3D7A9B871E518B0500FD6812 /* ListingHeaderView.m in Sources */,
+				1AA2DE1D1E6CE92400B3E82A /* TransactionsTableViewCell.m in Sources */,
 				3D94BE791E62D77100C049C1 /* Filter.m in Sources */,
+				1AA2DE281E6D40EF00B3E82A /* TransactionTimeView.m in Sources */,
 				3D7A9B981E55664100FD6812 /* NewListingViewController.m in Sources */,
+				1AA2DE2B1E6D473E00B3E82A /* TransactionCodeView.m in Sources */,
 				3DE3CD331E47D8BB007EEC70 /* ExploreViewController.m in Sources */,
 				3D5EB5171E51306800E67C91 /* CodeconomyTileView.m in Sources */,
 				3DE3CD301E47D8BB007EEC70 /* AppDelegate.m in Sources */,
@@ -622,6 +681,7 @@
 				3D94BE701E62CC3000C049C1 /* Coupon.m in Sources */,
 				3DE3CD2D1E47D8BB007EEC70 /* main.m in Sources */,
 				3D7A9B921E52D45A00FD6812 /* ExploreCollectionViewCell.m in Sources */,
+				1AA2DE191E6CE48600B3E82A /* TransactionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Transaction.h"
+#import "User.h"
 
 @interface TransactionTileView : UIView
-
+- (void)setTransaction:(Transaction *)transaction user:(User *)user;
 @end

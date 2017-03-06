@@ -1,5 +1,5 @@
 //
-//  TransactionHistoryViewController.h
+//  TransactionsViewController.h
 //  Codeconomy
 //
 //  Created by Gary on 03/05/17.
@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface TransactionsViewController : UIViewController
-//- (instancetype)initWithNew;
+- (instancetype)initWithUser:(User *)user;
 @end

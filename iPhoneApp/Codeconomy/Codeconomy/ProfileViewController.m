@@ -8,6 +8,7 @@
 
 #import "ProfileViewController.h"
 #import "ListingsViewController.h"
+#import "TransactionsViewController.h"
 #import "ProfileTile.h"
 #import "Util.h"
 
@@ -93,12 +94,12 @@
 #pragma mark - Listeners
 
 - (void)tapTransactionHistory {
-    ListingsViewController *listingsVC = [[ListingsViewController alloc] init];
+    TransactionsViewController *transactionsVC = [[TransactionsViewController alloc] initWithUser:self.user];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @"Back";
     self.navigationItem.backBarButtonItem = barButton;
-    listingsVC.navigationItem.title = @"Transaction History";
-    [self.navigationController pushViewController:listingsVC animated:YES];
+    transactionsVC.navigationItem.title = @"Transaction History";
+    [self.navigationController pushViewController:transactionsVC animated:YES];
 }
 
 /*

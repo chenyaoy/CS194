@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface TransactionCodeView : UIView
-
+- (instancetype)initWithCode:(NSString *)code;
 @end
