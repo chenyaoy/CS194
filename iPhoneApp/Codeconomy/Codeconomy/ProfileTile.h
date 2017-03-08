@@ -11,4 +11,5 @@
 @interface ProfileTile : UIView
 - (void)setRightLabel:(NSString *)label;
 - (void)setLeftLabel:(NSString *)label;
+- (void)setRightLabelBold:(NSString *)label;
 @end

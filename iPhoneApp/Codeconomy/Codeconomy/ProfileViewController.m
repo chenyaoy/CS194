@@ -19,6 +19,8 @@
 @property (nonatomic, strong) ProfileTile *manageKeys;
 @property (nonatomic, strong) ProfileTile *transactionHistory;
 @property (nonatomic, strong) ProfileTile *accountSettings;
+@property (nonatomic, strong) ProfileTile *logOut;
+@property (nonatomic, strong) UITapGestureRecognizer *logOutTap;
 @property (nonatomic, strong) UITapGestureRecognizer *transactionHistoryTap;
 
 @property (nonatomic, strong) NSMutableArray *allListings;
@@ -89,6 +91,13 @@
     [self.accountSettings setLeftLabel:@"⚙"];
     [self.accountSettings setRightLabel:@"Account Settings ➡️"];
     
+    self.logOut = [[ProfileTile alloc] init];
+    [self.view addSubview:self.logOut];
+    [self.logOut setLeftLabel:@"✌️"];
+    [self.logOut setRightLabelBold:@"Log Out ➡️"];
+    _logOutTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLogOut)];
+    [_logOut addGestureRecognizer:_logOutTap];
+    
     _allListings = [[NSMutableArray alloc] init];
 }
 
@@ -102,6 +111,7 @@
     self.manageKeys.frame = CGRectMake(self.view.frame.origin.x + 20.0, self.memberSince.frame.origin.y + self.memberSince.frame.size.height + 25.0, self.view.frame.size.width - 40.0, 60.0);
     self.transactionHistory.frame = CGRectMake(self.manageKeys.frame.origin.x, self.manageKeys.frame.origin.y + self.manageKeys.frame.size.height + 8.0, self.manageKeys.frame.size.width, self.manageKeys.frame.size.height);
     self.accountSettings.frame = CGRectMake(self.transactionHistory.frame.origin.x, self.transactionHistory.frame.origin.y + self.transactionHistory.frame.size.height + 8.0, self.transactionHistory.frame.size.width, self.transactionHistory.frame.size.height);
+    self.logOut.frame = CGRectMake(self.accountSettings.frame.origin.x, self.accountSettings.frame.origin.y + self.accountSettings.frame.size.height + 8.0, self.accountSettings.frame.size.width, self.accountSettings.frame.size.height);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,6 +128,30 @@
     self.navigationItem.backBarButtonItem = barButton;
     transactionsVC.navigationItem.title = @"Transaction History";
     [self.navigationController pushViewController:transactionsVC animated:YES];
+}
+
+- (void)tapLogOut {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Log out of Codeconomy?"
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* yesAction = [UIAlertAction actionWithTitle:@"Log Out"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * action) {
+                                                          [self logUserOut];
+                                                          // redirect to the login/signup page
+                                                      }];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:^(UIAlertAction * action) {}];
+    [alert addAction:yesAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)logUserOut {
+//    [PFUser logOut];
+//    self.user = [PFUser currentUser]; // this will now be nil
+
 }
 
 - (void)reloadUserData:(NSNotification *) notification {

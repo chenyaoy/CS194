@@ -43,6 +43,14 @@
     [self.right sizeToFit];
 }
 
+- (void)setRightLabelBold:(NSString *)label {
+    self.right.text = label;
+    [self.right setFont:[UIFont boldSystemFontOfSize:20.0f]];
+    self.right.numberOfLines = 0;
+    [self addSubview:self.right];
+    [self.right sizeToFit];
+}
+
 - (void) layoutSubviews {
     [super layoutSubviews];
     
