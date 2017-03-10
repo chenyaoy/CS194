@@ -7,7 +7,7 @@
 //
 
 #import "ProfileViewController.h"
-#import "ListingsViewController.h"
+#import "SettingsViewController.h"
 #import "TransactionsViewController.h"
 #import "ProfileTile.h"
 #import "Util.h"
@@ -21,6 +21,7 @@
 @property (nonatomic, strong) ProfileTile *accountSettings;
 @property (nonatomic, strong) ProfileTile *logOut;
 @property (nonatomic, strong) UITapGestureRecognizer *logOutTap;
+@property (nonatomic, strong) UITapGestureRecognizer *accountSettingsTap;
 @property (nonatomic, strong) UITapGestureRecognizer *transactionHistoryTap;
 
 @property (nonatomic, strong) NSMutableArray *allListings;
@@ -90,6 +91,8 @@
     [self.view addSubview:self.accountSettings];
     [self.accountSettings setLeftLabel:@"⚙"];
     [self.accountSettings setRightLabel:@"Account Settings ➡️"];
+    _accountSettingsTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAccountSettings)];
+    [_accountSettings addGestureRecognizer:_accountSettingsTap];
     
     self.logOut = [[ProfileTile alloc] init];
     [self.view addSubview:self.logOut];
@@ -120,6 +123,15 @@
 }
 
 #pragma mark - Listeners
+
+- (void)tapAccountSettings {
+    SettingsViewController *settingsVC = [[SettingsViewController alloc] initWithUser:self.user];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationItem.backBarButtonItem = barButton;
+    settingsVC.navigationItem.title = @"Account Settings";
+    [self.navigationController pushViewController:settingsVC animated:YES];
+}
 
 - (void)tapTransactionHistory {
     TransactionsViewController *transactionsVC = [[TransactionsViewController alloc] initWithUser:self.user];

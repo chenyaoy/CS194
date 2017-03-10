@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0DF8DBC382B3836BAF4358E5 /* libPods-CodeconomyUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C22C3B36B1CC2ABA2A8B31C /* libPods-CodeconomyUITests.a */; };
+		1AA0BD2F1E72847B00E962B6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA0BD2E1E72847B00E962B6 /* SettingsViewController.m */; };
 		1AA2DE191E6CE48600B3E82A /* TransactionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE181E6CE48600B3E82A /* TransactionsViewController.m */; };
 		1AA2DE1D1E6CE92400B3E82A /* TransactionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE1C1E6CE92400B3E82A /* TransactionsTableViewCell.m */; };
 		1AA2DE201E6CE96F00B3E82A /* TransactionsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE1F1E6CE96F00B3E82A /* TransactionsDetailViewController.m */; };
@@ -61,6 +62,8 @@
 
 /* Begin PBXFileReference section */
 		19D902E1EB4A817DD6278DF0 /* Pods-Codeconomy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Codeconomy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Codeconomy/Pods-Codeconomy.debug.xcconfig"; sourceTree = "<group>"; };
+		1AA0BD2D1E72847B00E962B6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		1AA0BD2E1E72847B00E962B6 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		1AA2DE171E6CE48600B3E82A /* TransactionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsViewController.h; sourceTree = "<group>"; };
 		1AA2DE181E6CE48600B3E82A /* TransactionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsViewController.m; sourceTree = "<group>"; };
 		1AA2DE1B1E6CE92400B3E82A /* TransactionsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsTableViewCell.h; sourceTree = "<group>"; };
@@ -160,6 +163,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AA0BD2C1E72843F00E962B6 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1AA0BD2D1E72847B00E962B6 /* SettingsViewController.h */,
+				1AA0BD2E1E72847B00E962B6 /* SettingsViewController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		1AA2DE1A1E6CE90700B3E82A /* Transactions */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +210,7 @@
 		3D5EB5051E50FE4400E67C91 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1AA0BD2C1E72843F00E962B6 /* Settings */,
 				1AA2DE1A1E6CE90700B3E82A /* Transactions */,
 				3D5EB5021E50FE3A00E67C91 /* ProfileViewController.h */,
 				3D5EB5031E50FE3A00E67C91 /* ProfileViewController.m */,
@@ -659,6 +672,7 @@
 				3D5EB5091E5105BB00E67C91 /* Util.m in Sources */,
 				1AA2DE201E6CE96F00B3E82A /* TransactionsDetailViewController.m in Sources */,
 				3D5EB50C1E51078B00E67C91 /* ProfileTile.m in Sources */,
+				1AA0BD2F1E72847B00E962B6 /* SettingsViewController.m in Sources */,
 				3D7A9B8A1E518B3100FD6812 /* ListingDetailView.m in Sources */,
 				3D7A9B841E51860000FD6812 /* ListingsDetailViewController.m in Sources */,
 				3D7A9B951E52D4E700FD6812 /* CategoryTileView.m in Sources */,
