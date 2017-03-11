@@ -14,6 +14,7 @@
 		1AA2DE231E6CEC1000B3E82A /* TransactionTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE221E6CEC1000B3E82A /* TransactionTileView.m */; };
 		1AA2DE281E6D40EF00B3E82A /* TransactionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE271E6D40EF00B3E82A /* TransactionTimeView.m */; };
 		1AA2DE2B1E6D473E00B3E82A /* TransactionCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE2A1E6D473E00B3E82A /* TransactionCodeView.m */; };
+		3D3C64E01E723CBC00B7EE87 /* TransactionSubmitReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C64DF1E723CBC00B7EE87 /* TransactionSubmitReviewView.m */; };
 		3D5EB5041E50FE3A00E67C91 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB5031E50FE3A00E67C91 /* ProfileViewController.m */; };
 		3D5EB5091E5105BB00E67C91 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB5081E5105BB00E67C91 /* Util.m */; };
 		3D5EB50C1E51078B00E67C91 /* ProfileTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB50B1E51078B00E67C91 /* ProfileTile.m */; };
@@ -74,6 +75,8 @@
 		1AA2DE291E6D473E00B3E82A /* TransactionCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCodeView.h; sourceTree = "<group>"; };
 		1AA2DE2A1E6D473E00B3E82A /* TransactionCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCodeView.m; sourceTree = "<group>"; };
 		3C22C3B36B1CC2ABA2A8B31C /* libPods-CodeconomyUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CodeconomyUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D3C64DE1E723CBC00B7EE87 /* TransactionSubmitReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionSubmitReviewView.h; sourceTree = "<group>"; };
+		3D3C64DF1E723CBC00B7EE87 /* TransactionSubmitReviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionSubmitReviewView.m; sourceTree = "<group>"; };
 		3D5EB5021E50FE3A00E67C91 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		3D5EB5031E50FE3A00E67C91 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		3D5EB5071E5105BB00E67C91 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 				1AA2DE271E6D40EF00B3E82A /* TransactionTimeView.m */,
 				1AA2DE291E6D473E00B3E82A /* TransactionCodeView.h */,
 				1AA2DE2A1E6D473E00B3E82A /* TransactionCodeView.m */,
+				3D3C64DE1E723CBC00B7EE87 /* TransactionSubmitReviewView.h */,
+				3D3C64DF1E723CBC00B7EE87 /* TransactionSubmitReviewView.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -682,6 +687,7 @@
 				3DE3CD2D1E47D8BB007EEC70 /* main.m in Sources */,
 				3D7A9B921E52D45A00FD6812 /* ExploreCollectionViewCell.m in Sources */,
 				1AA2DE191E6CE48600B3E82A /* TransactionsViewController.m in Sources */,
+				3D3C64E01E723CBC00B7EE87 /* TransactionSubmitReviewView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
