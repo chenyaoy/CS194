@@ -33,8 +33,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[[Util sharedManager] colorWithHexString:[Util getLightGrayColorHex]]];
-    
     _transactions = [[UITableView alloc] init];
     _transactions.delegate = self;
     _transactions.dataSource = self;
