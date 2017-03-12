@@ -32,8 +32,6 @@
     if (self) {
         self.backgroundColor = [[Util sharedManager] colorWithHexString:[Util getWhiteColorHex]];
         
-        
-        
         _leaveReview = [[UILabel alloc] init];
         _leaveReview.font = [UIFont systemFontOfSize:20.0f weight:UIFontWeightMedium];
         _leaveReview.text = @"Leave a Review!";

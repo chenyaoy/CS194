@@ -12,6 +12,7 @@
 #import "TransactionTimeView.h"
 #import "TransactionCodeView.h"
 #import "TransactionSubmitReviewView.h"
+#import "TransactionReviewView.h"
 #import "Util.h"
 #import "Coupon.h"
 
@@ -26,6 +27,7 @@
 @property (nonatomic, strong) TransactionTimeView *timeView;
 @property (nonatomic, strong) TransactionCodeView *codeView;
 @property (nonatomic, strong) TransactionSubmitReviewView *submitReviewView;
+@property (nonatomic, strong) TransactionReviewView *transactionReview;
 @property BOOL userBought;
 @end
 
@@ -57,6 +59,7 @@
             _codeView = [[TransactionCodeView alloc] initWithCode:transactionData.coupon.code];
         }
         _submitReviewView = [[TransactionSubmitReviewView alloc] init];
+        _transactionReview = [[TransactionReviewView alloc] initWithTransaction:_transactionData];
     }
     return self;
 }
@@ -74,9 +77,13 @@
     [self.scrollView addSubview:_timeView];
     if (_userBought) {
         [self.scrollView addSubview:_codeView];
-        if (_transactionData.reviewDescription == NULL) {
+        if (_transactionData.stars == 0) {
             [self.scrollView addSubview:_submitReviewView];
+        } else {
+            [self.scrollView addSubview:_transactionReview];
         }
+    } else if (_transactionData.stars != 0) {
+        [self.scrollView addSubview:_transactionReview];
     }
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.creditsLabel];
     self.navigationItem.rightBarButtonItem = item;
@@ -97,10 +104,16 @@
     if (self.userBought) {
         self.codeView.frame = CGRectMake(20.0, self.timeView.frame.origin.y + self.timeView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 50.0);
         self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.codeView.frame.origin.y + self.codeView.frame.size.height + 12.0);
-        if (self.transactionData.reviewDescription == NULL) {
+        if (self.transactionData.stars == 0) {
             self.submitReviewView.frame = CGRectMake(20.0, self.codeView.frame.origin.y + self.codeView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 269.0);
             self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.submitReviewView.frame.origin.y + self.submitReviewView.frame.size.height + 12.0);
+        } else {
+            self.transactionReview.frame = CGRectMake(20.0, self.codeView.frame.origin.y + self.codeView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 140.0);
+            self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.transactionReview.frame.origin.y + self.transactionReview.frame.size.height + 12.0);
         }
+    } else if (self.transactionData.stars != 0) {
+        self.transactionReview.frame = CGRectMake(20.0, self.timeView.frame.origin.y + self.timeView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 140.0);
+        self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.transactionReview.frame.origin.y + self.transactionReview.frame.size.height + 12.0);
     }
 }
 
