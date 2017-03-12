@@ -11,6 +11,8 @@
 
 @interface TransactionSubmitReviewView () <UITextViewDelegate>
 
+@property (nonatomic, strong) Transaction *transaction;
+
 @property (nonatomic, strong) UILabel *leaveReview;
 
 @property (nonatomic, strong) UIButton *checkMark;
@@ -27,9 +29,10 @@
 
 @implementation TransactionSubmitReviewView
 
-- (instancetype)init {
+- (instancetype)initWithTransaction:(Transaction *)transaction {
     self = [super init];
     if (self) {
+        _transaction = transaction;
         self.backgroundColor = [[Util sharedManager] colorWithHexString:[Util getWhiteColorHex]];
         
         _leaveReview = [[UILabel alloc] init];
@@ -128,7 +131,19 @@
 #pragma mark - Listeners
 
 - (void)tapSubmitReview:(UIButton *)sender {
-    
+    if(self.selectWork == self.xMark) {
+        self.transaction.stars = -1;
+    } else {
+        self.transaction.stars = 1;
+    }
+    self.transaction.reviewDescription = self.commentView.text;
+    [self.transaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            [self.delegate updateTransaction];
+        } else {
+            NSLog(@"fuck");
+        }
+    }];
 }
 
 - (void)tapWorks:(UIButton *)sender {

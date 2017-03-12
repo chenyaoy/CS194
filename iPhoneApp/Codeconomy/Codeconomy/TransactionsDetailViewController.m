@@ -16,7 +16,7 @@
 #import "Util.h"
 #import "Coupon.h"
 
-@interface TransactionsDetailViewController ()
+@interface TransactionsDetailViewController () <TransactionSubmitReviewViewDelegate>
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) Transaction *transactionData;
 @property (nonatomic, strong) Coupon *couponData;
@@ -58,7 +58,8 @@
         if (_userBought) {
             _codeView = [[TransactionCodeView alloc] initWithCode:transactionData.coupon.code];
         }
-        _submitReviewView = [[TransactionSubmitReviewView alloc] init];
+        _submitReviewView = [[TransactionSubmitReviewView alloc] initWithTransaction:_transactionData];
+        _submitReviewView.delegate = self;
         _transactionReview = [[TransactionReviewView alloc] initWithTransaction:_transactionData];
     }
     return self;
@@ -105,9 +106,13 @@
         self.codeView.frame = CGRectMake(20.0, self.timeView.frame.origin.y + self.timeView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 50.0);
         self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.codeView.frame.origin.y + self.codeView.frame.size.height + 12.0);
         if (self.transactionData.stars == 0) {
+            self.submitReviewView.hidden = NO;
+            self.transactionReview.hidden = YES;
             self.submitReviewView.frame = CGRectMake(20.0, self.codeView.frame.origin.y + self.codeView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 269.0);
             self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.submitReviewView.frame.origin.y + self.submitReviewView.frame.size.height + 12.0);
         } else {
+            self.submitReviewView.hidden = YES;
+            self.transactionReview.hidden = NO;
             self.transactionReview.frame = CGRectMake(20.0, self.codeView.frame.origin.y + self.codeView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 140.0);
             self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.transactionReview.frame.origin.y + self.transactionReview.frame.size.height + 12.0);
         }
@@ -117,8 +122,13 @@
     }
 }
 
-- (void)tapWriteReview:(UIButton *)sender {
-    
+#pragma mark - TransactionSubmitReviewView Delegate
+
+- (void)updateTransaction {
+    [self.transactionData fetch];
+    self.transactionReview = [[TransactionReviewView alloc] initWithTransaction:_transactionData];
+    [self.scrollView addSubview:self.transactionReview];
+    [self.view setNeedsLayout];
 }
 
 /*

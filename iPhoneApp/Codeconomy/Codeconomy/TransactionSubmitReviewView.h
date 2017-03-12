@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Transaction.h"
+
+@class TransactionSubmitReviewView;
+@protocol TransactionSubmitReviewViewDelegate <NSObject>
+- (void)updateTransaction;
+@end
 
 @interface TransactionSubmitReviewView : UIView
-
+@property id <TransactionSubmitReviewViewDelegate> delegate;
+- (instancetype)initWithTransaction:(Transaction *)transaction;
 @end

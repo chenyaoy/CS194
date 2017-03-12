@@ -33,7 +33,7 @@
         
         _workedText = [[UILabel alloc] init];
         if (transaction.stars == -1) {
-            NSMutableAttributedString *reviewString = [[NSMutableAttributedString alloc] initWithString:@"The code did not work. Comment:"];
+            NSMutableAttributedString *reviewString = [[NSMutableAttributedString alloc] initWithString:@"The code did not work.\nComment:"];
             NSRange selectedRange = NSMakeRange(9, 13);
             [reviewString beginEditing];
             [reviewString addAttribute:NSFontAttributeName
@@ -46,7 +46,7 @@
             _workedText.attributedText = reviewString;
             _workedText.numberOfLines = 0;
         } else {
-            NSMutableAttributedString *reviewString = [[NSMutableAttributedString alloc] initWithString:@"The code did work. Comment:"];
+            NSMutableAttributedString *reviewString = [[NSMutableAttributedString alloc] initWithString:@"The code did work.\nComment:"];
             NSRange selectedRange = NSMakeRange(9, 9);
             [reviewString beginEditing];
             [reviewString addAttribute:NSFontAttributeName
