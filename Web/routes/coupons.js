@@ -81,7 +81,7 @@ router.post('/postCoupon/submit', function(req, res) {
 router.post('/purchaseCoupon', function(req, res) {
     checkLogin(req, res).then(function(res) {
         var Coupon = Parse.Object.extend("Coupon");
-        var query = new Parse.Query(Coupon);
+        var query = new Parse.Query(Coupon).include("seller");
         query.get(req.body.id, {
             success: function(result) {
                 var seller = result.get("seller");
@@ -118,7 +118,7 @@ router.post('/purchaseCoupon', function(req, res) {
                                 console.log(error.message);
                             }
                         });
-                        res.redirect('/users/myCoupons/purchased');
+                        res.redirect('/coupons/coupon?id=' + result.id);
                     },
                     error: function(transaction, error) {
                         res.send("Transaction failed. Please try again. " + error.message)
@@ -141,18 +141,16 @@ router.get('/coupon', function(req, res) {
         var query = new Parse.Query(Coupon);
         query.get(req.query.id, {
             success: function(result) {
-                // var coupon = {};
-                // coupon.storeName = result.get('storeName');
-                // coupon.description = result.get('description');
-                // coupon.price = result.get('price');
-                // coupon.category = result.get('category');
-                // coupon.additionalInfo = result.get('additionalInfo');
-                // coupon.id = req.query.id;
-                // coupon.sellerId = result.get('sellerId');
-                // if(result.has('expirationDate')) {
-                //     coupon.expirationDate = result.get('expirationDate');
-                // }
-                res.render('pages/display_coupon', {user:res.locals.user, coupon:result});
+                var Transaction = Parse.Object.extend("Transaction");
+                var transactionQuery = new Parse.Query(Transaction);
+                transactionQuery.equalTo("coupon", result).include("buyer");
+                var isBuyer = false;
+                transactionQuery.first().then(function(transactionResult){
+                    if(transactionResult) {
+                        isBuyer = transactionResult.get("buyer").id == res.locals.user.id;
+                    }
+                    res.render('pages/display_coupon', {user:res.locals.user, coupon:result, isBuyer:isBuyer});
+                });
             },
             error: function(object, error) {
                 res.render('pages/error_try_again');
