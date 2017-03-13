@@ -10,6 +10,7 @@
 #import "ExploreViewController.h"
 #import "ProfileViewController.h"
 #import "ListingsViewController.h"
+#import "LoginSignupViewController.h"
 #import "User.h"
 #import "Coupon.h"
 #import "Transaction.h"
@@ -28,10 +29,10 @@
         configuration.clientKey = @"";
         configuration.server = @"http://codeconomy.herokuapp.com/parse";
     }]];
-    // [self addMockUser];
+    
     User *currentUser = [[[PFQuery queryWithClassName:@"_User"] whereKey:@"username" equalTo:@"garythung"] getFirstObject];
     [PFUser logInWithUsername:@"garythung" password:@"garythung"];
-//    [self addMockTransaction];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     UINavigationController *exploreViewController = [[UINavigationController alloc] initWithRootViewController:[[ExploreViewController alloc] initWithUser:currentUser]];
@@ -53,7 +54,9 @@
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     tabBarController.viewControllers = @[exploreViewController, couponsViewController, profileViewController];
     
-    self.window.rootViewController = tabBarController;
+    LoginSignupViewController *loginSignup = [[LoginSignupViewController alloc] init];
+    
+    self.window.rootViewController = loginSignup;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
