@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface KeysViewController : UIViewController
-
+- (instancetype)initWithUser:(User *)user;
 @end

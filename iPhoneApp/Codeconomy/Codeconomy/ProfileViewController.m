@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "KeysViewController.h"
 #import "SettingsViewController.h"
 #import "TransactionsViewController.h"
 #import "ProfileTile.h"
@@ -20,9 +21,10 @@
 @property (nonatomic, strong) ProfileTile *transactionHistory;
 @property (nonatomic, strong) ProfileTile *accountSettings;
 @property (nonatomic, strong) ProfileTile *logOut;
-@property (nonatomic, strong) UITapGestureRecognizer *logOutTap;
+@property (nonatomic, strong) UITapGestureRecognizer *manageKeysTap;
 @property (nonatomic, strong) UITapGestureRecognizer *accountSettingsTap;
 @property (nonatomic, strong) UITapGestureRecognizer *transactionHistoryTap;
+@property (nonatomic, strong) UITapGestureRecognizer *logOutTap;
 
 @property (nonatomic, strong) NSMutableArray *allListings;
 @end
@@ -79,12 +81,14 @@
     [self.view addSubview:self.manageKeys];
     [self.manageKeys setLeftLabel:[NSString stringWithFormat:@"%d 🔑", self.user.credits]];
     [self.manageKeys setRightLabel:@"Manage Keys ➡️"];
+    _manageKeysTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapManageKeys)];
+    [_manageKeys addGestureRecognizer:_manageKeysTap];
     
     self.transactionHistory = [[ProfileTile alloc] init];
     [self.view addSubview:self.transactionHistory];
     [self.transactionHistory setLeftLabel:@"📜"];
     [self.transactionHistory setRightLabel:@"Transaction History ➡️"];
-    _transactionHistoryTap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTransactionHistory)];
+    _transactionHistoryTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTransactionHistory)];
     [_transactionHistory addGestureRecognizer:_transactionHistoryTap];
     
     self.accountSettings = [[ProfileTile alloc] init];
@@ -123,6 +127,15 @@
 }
 
 #pragma mark - Listeners
+
+- (void)tapManageKeys {
+    KeysViewController *keysVC = [[KeysViewController alloc] initWithUser:self.user];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationItem.backBarButtonItem = barButton;
+    keysVC.navigationItem.title = @"Manage Keys";
+    [self.navigationController pushViewController:keysVC animated:YES];
+}
 
 - (void)tapAccountSettings {
     SettingsViewController *settingsVC = [[SettingsViewController alloc] initWithUser:self.user];

@@ -7,15 +7,26 @@
 //
 
 #import "KeysViewController.h"
+#import "Util.h"
 
 @interface KeysViewController ()
+@property (nonatomic, strong) User *user;
 
 @end
 
 @implementation KeysViewController
 
+- (instancetype)initWithUser:(User *)user {
+    self = [super init];
+    if (self) {
+        _user = user;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view setBackgroundColor:[[Util sharedManager] colorWithHexString:[Util getLightGrayColorHex]]];
     // Do any additional setup after loading the view.
 }
 
