@@ -7,9 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "ExploreViewController.h"
-#import "ProfileViewController.h"
-#import "ListingsViewController.h"
 #import "LoginSignupViewController.h"
 #import "User.h"
 #import "Coupon.h"
@@ -29,30 +26,8 @@
         configuration.clientKey = @"";
         configuration.server = @"http://codeconomy.herokuapp.com/parse";
     }]];
-    
-    User *currentUser = [[[PFQuery queryWithClassName:@"_User"] whereKey:@"username" equalTo:@"garythung"] getFirstObject];
-    [PFUser logInWithUsername:@"garythung" password:@"garythung"];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    UINavigationController *exploreViewController = [[UINavigationController alloc] initWithRootViewController:[[ExploreViewController alloc] initWithUser:currentUser]];
-    UINavigationController *couponsViewController = [[UINavigationController alloc] initWithRootViewController:[[ListingsViewController alloc] initWithUser:currentUser]];
-    UINavigationController *profileViewController = [[UINavigationController alloc] initWithRootViewController:[[ProfileViewController alloc] initWithUser:currentUser]];
-    
-    exploreViewController.navigationBar.topItem.title = @"Explore";
-    couponsViewController.navigationBar.topItem.title = @"My Listings";
-    profileViewController.navigationBar.topItem.title = @"Me";
-    
-    NSString *exploreEmoji = @"🏬";
-    NSString *couponsEmoji = @"🏷";
-    NSString *profileEmoji = @"🌚";
-    
-    exploreViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Explore" image:[self hg_imageFromString:exploreEmoji] tag:1];
-    couponsViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Coupons" image:[self hg_imageFromString:couponsEmoji] tag:2];
-    profileViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[self hg_imageFromString:profileEmoji] tag:3];
-    
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    tabBarController.viewControllers = @[exploreViewController, couponsViewController, profileViewController];
     
     LoginSignupViewController *loginSignup = [[LoginSignupViewController alloc] init];
     
@@ -83,26 +58,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-- (UIImage *) hg_imageFromView:(UIView *)view
-{
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return img;
-}
-
-- (UIImage *) hg_imageFromString:(NSString *)str
-{
-    UILabel *label = [[UILabel alloc] init];
-    label.text = str;
-    label.opaque = NO;
-    label.backgroundColor = UIColor.clearColor;
-    CGSize measuredSize = [str sizeWithAttributes:@{NSFontAttributeName: label.font}];
-    label.frame = CGRectMake(0, 0, measuredSize.width, measuredSize.height);
-    return [self hg_imageFromView:label];
 }
 
 - (void) addMockUser {

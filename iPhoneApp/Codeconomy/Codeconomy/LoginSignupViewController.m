@@ -7,6 +7,9 @@
 //
 
 #import "LoginSignupViewController.h"
+#import "ExploreViewController.h"
+#import "ProfileViewController.h"
+#import "ListingsViewController.h"
 #import "Util.h"
 #import "User.h"
 #import <Parse/Parse.h>
@@ -159,7 +162,57 @@
 }
 
 - (void)tapGo:(UIButton *)sender {
+    if (self.currentButton == self.signUp) {
+        
+    } else {
+        [PFUser logInWithUsernameInBackground:self.username.text password:self.password.text block:^(PFUser * _Nullable user, NSError * _Nullable error) {
+            if (!error) {
+                [self loginUser:(User *)user];
+            }
+        }];
+    }
+}
+
+- (void)loginUser:(User *)currentUser {
+    UINavigationController *exploreViewController = [[UINavigationController alloc] initWithRootViewController:[[ExploreViewController alloc] initWithUser:currentUser]];
+    UINavigationController *couponsViewController = [[UINavigationController alloc] initWithRootViewController:[[ListingsViewController alloc] initWithUser:currentUser]];
+    UINavigationController *profileViewController = [[UINavigationController alloc] initWithRootViewController:[[ProfileViewController alloc] initWithUser:currentUser]];
     
+    exploreViewController.navigationBar.topItem.title = @"Explore";
+    couponsViewController.navigationBar.topItem.title = @"My Listings";
+    profileViewController.navigationBar.topItem.title = @"Me";
+    
+    NSString *exploreEmoji = @"🏬";
+    NSString *couponsEmoji = @"🏷";
+    NSString *profileEmoji = @"🌚";
+    
+    exploreViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Explore" image:[self hg_imageFromString:exploreEmoji] tag:1];
+    couponsViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Coupons" image:[self hg_imageFromString:couponsEmoji] tag:2];
+    profileViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[self hg_imageFromString:profileEmoji] tag:3];
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    tabBarController.viewControllers = @[exploreViewController, couponsViewController, profileViewController];
+    [self presentViewController:tabBarController animated:NO completion:nil];
+}
+
+- (UIImage *) hg_imageFromView:(UIView *)view
+{
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
+}
+
+- (UIImage *) hg_imageFromString:(NSString *)str
+{
+    UILabel *label = [[UILabel alloc] init];
+    label.text = str;
+    label.opaque = NO;
+    label.backgroundColor = UIColor.clearColor;
+    CGSize measuredSize = [str sizeWithAttributes:@{NSFontAttributeName: label.font}];
+    label.frame = CGRectMake(0, 0, measuredSize.width, measuredSize.height);
+    return [self hg_imageFromView:label];
 }
 
 /*
