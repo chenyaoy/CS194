@@ -16,6 +16,9 @@
 		1AA2DE281E6D40EF00B3E82A /* TransactionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE271E6D40EF00B3E82A /* TransactionTimeView.m */; };
 		1AA2DE2B1E6D473E00B3E82A /* TransactionCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE2A1E6D473E00B3E82A /* TransactionCodeView.m */; };
 		1AAE6F8A1E77484B0095FBDC /* KeysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAE6F881E77484B0095FBDC /* KeysViewController.m */; };
+		1AB3F6211E79E0BB00CAB8E8 /* KeysOwnedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB3F6201E79E0BB00CAB8E8 /* KeysOwnedView.m */; };
+		1AB3F6241E79E0D000CAB8E8 /* KeysBuyingOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB3F6231E79E0D000CAB8E8 /* KeysBuyingOptionsView.m */; };
+		1AB3F6271E79E0E200CAB8E8 /* KeysCardEntryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB3F6261E79E0E200CAB8E8 /* KeysCardEntryView.m */; };
 		3D3C64E01E723CBC00B7EE87 /* TransactionSubmitReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C64DF1E723CBC00B7EE87 /* TransactionSubmitReviewView.m */; };
 		3D3DEDBB1E7615F000F2600F /* LoginSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3DEDBA1E7615F000F2600F /* LoginSignupViewController.m */; };
 		3D5DD7A21E74C16500483715 /* TransactionReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5DD7A11E74C16500483715 /* TransactionReviewView.m */; };
@@ -82,6 +85,12 @@
 		1AA2DE2A1E6D473E00B3E82A /* TransactionCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCodeView.m; sourceTree = "<group>"; };
 		1AAE6F881E77484B0095FBDC /* KeysViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeysViewController.m; sourceTree = "<group>"; };
 		1AAE6F891E77484B0095FBDC /* KeysViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysViewController.h; sourceTree = "<group>"; };
+		1AB3F61F1E79E0BB00CAB8E8 /* KeysOwnedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysOwnedView.h; sourceTree = "<group>"; };
+		1AB3F6201E79E0BB00CAB8E8 /* KeysOwnedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeysOwnedView.m; sourceTree = "<group>"; };
+		1AB3F6221E79E0D000CAB8E8 /* KeysBuyingOptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysBuyingOptionsView.h; sourceTree = "<group>"; };
+		1AB3F6231E79E0D000CAB8E8 /* KeysBuyingOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeysBuyingOptionsView.m; sourceTree = "<group>"; };
+		1AB3F6251E79E0E200CAB8E8 /* KeysCardEntryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysCardEntryView.h; sourceTree = "<group>"; };
+		1AB3F6261E79E0E200CAB8E8 /* KeysCardEntryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeysCardEntryView.m; sourceTree = "<group>"; };
 		3C22C3B36B1CC2ABA2A8B31C /* libPods-CodeconomyUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CodeconomyUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3C64DE1E723CBC00B7EE87 /* TransactionSubmitReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionSubmitReviewView.h; sourceTree = "<group>"; };
 		3D3C64DF1E723CBC00B7EE87 /* TransactionSubmitReviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionSubmitReviewView.m; sourceTree = "<group>"; };
@@ -226,8 +235,14 @@
 		1AAE6F871E77483D0095FBDC /* Keys */ = {
 			isa = PBXGroup;
 			children = (
-				1AAE6F881E77484B0095FBDC /* KeysViewController.m */,
 				1AAE6F891E77484B0095FBDC /* KeysViewController.h */,
+				1AAE6F881E77484B0095FBDC /* KeysViewController.m */,
+				1AB3F61F1E79E0BB00CAB8E8 /* KeysOwnedView.h */,
+				1AB3F6201E79E0BB00CAB8E8 /* KeysOwnedView.m */,
+				1AB3F6221E79E0D000CAB8E8 /* KeysBuyingOptionsView.h */,
+				1AB3F6231E79E0D000CAB8E8 /* KeysBuyingOptionsView.m */,
+				1AB3F6251E79E0E200CAB8E8 /* KeysCardEntryView.h */,
+				1AB3F6261E79E0E200CAB8E8 /* KeysCardEntryView.m */,
 			);
 			name = Keys;
 			sourceTree = "<group>";
@@ -711,6 +726,7 @@
 				1AA0BD2F1E72847B00E962B6 /* SettingsViewController.m in Sources */,
 				3D7A9B8A1E518B3100FD6812 /* ListingDetailView.m in Sources */,
 				3D7A9B841E51860000FD6812 /* ListingsDetailViewController.m in Sources */,
+				1AB3F6211E79E0BB00CAB8E8 /* KeysOwnedView.m in Sources */,
 				3D7A9B951E52D4E700FD6812 /* CategoryTileView.m in Sources */,
 				3D94BE761E62D6A700C049C1 /* Transaction.m in Sources */,
 				1AA2DE231E6CEC1000B3E82A /* TransactionTileView.m in Sources */,
@@ -719,6 +735,7 @@
 				3D94BE7C1E62D9A000C049C1 /* User.m in Sources */,
 				3D7A9B871E518B0500FD6812 /* ListingHeaderView.m in Sources */,
 				1AA2DE1D1E6CE92400B3E82A /* TransactionsTableViewCell.m in Sources */,
+				1AB3F6241E79E0D000CAB8E8 /* KeysBuyingOptionsView.m in Sources */,
 				3D94BE791E62D77100C049C1 /* Filter.m in Sources */,
 				1AA2DE281E6D40EF00B3E82A /* TransactionTimeView.m in Sources */,
 				3D7A9B981E55664100FD6812 /* NewListingViewController.m in Sources */,
@@ -726,6 +743,7 @@
 				3D3DEDBB1E7615F000F2600F /* LoginSignupViewController.m in Sources */,
 				3DE3CD331E47D8BB007EEC70 /* ExploreViewController.m in Sources */,
 				3D5EB5171E51306800E67C91 /* CodeconomyTileView.m in Sources */,
+				1AB3F6271E79E0E200CAB8E8 /* KeysCardEntryView.m in Sources */,
 				3D5DD7A21E74C16500483715 /* TransactionReviewView.m in Sources */,
 				3DE3CD301E47D8BB007EEC70 /* AppDelegate.m in Sources */,
 				3D5EB5041E50FE3A00E67C91 /* ProfileViewController.m in Sources */,
