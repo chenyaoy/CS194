@@ -161,9 +161,13 @@
 }
 
 - (void)logUserOut {
-//    [PFUser logOut];
-//    self.user = [PFUser currentUser]; // this will now be nil
-
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        if (!error) {
+            [self.tabBarController dismissViewControllerAnimated:NO completion:nil];
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
 }
 
 - (void)reloadUserData:(NSNotification *) notification {

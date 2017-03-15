@@ -163,14 +163,31 @@
 
 - (void)tapGo:(UIButton *)sender {
     if (self.currentButton == self.signUp) {
-        
+        User *user = [User user];
+        user.username = self.username.text;
+        user.password = self.password.text;
+        user.displayName = self.displayName.text;
+        user.credits = 50;
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (!error) {
+                [self loginUser:user];
+            } else {
+                NSLog(@"%@", error);
+            }
+        }];
     } else {
         [PFUser logInWithUsernameInBackground:self.username.text password:self.password.text block:^(PFUser * _Nullable user, NSError * _Nullable error) {
             if (!error) {
                 [self loginUser:(User *)user];
+            } else {
+                NSLog(@"%@", error);
             }
         }];
     }
+}
+
+- (void)signUpUser {
+    
 }
 
 - (void)loginUser:(User *)currentUser {
