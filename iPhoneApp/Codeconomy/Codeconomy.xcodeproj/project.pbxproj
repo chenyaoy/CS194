@@ -15,6 +15,7 @@
 		1AA2DE231E6CEC1000B3E82A /* TransactionTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE221E6CEC1000B3E82A /* TransactionTileView.m */; };
 		1AA2DE281E6D40EF00B3E82A /* TransactionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE271E6D40EF00B3E82A /* TransactionTimeView.m */; };
 		1AA2DE2B1E6D473E00B3E82A /* TransactionCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2DE2A1E6D473E00B3E82A /* TransactionCodeView.m */; };
+		1AAE6F8A1E77484B0095FBDC /* KeysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAE6F881E77484B0095FBDC /* KeysViewController.m */; };
 		3D3C64E01E723CBC00B7EE87 /* TransactionSubmitReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3C64DF1E723CBC00B7EE87 /* TransactionSubmitReviewView.m */; };
 		3D3DEDBB1E7615F000F2600F /* LoginSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3DEDBA1E7615F000F2600F /* LoginSignupViewController.m */; };
 		3D5DD7A21E74C16500483715 /* TransactionReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5DD7A11E74C16500483715 /* TransactionReviewView.m */; };
@@ -79,6 +80,8 @@
 		1AA2DE271E6D40EF00B3E82A /* TransactionTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTimeView.m; sourceTree = "<group>"; };
 		1AA2DE291E6D473E00B3E82A /* TransactionCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCodeView.h; sourceTree = "<group>"; };
 		1AA2DE2A1E6D473E00B3E82A /* TransactionCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCodeView.m; sourceTree = "<group>"; };
+		1AAE6F881E77484B0095FBDC /* KeysViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeysViewController.m; sourceTree = "<group>"; };
+		1AAE6F891E77484B0095FBDC /* KeysViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysViewController.h; sourceTree = "<group>"; };
 		3C22C3B36B1CC2ABA2A8B31C /* libPods-CodeconomyUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CodeconomyUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3C64DE1E723CBC00B7EE87 /* TransactionSubmitReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionSubmitReviewView.h; sourceTree = "<group>"; };
 		3D3C64DF1E723CBC00B7EE87 /* TransactionSubmitReviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionSubmitReviewView.m; sourceTree = "<group>"; };
@@ -220,6 +223,15 @@
 			name = Detail;
 			sourceTree = "<group>";
 		};
+		1AAE6F871E77483D0095FBDC /* Keys */ = {
+			isa = PBXGroup;
+			children = (
+				1AAE6F881E77484B0095FBDC /* KeysViewController.m */,
+				1AAE6F891E77484B0095FBDC /* KeysViewController.h */,
+			);
+			name = Keys;
+			sourceTree = "<group>";
+		};
 		3D3DEDBC1E7615F800F2600F /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +244,7 @@
 		3D5EB5051E50FE4400E67C91 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1AAE6F871E77483D0095FBDC /* Keys */,
 				1AA0BD2C1E72843F00E962B6 /* Settings */,
 				1AA2DE1A1E6CE90700B3E82A /* Transactions */,
 				3D5EB5021E50FE3A00E67C91 /* ProfileViewController.h */,
@@ -716,6 +729,7 @@
 				3D5DD7A21E74C16500483715 /* TransactionReviewView.m in Sources */,
 				3DE3CD301E47D8BB007EEC70 /* AppDelegate.m in Sources */,
 				3D5EB5041E50FE3A00E67C91 /* ProfileViewController.m in Sources */,
+				1AAE6F8A1E77484B0095FBDC /* KeysViewController.m in Sources */,
 				3D7A9B811E516CD200FD6812 /* ListingsTableViewCell.m in Sources */,
 				3D94BE701E62CC3000C049C1 /* Coupon.m in Sources */,
 				3DE3CD2D1E47D8BB007EEC70 /* main.m in Sources */,
