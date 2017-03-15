@@ -28,6 +28,8 @@
 @property (nonatomic, strong) UITextField *displayName;
 @property (nonatomic, strong) UIButton *go;
 
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+
 @end
 
 @implementation LoginSignupViewController
@@ -103,6 +105,9 @@
         _go.layer.cornerRadius = 10;
         _go.layer.masksToBounds = YES;
         _go.backgroundColor = [[Util sharedManager] colorWithHexString:@"9FCBFE"];
+        
+        _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _activityIndicator.hidden = YES;
     }
     return self;
 }
@@ -118,6 +123,7 @@
     [self.view addSubview:self.password];
     [self.view addSubview:self.displayName];
     [self.view addSubview:self.go];
+    [self.view addSubview:self.activityIndicator];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -139,6 +145,7 @@
         self.displayName.hidden = YES;
         self.go.frame = CGRectMake(self.view.frame.size.width - 110.0, self.password.frame.origin.y + self.password.frame.size.height + 8.0, 90.0, 40.0);
     }
+    self.activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.go.frame.origin.y + self.go.frame.size.height + 8.0 + self.activityIndicator.frame.size.height);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -168,9 +175,14 @@
         user.password = self.password.text;
         user.displayName = self.displayName.text;
         user.credits = 50;
+        self.activityIndicator.hidden = NO;
+        [self.activityIndicator startAnimating];
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            [self.activityIndicator stopAnimating];
+            self.activityIndicator.hidden = YES;
             if (!error) {
                 [self loginUser:user];
+                [self clearFields];
             } else {
                 NSLog(@"%@", error);
             }
@@ -184,10 +196,6 @@
             }
         }];
     }
-}
-
-- (void)signUpUser {
-    
 }
 
 - (void)loginUser:(User *)currentUser {
@@ -210,6 +218,12 @@
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     tabBarController.viewControllers = @[exploreViewController, couponsViewController, profileViewController];
     [self presentViewController:tabBarController animated:NO completion:nil];
+}
+
+- (void)clearFields {
+    self.username.text = @"";
+    self.password.text = @"";
+    self.displayName.text = @"";
 }
 
 - (UIImage *) hg_imageFromView:(UIView *)view
