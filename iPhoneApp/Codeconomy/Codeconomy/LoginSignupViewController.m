@@ -206,7 +206,7 @@
     
     exploreViewController.navigationBar.topItem.title = @"Explore";
     couponsViewController.navigationBar.topItem.title = @"My Listings";
-    profileViewController.navigationBar.topItem.title = @"Me";
+    profileViewController.navigationBar.topItem.title = currentUser.username;
     
     NSString *exploreEmoji = @"🏬";
     NSString *couponsEmoji = @"🏷";
