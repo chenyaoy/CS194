@@ -8,8 +8,9 @@
 
 #import "KeysBuyingOptionsView.h"
 #import "Util.h"
+#import "User.h"
 
-@interface KeysBuyingOptionsView ()
+@interface KeysBuyingOptionsView () <UITextFieldDelegate>
 @property (nonatomic, strong) UILabel *title;
 @property (nonatomic, strong) UILabel *tenKeysQuantity;
 @property (nonatomic, strong) UILabel *fiftyKeysQuantity;
@@ -27,6 +28,9 @@
 @property (nonatomic, strong) UITextField *expirationDateField;
 @property (nonatomic, strong) UITextField *securityCodeField;
 @property (nonatomic, strong) UITextField *zipCodeField;
+
+@property (nonatomic, strong) UIButton *buy;
+
 @end
 
 @implementation KeysBuyingOptionsView
@@ -159,6 +163,15 @@
         _zipCodeField.layer.sublayerTransform = CATransform3DMakeTranslation(12.0, 0, 0);
         [self addSubview:_zipCodeField];
         
+        _buy = [[UIButton alloc] init];
+        [_buy addTarget:self action:@selector(tapBuy:) forControlEvents:UIControlEventTouchUpInside];
+        [_buy setTitle: @"Buy" forState: UIControlStateNormal];
+        _buy.titleLabel.font = [UIFont systemFontOfSize:24.0 weight:UIFontWeightRegular];
+        _buy.backgroundColor = [[Util sharedManager] colorWithHexString:[Util getBlueColorHex]];
+        _buy.layer.cornerRadius = 10;
+        _buy.layer.masksToBounds = YES;
+        [self addSubview:_buy];
+        
         self.layer.cornerRadius = 10;
         self.layer.masksToBounds = YES;
     }
@@ -182,6 +195,8 @@
     [self.expirationDateLabel sizeToFit];
     [self.securityCodeLabel sizeToFit];
     [self.zipCodeLabel sizeToFit];
+    
+    [self.buy sizeToFit];
     self.title.frame = CGRectMake((self.frame.size.width - self.title.frame.size.width) / 2.0,
                                  12.0,
                                  self.title.frame.size.width,
@@ -277,8 +292,18 @@
                                             self.zipCodeField.frame.origin.y + (self.zipCodeField.frame.size.height - self.zipCodeLabel.frame.size.height) / 2,
                                             self.zipCodeLabel.frame.size.width,
                                             textSize.height);
+    
+    self.buy.frame = CGRectMake(20.0,
+                                self.zipCodeField.frame.origin.y + self.zipCodeField.frame.size.height + 15.0,
+                                self.frame.size.width - 40.0,
+                                40.0);
 }
 
+#pragma mark - UITextFieldDelegate
+
+- (bool)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return true;
+}
 
 #pragma mark - Listeners
 
@@ -311,7 +336,27 @@
 }
 
 - (void)tapBuy:(UIButton *)sender {
+    int keyQuantity = 0;
+    if (self.selectedKeys == self.buyTenKeys) {
+        keyQuantity = 10;
+    } else if (self.selectedKeys == self.buyTenKeys) {
+        keyQuantity = 50;
+    } else if (self.selectedKeys == self.buyTenKeys) {
+        keyQuantity = 100;
+    } else {
+        // alert user that nothing was selected
+        // return
+    }
     
+    User *user = [User currentUser];
+    user.credits += keyQuantity;
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (!error) {
+            // reset screen
+        } else {
+            // alert error
+        }
+    }];
 }
 
 /*

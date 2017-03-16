@@ -16,7 +16,6 @@
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) KeysOwnedView *ownedView;
 @property (nonatomic, strong) KeysBuyingOptionsView *buyingOptionsView;
-@property (nonatomic, strong) UIButton *buy;
 @end
 
 @implementation KeysViewController
@@ -28,7 +27,6 @@
         
         _ownedView = [[KeysOwnedView alloc] initWithCredits:user.credits];
         _buyingOptionsView = [[KeysBuyingOptionsView alloc] init];
-        _buy = [[UIButton alloc] init];
     }
     return self;
 }
@@ -39,10 +37,6 @@
     
     [self.view addSubview:_ownedView];
     [self.view addSubview:_buyingOptionsView];
-    
-    _buy.titleLabel.font = [UIFont systemFontOfSize:30.0f weight:UIFontWeightMedium];
-    _buy.layer.cornerRadius = 10;
-    _buy.layer.masksToBounds = YES;
     // Do any additional setup after loading the view.
 }
 
@@ -59,7 +53,7 @@
     self.buyingOptionsView.frame = CGRectMake(20.0,
                                       self.ownedView.frame.origin.y + self.ownedView.frame.size.height + 8.0,
                                       self.view.frame.size.width - 40.0,
-                                      404.0);
+                                      442.0);
 }
 
 /*
