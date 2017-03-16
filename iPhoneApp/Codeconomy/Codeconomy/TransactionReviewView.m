@@ -73,9 +73,11 @@
     [self.review sizeToFit];
     [self.extraComment sizeToFit];
     self.review.frame = CGRectMake(self.frame.size.width / 2.0 - self.review.frame.size.width / 2.0, 12.0, self.review.frame.size.width, self.review.frame.size.height);
-    CGSize textSize = [self.workedText.text sizeWithFont:self.workedText.font
-                                      constrainedToSize:CGSizeMake(self.workedText.frame.size.width, MAXFLOAT)
-                                          lineBreakMode:self.workedText.lineBreakMode];
+    CGSize textSize = [self.workedText.text boundingRectWithSize:CGSizeMake(self.workedText.frame.size.width, MAXFLOAT)
+                                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                                           attributes:@{NSFontAttributeName:self.workedText.font}
+                                                              context:nil].size;
+
     self.workedText.frame = CGRectMake(20.0, self.review.frame.origin.y + self.review.frame.size.height + 12.0, self.frame.size.width - 40.0, textSize.height);
     self.extraComment.frame = CGRectMake(36.0, self.workedText.frame.origin.y + self.workedText.frame.size.height + 8.0, self.extraComment.frame.size.width, self.extraComment.frame.size.height);
 }

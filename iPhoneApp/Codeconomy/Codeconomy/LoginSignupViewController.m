@@ -129,9 +129,10 @@
 - (void)viewWillLayoutSubviews {
     [self.codeconomy sizeToFit];
     self.codeconomy.frame = CGRectMake(self.view.frame.size.width / 2.0 - self.codeconomy.frame.size.width / 2.0, [UIApplication sharedApplication].statusBarFrame.size.height + 12.0, self.codeconomy.frame.size.width, self.codeconomy.frame.size.height);
-    CGSize textSize = [self.codeconomyDescription.text sizeWithFont:self.codeconomyDescription.font
-                                      constrainedToSize:CGSizeMake(self.codeconomyDescription.frame.size.width, MAXFLOAT)
-                                          lineBreakMode:self.codeconomyDescription.lineBreakMode];
+    CGSize textSize = [self.codeconomyDescription.text boundingRectWithSize:CGSizeMake(self.codeconomyDescription.frame.size.width, MAXFLOAT)
+                                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                                           attributes:@{NSFontAttributeName:self.codeconomyDescription.font}
+                                                              context:nil].size;
     self.codeconomyDescription.frame = CGRectMake(self.view.frame.size.width / 2.0 - self.codeconomyDescription.frame.size.width / 2.0, self.codeconomy.frame.origin.y + self.codeconomy.frame.size.height + 20.0, self.view.frame.size.width - 40.0, textSize.height);
     self.signUp.frame = CGRectMake(20.0, self.codeconomyDescription.frame.origin.y + self.codeconomyDescription.frame.size.height + 50.0, 163.0, 60.0);
     self.login.frame = CGRectMake(self.view.frame.size.width - 20.0 - 163.0, self.signUp.frame.origin.y, 163.0, 60.0);

@@ -266,14 +266,16 @@
     self.xButton.frame = CGRectMake(20.0, 44.0 - self.xButton.frame.size.height / 2.0, self.xButton.frame.size.width, self.xButton.frame.size.height);
     self.listingTitle.frame = CGRectMake(self.view.frame.size.width / 2.0 - self.listingTitle.frame.size.width / 2.0, 44.0 - self.listingTitle.frame.size.height / 2.0, self.listingTitle.frame.size.width, self.listingTitle.frame.size.height);
     self.scrollView.frame = CGRectMake(0.0, self.listingTitle.frame.origin.y + self.listingTitle.frame.size.height + 30.0, self.view.frame.size.width, self.view.frame.size.height - (self.listingTitle.frame.origin.y + self.listingTitle.frame.size.height + 30.0));
-    CGSize textSize = [self.whatStore.text sizeWithFont:self.whatStore.font
-                                              constrainedToSize:CGSizeMake(self.whatStore.frame.size.width, MAXFLOAT)
-                                                  lineBreakMode:self.whatStore.lineBreakMode];
+    CGSize textSize = [self.whatStore.text boundingRectWithSize:CGSizeMake(self.whatStore.frame.size.width, MAXFLOAT)
+                                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                                           attributes:@{NSFontAttributeName:self.whatStore.font}
+                                                              context:nil].size;
     self.whatStore.frame = CGRectMake(20.0, 0.0, self.view.frame.size.width - 40.0, textSize.height);
     self.storeField.frame = CGRectMake(20, self.whatStore.frame.origin.y + self.whatStore.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 40.0);
-    textSize = [self.shortTitle.text sizeWithFont:self.shortTitle.font
-                               constrainedToSize:CGSizeMake(self.shortTitle.frame.size.width, MAXFLOAT)
-                                   lineBreakMode:self.shortTitle.lineBreakMode];
+    textSize = [self.shortTitle.text boundingRectWithSize:CGSizeMake(self.shortTitle.frame.size.width, MAXFLOAT)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                              attributes:@{NSFontAttributeName:self.shortTitle.font}
+                                                 context:nil].size;
     self.shortTitle.frame = CGRectMake(20.0, self.storeField.frame.origin.y + self.storeField.frame.size.height + 12.0, self.view.frame.size.width - 40.0, textSize.height);
     self.shortTitleField.frame = CGRectMake(20.0, self.shortTitle.frame.origin.y + self.shortTitle.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 40.0);
     self.doesItExpire.frame = CGRectMake(20.0, self.shortTitleField.frame.origin.y + self.shortTitleField.frame.size.height + 16.0, self.doesItExpire.frame.size.width, self.doesItExpire.frame.size.height);
