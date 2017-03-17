@@ -64,7 +64,7 @@
     [_scrollView addSubview:_displayNameField];
     
     _username = [[UILabel alloc] init];
-    _username.text = @"👤";
+    _username.text = @"🆔";
     _username.numberOfLines = 1;
     _username.font = [UIFont systemFontOfSize:24.0f];
     [_scrollView addSubview:_username];
@@ -125,7 +125,8 @@
     _savePassword.layer.masksToBounds = YES;
     [_savePassword addTarget:self action:@selector(tapSavePassword:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:_savePassword];
-
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -142,7 +143,7 @@
     self.displayNameField.frame = CGRectMake(20.0 + self.displayName.frame.size.width + 12.0,
                                              15.0,
                                              self.view.frame.size.width - 20.0 - self.displayName.frame.size.width - 12.0 - self.displayName.frame.origin.x,
-                                             40.0);
+                                             35.0);
     self.displayName.frame = CGRectMake(20.0,
                                         self.displayNameField.frame.origin.y + (self.displayNameField.frame.size.height - self.displayName.frame.size.height) / 2,
                                         self.displayName.frame.size.width,
@@ -155,7 +156,7 @@
     self.usernameField.frame = CGRectMake(self.displayNameField.frame.origin.x,
                                           self.displayNameField.frame.origin.y + self.displayNameField.frame.size.height + 8.0,
                                           self.view.frame.size.width - 20.0 - self.username.frame.size.width - 12.0 - self.username.frame.origin.x,
-                                          40.0);
+                                          35.0);
     self.username.frame = CGRectMake(20.0,
                                      self.usernameField.frame.origin.y + (self.usernameField.frame.size.height - self.username.frame.size.height) / 2,
                                      self.username.frame.size.width,
@@ -172,7 +173,7 @@
     self.currentPasswordField.frame = CGRectMake(self.currentPassword.frame.origin.x + self.currentPassword.frame.size.width + 12.0,
                                                  self.saveProfile.frame.origin.y + self.saveProfile.frame.size.height + 20.0,
                                                  self.view.frame.size.width - 20.0 - self.currentPassword.frame.size.width - 12.0 - self.currentPassword.frame.origin.x,
-                                                 40.0);
+                                                 35.0);
     self.currentPassword.frame = CGRectMake(20.0,
                                      self.currentPasswordField.frame.origin.y + (self.currentPasswordField.frame.size.height - self.currentPassword.frame.size.height) / 2,
                                      self.currentPassword.frame.size.width,
@@ -184,7 +185,7 @@
     self.updatePasswordField.frame = CGRectMake(self.updatePassword.frame.origin.x + self.updatePassword.frame.size.width + 12.0,
                                                 self.currentPasswordField.frame.origin.y + self.currentPasswordField.frame.size.height + 8.0,
                                                 self.view.frame.size.width - 20.0 - self.updatePassword.frame.size.width - 12.0 - self.updatePassword.frame.origin.x,
-                                                40.0);
+                                                35.0);
     self.updatePassword.frame = CGRectMake(20.0,
                                      self.updatePasswordField.frame.origin.y + (self.updatePasswordField.frame.size.height - self.currentPassword.frame.size.height) / 2,
                                      self.updatePassword.frame.size.width,
@@ -257,6 +258,12 @@
     }
 }
 
+#pragma mark - Keyboard
+
+-(void)dismissKeyboard
+{
+    [self.view endEditing:YES];
+}
 
 /*
 #pragma mark - Navigation

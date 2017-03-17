@@ -250,9 +250,9 @@
                                                        options:NSStringDrawingUsesLineFragmentOrigin
                                                     attributes:@{NSFontAttributeName:self.expirationDateLabel.font}
                                                        context:nil].size;
-    self.expirationDateField.frame = CGRectMake(self.frame.size.width - 20.0 - 98.0,
+    self.expirationDateField.frame = CGRectMake(self.frame.size.width - 20.0 - 83.0,
                                             self.cardNumberField.frame.origin.y + self.cardNumberField.frame.size.height + 8.0,
-                                            98.0,
+                                            83.0,
                                             35.0);
     self.expirationDateLabel.frame = CGRectMake(20.0,
                                             self.expirationDateField.frame.origin.y + (self.expirationDateField.frame.size.height - self.expirationDateLabel.frame.size.height) / 2,

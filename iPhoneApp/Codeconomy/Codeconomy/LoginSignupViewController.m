@@ -113,8 +113,23 @@
         
         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         _activityIndicator.hidden = YES;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+        [self.view addGestureRecognizer:tap];
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewDidLoad {
@@ -141,11 +156,11 @@
     self.codeconomyDescription.frame = CGRectMake(self.view.frame.size.width / 2.0 - self.codeconomyDescription.frame.size.width / 2.0, self.codeconomy.frame.origin.y + self.codeconomy.frame.size.height + 20.0, self.view.frame.size.width - 40.0, textSize.height);
     self.signUp.frame = CGRectMake(20.0, self.codeconomyDescription.frame.origin.y + self.codeconomyDescription.frame.size.height + 50.0, 163.0, 60.0);
     self.login.frame = CGRectMake(self.view.frame.size.width - 20.0 - 163.0, self.signUp.frame.origin.y, 163.0, 60.0);
-    self.username.frame = CGRectMake(20.0, self.signUp.frame.origin.y + self.signUp.frame.size.height + 20.0, self.view.frame.size.width - 40.0, 40.0);
-    self.password.frame = CGRectMake(20.0, self.username.frame.origin.y + self.username.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 40.0);
+    self.username.frame = CGRectMake(20.0, self.signUp.frame.origin.y + self.signUp.frame.size.height + 20.0, self.view.frame.size.width - 40.0, 35.0);
+    self.password.frame = CGRectMake(20.0, self.username.frame.origin.y + self.username.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 35.0);
     if (self.currentButton == self.signUp) {
         self.displayName.hidden = NO;
-        self.displayName.frame = CGRectMake(20.0, self.password.frame.origin.y + self.password.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 40.0);
+        self.displayName.frame = CGRectMake(20.0, self.password.frame.origin.y + self.password.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 35.0);
         self.go.frame = CGRectMake(self.view.frame.size.width - 110.0, self.displayName.frame.origin.y + self.displayName.frame.size.height + 8.0, 90.0, 40.0);
     } else {
         self.displayName.hidden = YES;
@@ -287,6 +302,32 @@
     CGSize measuredSize = [str sizeWithAttributes:@{NSFontAttributeName: label.font}];
     label.frame = CGRectMake(0, 0, measuredSize.width, measuredSize.height);
     return [self hg_imageFromView:label];
+}
+
+#pragma mark - Keyboard
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect f = self.view.frame;
+        f.origin.y = -keyboardSize.height;
+        self.view.frame = f;
+    }];
+}
+
+-(void)keyboardWillHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect f = self.view.frame;
+        f.origin.y = 0.0f;
+        self.view.frame = f;
+    }];
+}
+
+-(void)dismissKeyboard
+{
+    [self.view endEditing:YES];
 }
 
 /*
