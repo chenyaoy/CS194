@@ -107,4 +107,46 @@
                            alpha:1.0f];
 }
 
+#pragma mark - Fonts
+
++ (UIFont *)getRegularFont:(CGFloat)size {
+    return [UIFont fontWithName:@"Rubik-Regular" size:size];
+}
+
++ (UIFont *)getLightFont:(CGFloat)size {
+    return [UIFont fontWithName:@"Rubik-Light" size:size];
+}
+
++ (UIFont *)getLightItalicFont:(CGFloat)size {
+    return [UIFont fontWithName:@"Rubik-LightItalic" size:size];
+}
+
++ (UIFont *)getItalicFont:(CGFloat)size {
+    return [UIFont fontWithName:@"Rubik-Italic" size:size];
+}
+
++ (UIFont *)getMediumFont:(CGFloat)size {
+    return [UIFont fontWithName:@"Rubik-Medium" size:size];
+}
+
++ (UIFont *)getMediumItalicFont:(CGFloat)size {
+    return [UIFont fontWithName:@"Rubik-MediumItalic" size:size];
+}
+
++ (UIFont *)getBoldFont:(CGFloat)size {
+    return [UIFont fontWithName:@"Rubik-Bold" size:size];
+}
+
++ (UIFont *)getBoldItalicFont:(CGFloat)size {
+    return [UIFont fontWithName:@"Rubik-BoldItalic" size:size];
+}
+
++ (UIFont *)getBlackFont:(CGFloat)size {
+    return [UIFont fontWithName:@"Rubik-Black" size:size];
+}
+
++ (UIFont *)getBlackItalicFont:(CGFloat)size {
+    return [UIFont fontWithName:@"Rubik-BlackItalic" size:size];
+}
+
 @end

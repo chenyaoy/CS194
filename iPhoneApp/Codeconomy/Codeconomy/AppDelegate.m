@@ -17,6 +17,12 @@
 
 @end
 
+@implementation UILabel (SubstituteFontName)
+- (void)setSubstituteFontName:(NSString *)name UI_APPEARANCE_SELECTOR {
+    self.font = [UIFont fontWithName:name size:self.font.pointSize];
+}
+@end
+
 @implementation AppDelegate
 
 
@@ -35,6 +41,8 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+//    [[UILabel appearance] setSubstituteFontName:@"Rubik-Regular"];
     return YES;
 }
 

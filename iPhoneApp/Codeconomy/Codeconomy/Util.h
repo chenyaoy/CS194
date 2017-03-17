@@ -18,4 +18,15 @@
 + (NSString *)getLightGrayColorHex;
 + (NSString *)getDarkGrayColorHex;
 - (UIColor *)colorWithHexString:(NSString *)hex;
+
++ (UIFont *)getRegularFont:(CGFloat)size;
++ (UIFont *)getLightFont:(CGFloat)size;
++ (UIFont *)getLightItalicFont:(CGFloat)size;
++ (UIFont *)getItalicFont:(CGFloat)size;
++ (UIFont *)getMediumFont:(CGFloat)size;
++ (UIFont *)getMediumItalicFont:(CGFloat)size;
++ (UIFont *)getBoldFont:(CGFloat)size;
++ (UIFont *)getBoldItalicFont:(CGFloat)size;
++ (UIFont *)getBlackFont:(CGFloat)size;
++ (UIFont *)getBlackItalicFont:(CGFloat)size;
 @end
