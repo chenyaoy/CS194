@@ -8,6 +8,7 @@
 
 #import "KeysOwnedView.h"
 #import "Util.h"
+#import "User.h"
 
 @interface KeysOwnedView ()
 @property (nonatomic, strong) UILabel *keys;
@@ -29,6 +30,11 @@
         
         self.layer.cornerRadius = 10;
         self.layer.masksToBounds = YES;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reloadUserData:)
+                                                     name:@"reloadUserData"
+                                                   object:nil];
     }
     return self;
 }
@@ -43,6 +49,13 @@
 
 - (CGSize)getKeysLabelSize {
     return self.keys.frame.size;
+}
+
+#pragma mark - Helpers
+
+- (void)reloadUserData:(NSNotification *) notification {
+    self.keys.text = [NSString stringWithFormat:@"You currently have\n%d🔑", [User currentUser].credits];
+    [self.keys sizeToFit];
 }
 
 /*

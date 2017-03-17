@@ -10,4 +10,9 @@
 
 @interface KeysBuyingOptionsView : UIView
 - (instancetype)init;
+- (int)getKeyQuantity;
+- (NSString *)getCardNumber;
+- (NSString *)getExpirationDate;
+- (NSString *)getSecurityCode;
+- (NSString *)getZipCode;
 @end
