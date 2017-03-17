@@ -64,7 +64,7 @@
     [_scrollView addSubview:_displayNameField];
     
     _username = [[UILabel alloc] init];
-    _username.text = @"👤";
+    _username.text = @"🆔";
     _username.numberOfLines = 1;
     _username.font = [UIFont systemFontOfSize:24.0f];
     [_scrollView addSubview:_username];
