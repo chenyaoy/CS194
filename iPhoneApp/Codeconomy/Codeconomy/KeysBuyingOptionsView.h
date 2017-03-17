@@ -15,4 +15,5 @@
 - (NSString *)getExpirationDate;
 - (NSString *)getSecurityCode;
 - (NSString *)getZipCode;
+- (bool)hasValidCardEntry;
 @end

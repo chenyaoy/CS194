@@ -72,6 +72,9 @@
 
 }
 
+#pragma mark - Helpers
+
+
 #pragma mark - Listeners
 
 - (void)tapBuy:(UIButton *)sender {
@@ -81,6 +84,15 @@
     int keyQuantity = self.buyingOptionsView.getKeyQuantity;
     if (keyQuantity == -1) {
         [alert setMessage:@"You haven't selected how many keys you want to buy!"];
+        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {
+                                                             return;
+                                                         }];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else if (!self.buyingOptionsView.hasValidCardEntry) {
+        [alert setMessage:@"The card information is not complete."];
         UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok"
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) {

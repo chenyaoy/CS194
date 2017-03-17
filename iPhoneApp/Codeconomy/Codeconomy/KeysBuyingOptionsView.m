@@ -118,6 +118,7 @@
         [self addSubview:_zipCodeLabel];
         
         _cardNumberField = [[UITextField alloc] init];
+        _cardNumberField.delegate = self;
         _cardNumberField.placeholder = @"Add Card Number";
         _cardNumberField.textAlignment = NSTextAlignmentLeft;
         _cardNumberField.layer.cornerRadius = 10;
@@ -129,6 +130,7 @@
         [self addSubview:_cardNumberField];
         
         _expirationDateField = [[UITextField alloc] init];
+        _expirationDateField.delegate = self;
         _expirationDateField.placeholder = @"MMYY";
         _expirationDateField.textAlignment = NSTextAlignmentLeft;
         _expirationDateField.layer.cornerRadius = 10;
@@ -140,6 +142,7 @@
         [self addSubview:_expirationDateField];
         
         _securityCodeField = [[UITextField alloc] init];
+        _securityCodeField.delegate = self;
         _securityCodeField.placeholder = @"CVV";
         _securityCodeField.textAlignment = NSTextAlignmentLeft;
         _securityCodeField.layer.cornerRadius = 10;
@@ -151,6 +154,7 @@
         [self addSubview:_securityCodeField];
         
         _zipCodeField = [[UITextField alloc] init];
+        _zipCodeField.delegate = self;
         _zipCodeField.placeholder = @"Zip Code";
         _zipCodeField.textAlignment = NSTextAlignmentLeft;
         _zipCodeField.layer.cornerRadius = 10;
@@ -285,7 +289,34 @@
 #pragma mark - UITextFieldDelegate
 
 - (bool)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    return true;
+    int characterLimit = -1;
+    if (textField == self.cardNumberField) {
+        characterLimit = 16;
+    } else if (textField == self.expirationDateField) {
+        characterLimit = 4;
+    } else if (textField == self.securityCodeField) {
+        characterLimit = 3;
+    } else if (textField == self.zipCodeField) {
+        characterLimit = 5;
+    }
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:@"1234567890"] invertedSet];
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    return (([string isEqualToString:filtered]) && (newLength <= characterLimit));
+}
+
+- (bool)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == self.cardNumberField) {
+        [self.expirationDateField becomeFirstResponder];
+    } else if (textField == self.expirationDateField) {
+        [self.securityCodeField becomeFirstResponder];
+    } else if (textField == self.securityCodeField) {
+        [self.zipCodeField becomeFirstResponder];
+    } else if (textField == self.zipCodeField) {
+        [textField resignFirstResponder];
+    }
+    
+    return false;
 }
 
 #pragma mark - Helpers
@@ -316,6 +347,13 @@
 
 - (NSString *)getZipCode {
     return self.zipCodeField.text;
+}
+
+- (bool)hasValidCardEntry {
+    return (self.cardNumberField.text.length == 16 &&
+            self.expirationDateField.text.length == 4 &&
+            self.securityCodeField.text.length == 3 &&
+            self.zipCodeField.text.length == 5);
 }
 
 #pragma mark - Listeners
