@@ -30,6 +30,12 @@
 </div>
 <% } %>
 
+<% if(isBuyer && needsReview){%>
+  <div class="text-center">
+    <a href="/coupons/postReview?id=<%=coupon.id%>" class="btn btn-success" role="button">Post Review</a>
+  </div>
+<% } %>
+
 <% if(coupon.get("status") == 1) {%>
 <form action="/coupons/purchaseCoupon" method="post">
   <input type="hidden" id="id" name="id" value=<%=coupon.id %>>
