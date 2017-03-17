@@ -60,8 +60,7 @@
     [self addSubview:self.expires];
     [self.expires sizeToFit];
     
-//    NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:self.couponData.createdAt];
-    NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:[[NSDate date] dateByAddingTimeInterval:-3600*4]];
+    NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:self.couponData.createdAt];
     int hoursBetweenDates = distanceBetweenDates / 3600;
     
     self.posted.text = [NSString stringWithFormat:@"posted %dh ago", hoursBetweenDates];

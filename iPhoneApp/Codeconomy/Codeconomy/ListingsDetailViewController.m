@@ -39,7 +39,7 @@
         _headerView = [[ListingHeaderView alloc] initWithStoreName:_couponData.storeName title:_couponData.couponDescription description:_couponData.additionalInfo];
         _detailView = [[ListingDetailView alloc] initWithPrice:_couponData.price expirationDate:_couponData.expirationDate category:_couponData.category];
 //        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdAt seller:[NSString stringWithFormat:@"%d", _couponData.sellerId]];
-        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] seller:_couponData.seller]; // TODO: this should be the seller display name or user name
+        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdAt seller:_couponData.seller]; // TODO: this should be the seller display name or user name
         _buy = [[UIButton alloc] init];
         _userOwns = !buy;
         [[NSNotificationCenter defaultCenter] addObserver:self
