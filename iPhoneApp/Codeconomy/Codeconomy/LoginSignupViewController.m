@@ -14,7 +14,7 @@
 #import "User.h"
 #import <Parse/Parse.h>
 
-@interface LoginSignupViewController ()
+@interface LoginSignupViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UILabel *codeconomy;
 @property (nonatomic, strong) UILabel *codeconomyDescription;
@@ -72,6 +72,7 @@
         _currentButton = _signUp;
         
         _username = [[UITextField alloc] init];
+        _username.delegate = self;
         _username.placeholder = @"Username";
         _username.layer.cornerRadius = 10;
         _username.layer.masksToBounds = YES;
@@ -79,7 +80,9 @@
         _username.layer.borderColor = [UIColor grayColor].CGColor;
         _username.backgroundColor = [UIColor whiteColor];
         _username.layer.sublayerTransform = CATransform3DMakeTranslation(12.0, 0, 0);
+        
         _password = [[UITextField alloc] init];
+        _password.delegate = self;
         _password.placeholder = @"Password";
         _password.layer.cornerRadius = 10;
         _password.layer.masksToBounds = YES;
@@ -87,7 +90,9 @@
         _password.layer.borderColor = [UIColor grayColor].CGColor;
         _password.backgroundColor = [UIColor whiteColor];
         _password.layer.sublayerTransform = CATransform3DMakeTranslation(12.0, 0, 0);
+        
         _displayName = [[UITextField alloc] init];
+        _displayName.delegate = self;
         _displayName.placeholder = @"Display Name";
         _displayName.layer.cornerRadius = 10;
         _displayName.layer.masksToBounds = YES;
@@ -152,6 +157,41 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UITextFieldDelegate
+
+//- (bool)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+//    int characterLimit = -1;
+//    if (textField == self.cardNumberField) {
+//        characterLimit = 16;
+//    } else if (textField == self.expirationDateField) {
+//        characterLimit = 4;
+//    } else if (textField == self.securityCodeField) {
+//        characterLimit = 3;
+//    } else if (textField == self.zipCodeField) {
+//        characterLimit = 5;
+//    }
+//    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+//    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:@"1234567890"] invertedSet];
+//    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+//    return (([string isEqualToString:filtered]) && (newLength <= characterLimit));
+//}
+
+- (bool)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == self.username) {
+        [self.password becomeFirstResponder];
+    } else if (textField == self.password) {
+        if (self.currentButton == self.signUp) {
+            [self.displayName becomeFirstResponder];
+        } else {
+            [self tapGo:nil];
+        }
+    } else if (textField == self.displayName) {
+        [self tapGo:nil];
+    }
+    
+    return false;
 }
 
 #pragma mark - Listeners
