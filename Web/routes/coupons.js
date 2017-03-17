@@ -145,11 +145,15 @@ router.get('/coupon', function(req, res) {
                 var transactionQuery = new Parse.Query(Transaction);
                 transactionQuery.equalTo("coupon", result).include("buyer");
                 var isBuyer = false;
+                var needsReview = true;
                 transactionQuery.first().then(function(transactionResult){
                     if(transactionResult) {
                         isBuyer = transactionResult.get("buyer").id == res.locals.user.id;
+                        console.log("transactionResult.get() = " + transactionResult.get("success"));
+                        needsReview = transactionResult.get("success") == null;
                     }
-                    res.render('pages/display_coupon', {user:res.locals.user, coupon:result, isBuyer:isBuyer});
+                    res.render('pages/display_coupon', {user:res.locals.user, coupon:result, 
+                        isBuyer:isBuyer, needsReview:needsReview});
                 });
             },
             error: function(object, error) {
