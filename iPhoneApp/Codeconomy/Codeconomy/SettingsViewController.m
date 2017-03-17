@@ -125,7 +125,8 @@
     _savePassword.layer.masksToBounds = YES;
     [_savePassword addTarget:self action:@selector(tapSavePassword:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:_savePassword];
-
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -257,6 +258,12 @@
     }
 }
 
+#pragma mark - Keyboard
+
+-(void)dismissKeyboard
+{
+    [self.view endEditing:YES];
+}
 
 /*
 #pragma mark - Navigation

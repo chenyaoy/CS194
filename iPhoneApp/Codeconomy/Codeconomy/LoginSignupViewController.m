@@ -113,6 +113,9 @@
         
         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         _activityIndicator.hidden = YES;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+        [self.view addGestureRecognizer:tap];
     }
     return self;
 }
@@ -301,7 +304,7 @@
     return [self hg_imageFromView:label];
 }
 
-#pragma mark - keyboard movements
+#pragma mark - Keyboard
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
@@ -320,6 +323,11 @@
         f.origin.y = 0.0f;
         self.view.frame = f;
     }];
+}
+
+-(void)dismissKeyboard
+{
+    [self.view endEditing:YES];
 }
 
 /*
