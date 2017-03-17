@@ -213,10 +213,9 @@
         _user.username = username;
         [_user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (succeeded) {
-                NSLog(@"sick");
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
-                NSLog(@"fuck");
+                NSLog(@"%@", error);
             }
         }];
     } else {
@@ -249,10 +248,9 @@
         } else {
             [_user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
-                    NSLog(@"sick");
                     [self dismissViewControllerAnimated:YES completion:nil];
                 } else {
-                    NSLog(@"fuck");
+                    NSLog(@"%@", error);
                 }
             }];
         }

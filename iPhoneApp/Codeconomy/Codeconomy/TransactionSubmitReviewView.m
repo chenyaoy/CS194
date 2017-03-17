@@ -141,7 +141,7 @@
         if (succeeded) {
             [self.delegate updateTransaction];
         } else {
-            NSLog(@"fuck");
+            NSLog(@"%@", error);
         }
     }];
 }

@@ -48,7 +48,7 @@
         _scrollView.showsVerticalScrollIndicator = NO;
         
         _headerView = [[ListingHeaderView alloc] initWithStoreName:_couponData.storeName title:_couponData.couponDescription description:_couponData.additionalInfo];
-        _detailView = [[ListingDetailView alloc] initWithPrice:_couponData.price expirationDate:_couponData.expirationDate category:@"Clothing 👖"];
+        _detailView = [[ListingDetailView alloc] initWithPrice:_couponData.price expirationDate:_couponData.expirationDate category:_couponData.category];
         //        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdAt seller:[NSString stringWithFormat:@"%d", _couponData.sellerId]];
         if (_userBought) {
             _timeView = [[TransactionTimeView alloc] initWithTransactionDate:transactionData.transactionDate otherUser:transactionData.seller userBought:_userBought];
