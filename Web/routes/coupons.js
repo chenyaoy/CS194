@@ -95,7 +95,7 @@ router.post('/purchaseCoupon', function(req, res) {
                 transaction.set("seller", seller);
                 transaction.set("coupon", result);
                 transaction.set("reviewDescription", null);
-                transaction.set("stars", null);
+                transaction.set("stars", 0);
                 transaction.set("transactionDate", new Date());
                 transaction.save(null, {
                     success: function(transaction) {
@@ -103,22 +103,26 @@ router.post('/purchaseCoupon', function(req, res) {
                         seller.set("credits", seller.get("credits") + price);
                         res.locals.user.set("credits", res.locals.user.get("credits") - price);
                         result.set("status", 0);
-                        result.save(null, {
-                            error: function(error) {
-                                console.log(error.message);
-                            }
+                        Parse.Object.saveAll([result, res.locals.user, seller]).then(function(res) {
+                            res.redirect('/coupons/coupon?id=' + result.id);
+                        }, function(err) {
+                            res.render("pages/error_try_again");
                         });
-                        res.locals.user.save(null, {
-                            error: function(error) {
-                                console.log(error.message);
-                            }
-                        });
-                        seller.save(null, {
-                            error: function(error) {
-                                console.log(error.message);
-                            }
-                        });
-                        res.redirect('/coupons/coupon?id=' + result.id);
+                        // result.save(null, {
+                        //     error: function(error) {
+                        //         console.log(error.message);
+                        //     }
+                        // });
+                        // res.locals.user.save(null, {
+                        //     error: function(error) {
+                        //         console.log(error.message);
+                        //     }
+                        // });
+                        // seller.save(null, {
+                        //     error: function(error) {
+                        //         console.log(error.message);
+                        //     }
+                        // });
                     },
                     error: function(transaction, error) {
                         res.send("Transaction failed. Please try again. " + error.message)
@@ -149,11 +153,74 @@ router.get('/coupon', function(req, res) {
                 transactionQuery.first().then(function(transactionResult){
                     if(transactionResult) {
                         isBuyer = transactionResult.get("buyer").id == res.locals.user.id;
-                        console.log("transactionResult.get() = " + transactionResult.get("success"));
-                        needsReview = transactionResult.get("success") == null;
+                        needsReview = transactionResult.get("stars") == 0;
                     }
                     res.render('pages/display_coupon', {user:res.locals.user, coupon:result, 
                         isBuyer:isBuyer, needsReview:needsReview});
+                });
+            },
+            error: function(object, error) {
+                res.render('pages/error_try_again');
+            }
+        });
+    }, function(err) {
+        res.redirect('/users/login');
+    });
+});
+
+router.get('/postReview', function(req, res) {
+    checkLogin(req, res).then(function(res) {
+        var Coupon = Parse.Object.extend("Coupon");
+        var query = new Parse.Query(Coupon);
+        query.get(req.query.id, {
+            success: function(result) {
+                var Transaction = Parse.Object.extend("Transaction");
+                var transactionQuery = new Parse.Query(Transaction);
+                transactionQuery.equalTo("coupon", result).include("buyer");
+                var isBuyer = false;
+                var needsReview = true;
+                transactionQuery.first().then(function(transactionResult){
+                    if(transactionResult) {
+                        isBuyer = transactionResult.get("buyer").id == res.locals.user.id;
+                        needsReview = transactionResult.get("stars") == 0;
+                        if(isBuyer && needsReview) {
+                            res.render('pages/post_review', {user:res.locals.user, coupon:result, 
+                            transaction:transactionResult});
+                        } else {
+                            res.render('pages/error_try_again');
+                        }
+                    } else {
+                        res.render('pages/error_try_again');
+                    }
+                });
+            },
+            error: function(object, error) {
+                res.render('pages/error_try_again');
+            }
+        });
+    }, function(err) {
+        res.redirect('/users/login');
+    });
+});
+
+router.post('/postReview/submit', function(req, res) {
+    checkLogin(req, res).then(function(res) {
+        var Transaction = Parse.Object.extend("Transaction");
+        var transactionQuery = new Parse.Query(Transaction);
+        console.log(req.body.transaction_id);
+        transactionQuery.get(req.body.transaction_id, {
+            success: function(result) {
+                result.set("stars", parseInt(req.body.radios));
+                result.set("reviewDescription", req.body.comment.length == 0 ? null : req.body.comment);
+                result.save(null, {
+                    success: function(coupon) {
+                        console.log('/coupons/coupon?id=' + result.get("coupon").id);
+                        res.redirect('/coupons/coupon?id=' + result.get("coupon").id);
+                    },
+                    error: function(coupon, error) {
+                        console.log("Posting review failed: " + error.message);
+                        res.render('pages/error_try_again');
+                    }
                 });
             },
             error: function(object, error) {

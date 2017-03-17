@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/navbar.ejs %>  
+    <form action="/coupons/postReview/submit" method="post">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+            <div class="form-check">
+              <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radios" id="workedRadio" value="1" checked>
+              The code I purchased was authentic!
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+            <div class="form-check">
+              <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radios" id="didNotWorkRadio" value="-1">
+              The code I purchased was bogus!
+              </label>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <label for="exampleTextarea">Comment:</label>
+        <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+      </div>
+    </div>
+    
+    <input type="hidden" value=<%=transaction.id%> name="transaction_id" />
+
+    <div class="row">
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</body>
+</html>
