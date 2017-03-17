@@ -156,11 +156,11 @@
     self.codeconomyDescription.frame = CGRectMake(self.view.frame.size.width / 2.0 - self.codeconomyDescription.frame.size.width / 2.0, self.codeconomy.frame.origin.y + self.codeconomy.frame.size.height + 20.0, self.view.frame.size.width - 40.0, textSize.height);
     self.signUp.frame = CGRectMake(20.0, self.codeconomyDescription.frame.origin.y + self.codeconomyDescription.frame.size.height + 50.0, 163.0, 60.0);
     self.login.frame = CGRectMake(self.view.frame.size.width - 20.0 - 163.0, self.signUp.frame.origin.y, 163.0, 60.0);
-    self.username.frame = CGRectMake(20.0, self.signUp.frame.origin.y + self.signUp.frame.size.height + 20.0, self.view.frame.size.width - 40.0, 40.0);
-    self.password.frame = CGRectMake(20.0, self.username.frame.origin.y + self.username.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 40.0);
+    self.username.frame = CGRectMake(20.0, self.signUp.frame.origin.y + self.signUp.frame.size.height + 20.0, self.view.frame.size.width - 40.0, 35.0);
+    self.password.frame = CGRectMake(20.0, self.username.frame.origin.y + self.username.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 35.0);
     if (self.currentButton == self.signUp) {
         self.displayName.hidden = NO;
-        self.displayName.frame = CGRectMake(20.0, self.password.frame.origin.y + self.password.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 40.0);
+        self.displayName.frame = CGRectMake(20.0, self.password.frame.origin.y + self.password.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 35.0);
         self.go.frame = CGRectMake(self.view.frame.size.width - 110.0, self.displayName.frame.origin.y + self.displayName.frame.size.height + 8.0, 90.0, 40.0);
     } else {
         self.displayName.hidden = YES;
