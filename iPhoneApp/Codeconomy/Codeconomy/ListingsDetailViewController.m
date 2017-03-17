@@ -37,9 +37,9 @@
         _price.text = [NSString stringWithFormat:@"%d🔑", self.user.credits];
         _couponData = couponData;
         _headerView = [[ListingHeaderView alloc] initWithStoreName:_couponData.storeName title:_couponData.couponDescription description:_couponData.additionalInfo];
-        _detailView = [[ListingDetailView alloc] initWithPrice:_couponData.price expirationDate:_couponData.expirationDate category:@"Clothing 👖"];
+        _detailView = [[ListingDetailView alloc] initWithPrice:_couponData.price expirationDate:_couponData.expirationDate category:_couponData.category];
 //        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdAt seller:[NSString stringWithFormat:@"%d", _couponData.sellerId]];
-        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:[[NSDate date] dateByAddingTimeInterval:-3600*4] seller:_couponData.seller]; // TODO: this should be the seller display name or user name
+        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdAt seller:_couponData.seller]; // TODO: this should be the seller display name or user name
         _buy = [[UIButton alloc] init];
         _userOwns = !buy;
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -94,14 +94,14 @@
     self.couponData.status = 0;
     [self.couponData saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (!succeeded) {
-            NSLog(@"failed to update coupon status");
+            NSLog(@"%@", error);
         }
     }];
     
     Transaction *transaction = [[Transaction alloc] initWithBuyer:self.user seller:self.couponData.seller.fetchIfNeeded coupon:self.couponData transactionDate:[NSDate date] reviewDescription:nil stars:0];
     [transaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (!succeeded) {
-            NSLog(@"failed to add transaction");
+            NSLog(@"%@", error);
         }
     }];
     
@@ -112,7 +112,7 @@
              postNotificationName:@"reloadUserData"
              object:self];
         } else {
-            NSLog(@"failed to update user credits");
+            NSLog(@"%@", error);
         }
     }];
     [self.navigationController popViewControllerAnimated:YES];
@@ -122,7 +122,7 @@
     self.couponData.deleted = true;
     [_couponData saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (!succeeded) {
-            NSLog(@"failed to mark coupon as deleted");
+            NSLog(@"%@", error);
         }
     }];
     [self.navigationController popViewControllerAnimated:YES];

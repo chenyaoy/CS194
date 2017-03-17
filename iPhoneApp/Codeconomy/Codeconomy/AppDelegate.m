@@ -71,18 +71,14 @@
 - (void) addMockUser {
     User *gary = [[User alloc] initWithUsername:@"garythung" password:@"garythung" displayName:@"Gary Thung" status:0 credits:36 rating:5.0];
     [gary signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"sick");
-        } else {
-            NSLog(@"fuck");
+        if (!succeeded) {
+             NSLog(@"%@", error);
         }
     }];
     User *will = [[User alloc] initWithUsername:@"whuang" password:@"whuang" displayName:@"Will Huang" status:0 credits:5 rating:5.0];
     [will signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"sick");
-        } else {
-            NSLog(@"fuck");
+        if (!succeeded) {
+            NSLog(@"%@", error);
         }
     }];
 }
@@ -93,18 +89,14 @@
     Coupon *coupon = [[Coupon alloc] initWithSeller:seller status:0 price:3 expirationDate:[NSDate date] storeName:@"testStore" couponDescription:@"1 free item" additionalInfo:@"less than $50" code:@"freeitem50" category:@"Clothing" deleted:false];
     
     [coupon saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"sick");
-        } else {
-            NSLog(@"fuck");
+        if (!succeeded) {
+            NSLog(@"%@", error);
         }
     }];
     Transaction *transaction = [[Transaction alloc] initWithBuyer:buyer seller:seller coupon:coupon transactionDate:[NSDate date] reviewDescription:nil stars:-1];
     [transaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"sick");
-        } else {
-            NSLog(@"fuck");
+        if (!succeeded) {
+            NSLog(@"%@", error);
         }
     }];
 }

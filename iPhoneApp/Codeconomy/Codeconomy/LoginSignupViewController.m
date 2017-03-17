@@ -210,14 +210,14 @@
 }
 
 - (void)tapGo:(UIButton *)sender {
+    self.activityIndicator.hidden = NO;
+    [self.activityIndicator startAnimating];
     if (self.currentButton == self.signUp) {
         User *user = [User user];
         user.username = self.username.text;
         user.password = self.password.text;
         user.displayName = self.displayName.text;
         user.credits = 50;
-        self.activityIndicator.hidden = NO;
-        [self.activityIndicator startAnimating];
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             [self.activityIndicator stopAnimating];
             self.activityIndicator.hidden = YES;
@@ -230,6 +230,8 @@
         }];
     } else {
         [PFUser logInWithUsernameInBackground:self.username.text password:self.password.text block:^(PFUser * _Nullable user, NSError * _Nullable error) {
+            [self.activityIndicator stopAnimating];
+            self.activityIndicator.hidden = YES;
             if (!error) {
                 [self loginUser:(User *)user];
             } else {

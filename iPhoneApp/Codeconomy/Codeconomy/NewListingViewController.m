@@ -337,10 +337,8 @@
                                               category:category
                                                deleted:0];
     [coupon1 saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"sick");
-        } else {
-            NSLog(@"fuck");
+        if (!succeeded) {
+            NSLog(@"%@", error);
         }
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
