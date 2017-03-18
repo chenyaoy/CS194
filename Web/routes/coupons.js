@@ -103,26 +103,15 @@ router.post('/purchaseCoupon', function(req, res) {
                         seller.set("credits", seller.get("credits") + price);
                         res.locals.user.set("credits", res.locals.user.get("credits") - price);
                         result.set("status", 0);
-                        Parse.Object.saveAll([result, res.locals.user, seller]).then(function(res) {
-                            res.redirect('/coupons/coupon?id=' + result.id);
-                        }, function(err) {
-                            res.render("pages/error_try_again");
+                        var toSave = [result, res.locals.user, seller];
+                        Parse.Object.saveAll(toSave, {
+                            success: function() {
+                                res.redirect('/coupons/coupon?id=' + result.id);
+                            },
+                            error: function() {
+                                res.render("pages/error_try_again");
+                            }
                         });
-                        // result.save(null, {
-                        //     error: function(error) {
-                        //         console.log(error.message);
-                        //     }
-                        // });
-                        // res.locals.user.save(null, {
-                        //     error: function(error) {
-                        //         console.log(error.message);
-                        //     }
-                        // });
-                        // seller.save(null, {
-                        //     error: function(error) {
-                        //         console.log(error.message);
-                        //     }
-                        // });
                     },
                     error: function(transaction, error) {
                         res.send("Transaction failed. Please try again. " + error.message)
@@ -147,16 +136,18 @@ router.get('/coupon', function(req, res) {
             success: function(result) {
                 var Transaction = Parse.Object.extend("Transaction");
                 var transactionQuery = new Parse.Query(Transaction);
-                transactionQuery.equalTo("coupon", result).include("buyer");
+                transactionQuery.equalTo("coupon", result).include("buyer").include("seller");
                 var isBuyer = false;
                 var needsReview = true;
+                var isSeller = false;
                 transactionQuery.first().then(function(transactionResult){
                     if(transactionResult) {
                         isBuyer = transactionResult.get("buyer").id == res.locals.user.id;
                         needsReview = transactionResult.get("stars") == 0;
+                        isSeller = transactionResult.get("seller").id == res.locals.user.id;
                     }
                     res.render('pages/display_coupon', {user:res.locals.user, coupon:result, 
-                        isBuyer:isBuyer, needsReview:needsReview});
+                        isBuyer:isBuyer, needsReview:needsReview, isSeller:isSeller});
                 });
             },
             error: function(object, error) {
@@ -207,7 +198,6 @@ router.post('/postReview/submit', function(req, res) {
     checkLogin(req, res).then(function(res) {
         var Transaction = Parse.Object.extend("Transaction");
         var transactionQuery = new Parse.Query(Transaction);
-        console.log(req.body.transaction_id);
         transactionQuery.get(req.body.transaction_id, {
             success: function(result) {
                 result.set("stars", parseInt(req.body.radios));

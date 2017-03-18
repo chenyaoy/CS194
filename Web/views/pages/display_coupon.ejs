@@ -36,7 +36,7 @@
   </div>
 <% } %>
 
-<% if(coupon.get("status") == 1) {%>
+<% if(coupon.get("status") == 1 && !isSeller) {%>
 <form action="/coupons/purchaseCoupon" method="post">
   <input type="hidden" id="id" name="id" value=<%=coupon.id %>>
   <div class="row">
