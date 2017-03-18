@@ -139,12 +139,11 @@ router.get('/coupon', function(req, res) {
                 transactionQuery.equalTo("coupon", result).include("buyer").include("seller");
                 var isBuyer = false;
                 var needsReview = true;
-                var isSeller = false;
+                var isSeller = result.get("seller").id == res.locals.user.id;
                 transactionQuery.first().then(function(transactionResult){
                     if(transactionResult) {
                         isBuyer = transactionResult.get("buyer").id == res.locals.user.id;
                         needsReview = transactionResult.get("stars") == 0;
-                        isSeller = transactionResult.get("seller").id == res.locals.user.id;
                     }
                     res.render('pages/display_coupon', {user:res.locals.user, coupon:result, 
                         isBuyer:isBuyer, needsReview:needsReview, isSeller:isSeller});
@@ -284,6 +283,7 @@ function unsoldQuery() {
     var query = new Parse.Query(Coupon);
     query.equalTo("status", 1);
     query.equalTo("deleted", false);
+    query.greaterThan("expirationDate", new Date());
     return query;
 }
 
@@ -306,6 +306,12 @@ function validateRequiredCouponParams(req) {
         return false;
     }
     if(req.body.expireBool == 'Yes' && req.body.expireDate.length == 0) {
+        return false;
+    }
+    console.log(new Date());
+    console.log(req.body.expireDate);
+    console.log(new Date(req.body.expireDate) < new Date());
+    if(req.body.expireDate.length != 0 && new Date(req.body.expireDate) < new Date()) {
         return false;
     }
     if(typeof(req.body.price) == 'undefined' || req.body.price < 0) {

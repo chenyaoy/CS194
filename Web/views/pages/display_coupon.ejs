@@ -13,7 +13,7 @@
     <h1><%= coupon.get("storeName")%></h1>
     <p><%=coupon.get("couponDescription")%></p>
     <h2><%=coupon.get("price")%> credits</h2>
-    <% if(typeof(coupon.expirationDate) !== 'undefined') {%>
+    <% if(coupon.get("expirationDate")) {%>
     <h2> Expires <%=coupon.get("expirationDate")%></h2>
     <% } %>
     <% if(isBuyer) {%>
