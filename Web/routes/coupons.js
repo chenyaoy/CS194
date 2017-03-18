@@ -61,7 +61,7 @@ router.post('/postCoupon/submit', function(req, res) {
             coupon.set("seller", res.locals.user);
             coupon.save(null, {
                 success: function(coupon) {
-                    res.redirect('/users/myCoupons');
+                    res.redirect('/users/myCoupons/selling');
                 },
                 error: function(coupon, error) {
                     console.log("Coupon upload failed. Please try again. " + error.message);
@@ -318,9 +318,6 @@ function validateRequiredCouponParams(req) {
     if(req.body.expireBool == 'Yes' && req.body.expireDate.length == 0) {
         return false;
     }
-    console.log(new Date());
-    console.log(req.body.expireDate);
-    console.log(new Date(req.body.expireDate) < new Date());
     if(req.body.expireDate.length != 0 && new Date(req.body.expireDate) < new Date()) {
         return false;
     }
