@@ -13,7 +13,7 @@
     <h1><%= coupon.get("storeName")%></h1>
     <p><%=coupon.get("couponDescription")%></p>
     <h2><%=coupon.get("price")%> credits</h2>
-    <% if(typeof(coupon.expirationDate) !== 'undefined') {%>
+    <% if(coupon.get("expirationDate")) {%>
     <h2> Expires <%=coupon.get("expirationDate")%></h2>
     <% } %>
     <% if(isBuyer) {%>
@@ -36,7 +36,7 @@
   </div>
 <% } %>
 
-<% if(coupon.get("status") == 1) {%>
+<% if(coupon.get("status") == 1 && !isSeller) {%>
 <form action="/coupons/purchaseCoupon" method="post">
   <input type="hidden" id="id" name="id" value=<%=coupon.id %>>
   <div class="row">
