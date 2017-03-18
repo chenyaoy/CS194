@@ -160,7 +160,7 @@ router.post('/signup/submit', function(req, res) {
 
 router.get('/myprofile', function(req, res) {
     checkLogin(req, res).then(function(res) {
-        res.render('pages/users/profile', {user: res.locals.user});
+        res.redirect('/users/user', {user: res.locals.user});
     }, function(err) {
         res.redirect('/users/login');
     });
