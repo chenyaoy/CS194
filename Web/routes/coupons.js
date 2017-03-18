@@ -174,7 +174,7 @@ router.get('/postReview', function(req, res) {
                         isBuyer = transactionResult.get("buyer").id == res.locals.user.id;
                         needsReview = transactionResult.get("stars") == 0;
                         if(isBuyer && needsReview) {
-                            res.render('pages/post_review', {user:res.locals.user, coupon:result, 
+                            res.render('pages/post_review', {user:res.locals.user, coupon:result,
                             transaction:transactionResult});
                         } else {
                             res.render('pages/error_try_again');
@@ -256,6 +256,16 @@ router.get('/food', function(req, res) {
         query = unsoldQuery();
         query.equalTo("category", "Food")
         serveQuery(query, req, res, "Food");
+    }, function(err) {
+        res.redirect('/users/login');
+    });
+});
+
+router.get('/other', function(req, res) {
+    checkLogin(req, res).then(function(res) {
+        query = unsoldQuery();
+        query.equalTo("category", "Other")
+        serveQuery(query, req, res, "Other");
     }, function(err) {
         res.redirect('/users/login');
     });

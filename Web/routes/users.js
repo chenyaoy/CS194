@@ -45,12 +45,25 @@ router.get('/myCoupons/purchased', function(req, res) {
                     coupon = transactions[i].get("coupon");
                     coupons.push(coupon);
                 }
-                res.render('pages/explore_coupons', {coupons:coupons, user:res.locals.user, category:"All"});
+                res.render('pages/explore_coupons', {coupons:coupons, user:res.locals.user, category:"Purchased"});
             },
             error: function(error) {
                 res.render('pages/error_try_again');
             }
         });
+    }, function(err) {
+        res.redirect('/users/login');
+    });
+});
+
+router.get('/myCoupons/selling', function(req, res) {
+    checkLogin(req, res).then(function(res) {
+        var Coupon = Parse.Object.extend("Coupon");
+        var query = new Parse.Query(Coupon);
+        query.equalTo("seller", res.locals.user);
+        query.equalTo("deleted", false);
+        query.equalTo("status", 1);
+        serveQuery(query, req, res, "Listed");
     }, function(err) {
         res.redirect('/users/login');
     });
@@ -63,19 +76,6 @@ router.get('/myCoupons/sold', function(req, res) {
         query.equalTo("seller", res.locals.user);
         query.equalTo("deleted", false);
         query.equalTo("status", 0);
-        serveQuery(query, req, res, "All");
-    }, function(err) {
-        res.redirect('/users/login');
-    });
-});
-
-router.get('/myCoupons', function(req, res) {
-    checkLogin(req, res).then(function(res) {
-        var Coupon = Parse.Object.extend("Coupon");
-        var query = new Parse.Query(Coupon);
-        query.equalTo("seller", res.locals.user);
-        query.equalTo("deleted", false);
-        query.equalTo("status", 1);
         serveQuery(query, req, res, "All");
     }, function(err) {
         res.redirect('/users/login');
