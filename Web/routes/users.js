@@ -93,21 +93,6 @@ function serveQuery(query, req, res, category) {
     });
 }
 
-router.get('/rateTransaction', function(req, res) {
-    var Transaction = Parse.Object.extend("Transaction");
-    var query = new Parse.Query(Transaction);
-    query.get(req.query.transaction, {
-        success: function(result) {
-            //Check current user against buyer (in transaction)
-            //Make sure transaction hasn't already been reviewed
-            //If both pass, take them to the rate transaction page
-        },
-        error: function(object, error) {
-            res.render('pages/error_try_again');
-        }
-    });
-});
-
 router.get('/', function(req, res) {
     res.render('pages/index');
 });
@@ -127,7 +112,6 @@ router.post('/login/submit', function(req, res) {
         res.redirect('/coupons');
       },
       error: function(user, error) {
-        // The login failed. Check error to see why.
         res.render('pages/users/login_error', {error:error});
       }
     });
@@ -158,9 +142,45 @@ router.post('/signup/submit', function(req, res) {
     });
 });
 
+router.get('/user', function(req, res) {
+    checkLogin(req, res).then(function(res) {
+        var User = Parse.Object.extend("_User");
+        var query = new Parse.Query(User);
+        query.get(req.query.id, {
+            success: function(result) {
+                var Transaction = Parse.Object.extend("Transaction");
+                var tq = new Parse.Query(Transaction);
+                tq.equalTo("seller", result.id);
+                tq.notEqualTo("stars", 0);
+                query.find({
+                    success: function(transactions) {
+                        var successful = 0;
+                        var total = transactions.length;
+                        for (var i = 0; i < transactions.length; i++) {
+                            if(transactions[i] == 1) {
+                                successful++;
+                            }
+                        }
+                        var score = 1.0*successful/total;
+                        res.render('pages/users/display_user', {user:res.locals.user, displaying:result, score:score});
+                    },
+                    error: function(error) {
+                        res.render('pages/error_try_again');
+                    }
+                });
+            },
+            error: function(object, error) {
+                res.render('pages/error_try_again');
+            }
+        });
+    }, function(err) {
+        res.redirect('/users/login');
+    });
+});
+
 router.get('/myprofile', function(req, res) {
     checkLogin(req, res).then(function(res) {
-        res.redirect('/users/user', {user: res.locals.user});
+        res.redirect('/users/user?id=' + res.locals.user.id);
     }, function(err) {
         res.redirect('/users/login');
     });
