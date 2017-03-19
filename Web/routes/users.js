@@ -152,16 +152,23 @@ router.get('/user', function(req, res) {
                 var tq = new Parse.Query(Transaction);
                 tq.equalTo("seller", result.id);
                 tq.notEqualTo("stars", 0);
-                query.find({
+                tq.find({
                     success: function(transactions) {
                         var successful = 0;
+                        var reviewed = false;
                         var total = transactions.length;
+                        console.log(JSON.stringify(transactions));
                         for (var i = 0; i < transactions.length; i++) {
-                            if(transactions[i] == 1) {
+                            console.log(JSON.stringify(transactions[i]));
+                            if(transactions[i].get("stars") == 1) {
                                 successful++;
                             }
                         }
-                        var score = 1.0*successful/total;
+                        if(total == 0) {
+                            var score = 1.0;
+                        } else {
+                            var score = 1.0*successful/total;
+                        }
                         res.render('pages/users/display_user', {user:res.locals.user, displaying:result, score:score});
                     },
                     error: function(error) {

@@ -14,8 +14,9 @@
     <p><%=coupon.get("couponDescription")%></p>
     <h2><%=coupon.get("price")%> credits</h2>
     <% if(coupon.get("expirationDate")) {%>
-    <h2> Expires <%=coupon.get("expirationDate")%></h2>
+    <h2>Expires <%=coupon.get("expirationDate")%></h2>
     <% } %>
+    <h2>Seller: <a href="/users/user?id=<%=coupon.get("seller").id%>"><%=coupon.get("seller").get("username")%></a></h2>
     <% if(isBuyer) {%>
     <h2> Code: <%=coupon.get("code")%>
     <% } %>

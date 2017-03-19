@@ -131,7 +131,7 @@ router.post('/purchaseCoupon', function(req, res) {
 router.get('/coupon', function(req, res) {
     checkLogin(req, res).then(function(res) {
         var Coupon = Parse.Object.extend("Coupon");
-        var query = new Parse.Query(Coupon);
+        var query = new Parse.Query(Coupon).include("seller");
         query.get(req.query.id, {
             success: function(result) {
                 var Transaction = Parse.Object.extend("Transaction");

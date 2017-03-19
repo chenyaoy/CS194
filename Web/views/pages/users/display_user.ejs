@@ -10,9 +10,13 @@
 
 <div class="jumbotron text-center">
   <div class="container">
-    <h1><%=displaying.get("displayName")%></h1>
+    <% if(user.id == displaying.id) {%>
+      <h1><%=displaying.get("displayName")%></h1>
+    <% } else { %>
+      <h1><%=displaying.get("username")%></h1>
+    <% } %>
     <p>Member since: <%=displaying.createdAt%></p>
-    <h2>Rating: <%=score%></h2>
+    <h2>Percent successful: <%=100*score%>%</h2>
     <div class="text-center">
         <a type="button" class="btn-success btn-lg btn-block" href="/user/viewComments?id=<%=displaying.id%>">Comments</a>
     </div>
