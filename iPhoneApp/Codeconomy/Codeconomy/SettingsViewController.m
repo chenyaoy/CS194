@@ -93,13 +93,14 @@
     _currentPassword.font = [UIFont systemFontOfSize:24.0f];
     [_scrollView addSubview:_currentPassword];
     _currentPasswordField = [[UITextField alloc] init];
+    _currentPasswordField.placeholder = @"Current Password";
+    _currentPasswordField.secureTextEntry = true;
     _currentPasswordField.layer.cornerRadius = 10;
     _currentPasswordField.layer.masksToBounds = YES;
     _currentPasswordField.layer.borderWidth = 1.0f;
     _currentPasswordField.layer.borderColor = [[UIColor blackColor] CGColor];
     _currentPasswordField.backgroundColor = [UIColor whiteColor];
     _currentPasswordField.layer.sublayerTransform = CATransform3DMakeTranslation(12.0, 0, 0);
-    _currentPasswordField.placeholder = @"Current Password";
     [_scrollView addSubview:_currentPasswordField];
     
     _updatePassword = [[UILabel alloc] init];
@@ -108,13 +109,14 @@
     _updatePassword.font = [UIFont systemFontOfSize:24.0f];
     [_scrollView addSubview:_updatePassword];
     _updatePasswordField = [[UITextField alloc] init];
+    _updatePasswordField.placeholder = @"New Password";
+    _updatePasswordField.secureTextEntry = true;
     _updatePasswordField.layer.cornerRadius = 10;
     _updatePasswordField.layer.masksToBounds = YES;
     _updatePasswordField.layer.borderWidth = 1.0f;
     _updatePasswordField.layer.borderColor = [[UIColor blackColor] CGColor];
     _updatePasswordField.backgroundColor = [UIColor whiteColor];
     _updatePasswordField.layer.sublayerTransform = CATransform3DMakeTranslation(12.0, 0, 0);
-    _updatePasswordField.placeholder = @"New Password";
     [_scrollView addSubview:_updatePasswordField];
     
     _savePassword = [[UIButton alloc] init];

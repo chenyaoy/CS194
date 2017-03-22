@@ -84,6 +84,7 @@
         _password = [[UITextField alloc] init];
         _password.delegate = self;
         _password.placeholder = @"Password";
+        _password.secureTextEntry = true;
         _password.layer.cornerRadius = 10;
         _password.layer.masksToBounds = YES;
         _password.layer.borderWidth = 2.0f;
