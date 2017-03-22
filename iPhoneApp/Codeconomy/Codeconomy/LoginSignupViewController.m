@@ -226,34 +226,55 @@
 }
 
 - (void)tapGo:(UIButton *)sender {
-    self.activityIndicator.hidden = NO;
-    [self.activityIndicator startAnimating];
-    if (self.currentButton == self.signUp) {
-        User *user = [User user];
-        user.username = self.username.text;
-        user.password = self.password.text;
-        user.displayName = self.displayName.text;
-        user.credits = 50;
-        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            [self.activityIndicator stopAnimating];
-            self.activityIndicator.hidden = YES;
-            if (!error) {
-                [self loginUser:user];
-                [self clearFields];
-            } else {
-                NSLog(@"%@", error);
-            }
-        }];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Codeconomy"
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    if (self.username.text.length == 0 || self.password.text.length == 0) {
+        alert.message = @"The username and/or password fields are empty.";
+        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {}];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
     } else {
-        [PFUser logInWithUsernameInBackground:self.username.text password:self.password.text block:^(PFUser * _Nullable user, NSError * _Nullable error) {
-            [self.activityIndicator stopAnimating];
-            self.activityIndicator.hidden = YES;
-            if (!error) {
-                [self loginUser:(User *)user];
-            } else {
-                NSLog(@"%@", error);
-            }
-        }];
+        if (self.currentButton == self.signUp) {
+            self.activityIndicator.hidden = NO;
+            [self.activityIndicator startAnimating];
+            User *user = [User user];
+            user.username = self.username.text;
+            user.password = self.password.text;
+            user.displayName = self.displayName.text;
+            user.credits = 50;
+            [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                [self.activityIndicator stopAnimating];
+                self.activityIndicator.hidden = YES;
+                if (!error) {
+                    [self loginUser:user];
+                    [self clearFields];
+                } else {
+                    // error.code == 202 -> error.description = "Account already exists for this username."
+                    alert.message = error.localizedDescription;
+                    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+                                                                     handler:^(UIAlertAction * action) {}];
+                    [alert addAction:okAction];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+            }];
+        } else {
+            [PFUser logInWithUsernameInBackground:self.username.text password:self.password.text block:^(PFUser * _Nullable user, NSError * _Nullable error) {
+                [self.activityIndicator stopAnimating];
+                self.activityIndicator.hidden = YES;
+                if (!error) {
+                    [self loginUser:(User *)user];
+                } else {
+                    // error.code == 101 -> error.description = "Invalid username/password."
+                    alert.message = error.localizedDescription;
+                    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+                                                                     handler:^(UIAlertAction * action) {}];
+                    [alert addAction:okAction];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+            }];
+        }
     }
 }
 
