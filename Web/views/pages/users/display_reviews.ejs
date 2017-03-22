@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../../partials/navbar.ejs %>
+  <div class="container">
+    <h2>Reviews for <%=displayUser.get("username")%></h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Code worked?</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% transactions.forEach(function(transaction){ %>
+        <tr>
+          <% if(transaction.get("stars") == 1){%>
+            <td>Yes</td>
+          <% } else { %>
+            <td>No</td>
+          <% } %>
+          <td><%= transaction.get("reviewDescription") %></td>
+        </tr>
+        <% });%>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

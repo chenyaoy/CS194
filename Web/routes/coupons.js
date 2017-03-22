@@ -203,7 +203,6 @@ router.post('/postReview/submit', function(req, res) {
                 result.set("reviewDescription", req.body.comment.length == 0 ? null : req.body.comment);
                 result.save(null, {
                     success: function(coupon) {
-                        console.log('/coupons/coupon?id=' + result.get("coupon").id);
                         res.redirect('/coupons/coupon?id=' + result.get("coupon").id);
                     },
                     error: function(coupon, error) {
@@ -290,10 +289,13 @@ router.get('/', function(req, res) {
 
 function unsoldQuery() {
     var Coupon = Parse.Object.extend("Coupon");
-    var query = new Parse.Query(Coupon);
+    var expDate = new Parse.Query(Coupon);
+    expDate.greaterThan("expirationDate", new Date());
+    var noExpDate = new Parse.Query(Coupon);
+    noExpDate.equalTo("expirationDate", null);
+    var query = Parse.Query.or(expDate, noExpDate);
     query.equalTo("status", 1);
     query.equalTo("deleted", false);
-    query.greaterThan("expirationDate", new Date());
     return query;
 }
 
