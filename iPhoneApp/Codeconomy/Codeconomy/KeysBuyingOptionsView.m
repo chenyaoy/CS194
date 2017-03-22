@@ -300,7 +300,7 @@
         characterLimit = 5;
     }
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
-    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:@"1234567890"] invertedSet];
+    NSCharacterSet *cs = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
     NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
     return (([string isEqualToString:filtered]) && (newLength <= characterLimit));
 }
