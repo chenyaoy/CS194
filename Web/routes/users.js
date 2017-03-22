@@ -59,7 +59,11 @@ router.get('/myCoupons/purchased', function(req, res) {
 router.get('/myCoupons/selling', function(req, res) {
     checkLogin(req, res).then(function(res) {
         var Coupon = Parse.Object.extend("Coupon");
-        var query = new Parse.Query(Coupon);
+        var expDate = new Parse.Query(Coupon);
+        expDate.greaterThan("expirationDate", new Date());
+        var noExpDate = new Parse.Query(Coupon);
+        noExpDate.equalTo("expirationDate", null);
+        var query = Parse.Query.or(expDate, noExpDate);
         query.equalTo("seller", res.locals.user);
         query.equalTo("deleted", false);
         query.equalTo("status", 1);
@@ -92,6 +96,35 @@ function serveQuery(query, req, res, category) {
         }
     });
 }
+
+router.get('/viewComments', function(req, res) {
+    checkLogin(req, res).then(function(res) {
+        var User = Parse.Object.extend("_User");
+        var query = new Parse.Query(User);
+        query.get(req.query.id, {
+            success: function(result) {
+                var Transaction = Parse.Object.extend("Transaction");
+                var tq = new Parse.Query(Transaction);
+                console.log(result.id);
+                tq.equalTo("seller", result);
+                tq.notEqualTo("stars", 0);
+                tq.find({
+                    success: function(transactions) {
+                        res.render('pages/users/display_reviews', {transactions:transactions, displayUser:result, user:res.locals.user});
+                    },
+                    error: function(error) {
+                        res.render('pages/error_try_again');
+                    }
+                });
+            },
+            error: function(error) {
+                res.render('pages/error_try_again');
+            }
+        });
+    }, function(err) {
+        res.redirect('/users/login');
+    });
+});
 
 router.get('/', function(req, res) {
     res.render('pages/index');
@@ -150,16 +183,14 @@ router.get('/user', function(req, res) {
             success: function(result) {
                 var Transaction = Parse.Object.extend("Transaction");
                 var tq = new Parse.Query(Transaction);
-                tq.equalTo("seller", result.id);
+                tq.equalTo("seller", result);
                 tq.notEqualTo("stars", 0);
                 tq.find({
                     success: function(transactions) {
                         var successful = 0;
                         var reviewed = false;
                         var total = transactions.length;
-                        console.log(JSON.stringify(transactions));
                         for (var i = 0; i < transactions.length; i++) {
-                            console.log(JSON.stringify(transactions[i]));
                             if(transactions[i].get("stars") == 1) {
                                 successful++;
                             }
