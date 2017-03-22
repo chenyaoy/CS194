@@ -177,22 +177,24 @@
 
 #pragma mark - UITextFieldDelegate
 
-//- (bool)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-//    int characterLimit = -1;
-//    if (textField == self.cardNumberField) {
-//        characterLimit = 16;
-//    } else if (textField == self.expirationDateField) {
-//        characterLimit = 4;
-//    } else if (textField == self.securityCodeField) {
-//        characterLimit = 3;
-//    } else if (textField == self.zipCodeField) {
-//        characterLimit = 5;
-//    }
-//    NSUInteger newLength = [textField.text length] + [string length] - range.length;
-//    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:@"1234567890"] invertedSet];
-//    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-//    return (([string isEqualToString:filtered]) && (newLength <= characterLimit));
-//}
+- (bool)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    int characterLimit = -1;
+    if (textField == self.username) {
+        characterLimit = 20;
+    } else if (textField == self.password) {
+        characterLimit = 100;
+    } else if (textField == self.displayName) {
+        characterLimit = 25;
+    }
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    if (textField == self.username) {
+        NSCharacterSet *restrictedCharacters = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+        NSString *filtered = [[string componentsSeparatedByCharactersInSet:restrictedCharacters] componentsJoinedByString:@""];
+        return (([string isEqualToString:filtered]) && (newLength <= characterLimit));
+    } else {
+        return true;
+    }
+}
 
 - (bool)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.username) {
