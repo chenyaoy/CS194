@@ -103,7 +103,7 @@ router.get('/addCredits', function(req, res) {
             console.log(user);
             console.log(user.get("credits"));
             console.log(credits);
-            user.set("credits", user.get("credits") + credits);
+            user.set("credits", user.get("credits") + parseInt(credits));
             console.log("set new credits");
             console.log(user);
             user.save({useMasterKey:true}, {
