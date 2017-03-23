@@ -412,7 +412,7 @@
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"New Listing"
                                                                        message:[message substringToIndex:message.length - 1]
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) {}];
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:nil];

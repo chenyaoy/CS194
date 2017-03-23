@@ -133,7 +133,7 @@
                                                                   }
                                                               }];
                                                           }];
-        UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"No"
+        UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * action) {}];
         [alert addAction:yesAction];
