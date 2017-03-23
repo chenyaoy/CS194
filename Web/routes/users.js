@@ -181,24 +181,28 @@ router.get('/signup', function(req, res) {
 });
 
 router.post('/signup/submit', function(req, res) {
-    var user = new Parse.User();
-    user.set("username", req.body.username);
-    user.set("password", req.body.password);
-    user.set("email", req.body.email);
-    user.set("displayName", req.body.displayName);
-    user.set("credits", 50);
+    if(req.body.displayName.length == 0) {
+        var error = {message:"Please let us know what to call you."};
+        res.render('pages/users/signup_error', {error:error});
+    } else {
+        var user = new Parse.User();
+        user.set("username", req.body.username);
+        user.set("password", req.body.password);
+        user.set("email", req.body.email);
+        user.set("displayName", req.body.displayName);
+        user.set("credits", 50);
 
-    user.signUp(null, {
-      success: function(user) {
-        // Hooray! Let them use the app now.
-        req.session.token = user.getSessionToken();
-        res.send("Created account successfully");
-      },
-      error: function(user, error) {
-        // Show the error message somewhere and let the user try again.
-        res.send("Error: " + error.code + " " + error.message);
-      }
-    });
+        user.signUp(null, {
+          success: function(user) {
+            // Hooray! Let them use the app now.
+            req.session.token = user.getSessionToken();
+            res.redirect("/users/myprofile");
+          },
+          error: function(user, error) {
+            res.render('pages/users/signup_error', {error:error});
+          }
+        });
+    }
 });
 
 router.get('/user', function(req, res) {
