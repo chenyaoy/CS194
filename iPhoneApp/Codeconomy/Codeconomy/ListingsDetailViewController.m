@@ -111,24 +111,26 @@
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"reloadUserData"
              object:self];
-//            [connReq start];
-//            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:serverAddress cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-//            [request setHTTPMethod:@"GET"];
-//            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-//            [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//                NSLog(@"success");
-//            }] resume];
+            
+            User *seller = self.couponData.seller.fetchIfNeeded;
+            NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"https://codeconomy-web.herokuapp.com/users/addCredits?username=%@&credits=%d", seller.username, self.couponData.price]];
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+            NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+            [request setHTTPMethod:@"POST"];
+            NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                if (error) {
+                    NSLog(@"ERROR!!: %@", error.localizedDescription);
+                } else {
+                    NSLog(@"successfully added keys to the seller's account!");
+                }
+            }];
+            [dataTask resume];
+
         } else {
             NSLog(@"%@", error);
         }
     }];
-    User *seller = self.couponData.seller.fetchIfNeeded;
-    NSURL *serverAddress = [NSURL URLWithString: [NSString stringWithFormat:@"https://codeconomy-web.herokuapp.com/users/addCredits?username=%@&credits=%d", seller.username, seller.credits]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setHTTPMethod:@"POST"];
-    [request setURL:serverAddress];
-    NSURLConnection *connReq = [[NSURLConnection alloc] initWithRequest:request delegate:nil];
-    NSLog(@"ummmmm");
     [self.navigationController popViewControllerAnimated:YES];
 }
 
