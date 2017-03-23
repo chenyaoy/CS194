@@ -14,6 +14,7 @@
 
 @interface TransactionsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) User *user;
+@property (nonatomic, strong) UILabel *price;
 @property (nonatomic, strong) UITableView *transactions;
 @property (nonatomic, strong) NSMutableArray *allTransactions;
 @end
@@ -25,14 +26,22 @@
     if (self) {
         _user = user;
         
-        UIBarButtonItem *postListing = [[UIBarButtonItem alloc] initWithTitle:@"Options" style:UIBarButtonItemStylePlain target:self action:@selector(showTransactionOptions:)];
-        self.navigationItem.rightBarButtonItem = postListing;
+        _price = [[UILabel alloc] init];
+        _price.text = [NSString stringWithFormat:@"%d🔑", self.user.credits];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reloadUserData:)
+                                                     name:@"reloadUserData"
+                                                   object:nil];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [_price sizeToFit];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.price];
+    self.navigationItem.rightBarButtonItem = item;
     _transactions = [[UITableView alloc] init];
     _transactions.delegate = self;
     _transactions.dataSource = self;
@@ -121,12 +130,13 @@
     return view;
 }
 
-#pragma mark - Segue
+#pragma mark - Helpers
 
-- (void)showTransactionOptions:(UIBarButtonItem *)button {
-    // show some transaction filtering options
+- (void)reloadUserData:(NSNotification *) notification {
+    [self.user fetch];
+    self.price.text = [NSString stringWithFormat:@"%d🔑", self.user.credits];
+    [self.price sizeToFit];
 }
-
 
 /*
 #pragma mark - Navigation

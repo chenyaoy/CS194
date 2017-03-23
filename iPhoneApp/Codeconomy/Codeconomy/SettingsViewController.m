@@ -104,7 +104,7 @@
     [_scrollView addSubview:_currentPasswordField];
     
     _updatePassword = [[UILabel alloc] init];
-    _updatePassword.text = @"🔐";
+    _updatePassword.text = @"🆕";
     _updatePassword.numberOfLines = 1;
     _updatePassword.font = [UIFont systemFontOfSize:24.0f];
     [_scrollView addSubview:_updatePassword];

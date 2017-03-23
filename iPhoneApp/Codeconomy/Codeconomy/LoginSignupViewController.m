@@ -294,7 +294,7 @@
     NSString *profileEmoji = @"👤";
     
     exploreViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Explore" image:[self hg_imageFromString:exploreEmoji] tag:1];
-    couponsViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Coupons" image:[self hg_imageFromString:couponsEmoji] tag:2];
+    couponsViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Listings" image:[self hg_imageFromString:couponsEmoji] tag:2];
     profileViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[self hg_imageFromString:profileEmoji] tag:3];
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
