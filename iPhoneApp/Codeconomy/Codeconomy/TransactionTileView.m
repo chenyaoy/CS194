@@ -14,6 +14,7 @@
 @property (nonatomic, strong) Transaction *transactionData;
 @property (nonatomic, strong) Coupon *couponData;
 @property (nonatomic, strong) User *user;
+@property (nonatomic, strong) UILabel *store;
 @property (nonatomic, strong) UILabel *title;
 @property (nonatomic, strong) UILabel *dateTransacted;
 @property (nonatomic, strong) UIView *circle;
@@ -25,6 +26,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        _store = [[UILabel alloc] init];
         _title = [[UILabel alloc] init];
         _dateTransacted = [[UILabel alloc] init];
         _circle = [[UIView alloc] init];
@@ -55,16 +57,20 @@
     self.circle.layer.masksToBounds = YES;
     [self addSubview:self.circle];
 
-    NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", self.couponData.storeName, self.couponData.couponDescription]];
-    [titleString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18.0f] range:NSMakeRange(0, self.couponData.storeName.length)];
-    [titleString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0f] range:NSMakeRange(self.couponData.storeName.length + 1, self.couponData.couponDescription.length)];
+    NSMutableAttributedString *storeString = [[NSMutableAttributedString alloc] initWithString:self.couponData.storeName];
+    [storeString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18.0f] range:NSMakeRange(0, self.couponData.storeName.length)];
+    self.store.attributedText = storeString;
+    [self addSubview:self.store];
+    [self.store sizeToFit];
+    
+    NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:self.couponData.couponDescription];
+    [titleString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0f] range:NSMakeRange(0, self.couponData.couponDescription.length)];
     self.title.attributedText = titleString;
     [self addSubview:self.title];
     [self.title sizeToFit];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-//    dateFormatter.dateFormat = @"m/d/yy";
-    dateFormatter.dateFormat = @"MMMM d, ''yy";
+    dateFormatter.dateFormat = @"MMMM d, yyyy";
     NSString *dateString = [dateFormatter stringFromDate: self.transactionData.transactionDate];
     
     if (self.userBought) {
@@ -82,8 +88,9 @@
 - (void) layoutSubviews {
     [super layoutSubviews];
     self.circle.frame = CGRectMake(16.0, self.frame.size.height / 2.0 - self.circle.frame.size.height / 2.0, self.circle.frame.size.width, self.circle.frame.size.height);
-    self.title.frame = CGRectMake(self.circle.frame.origin.x + self.circle.frame.size.width + 30.0, 10.0, self.title.frame.size.width, self.title.frame.size.height);
-    self.dateTransacted.frame = CGRectMake(self.title.frame.origin.x, self.frame.size.height - self.dateTransacted.frame.size.height - 8.0, self.dateTransacted.frame.size.width, self.dateTransacted.frame.size.height);
+    self.store.frame = CGRectMake(self.circle.frame.origin.x + self.circle.frame.size.width + 30.0, 10.0, self.store.frame.size.width, self.store.frame.size.height);
+    self.title.frame = CGRectMake(self.store.frame.origin.x, self.store.frame.origin.y + self.store.frame.size.height + 4.0, self.title.frame.size.width, self.title.frame.size.height);
+    self.dateTransacted.frame = CGRectMake(self.title.frame.origin.x, self.frame.size.height - self.dateTransacted.frame.size.height - 10.0, self.dateTransacted.frame.size.width, self.dateTransacted.frame.size.height);
 }
 
 /*
