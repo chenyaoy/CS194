@@ -128,7 +128,7 @@ router.post('/purchaseCoupon', function(req, res) {
                         });
                     },
                     error: function(transaction, error) {
-                        res.send("Transaction failed. Please try again. " + error.message)
+                        res.render("pages/error_try_again");
                     }
                 });
             },

@@ -194,7 +194,6 @@ router.post('/signup/submit', function(req, res) {
 
         user.signUp(null, {
           success: function(user) {
-            // Hooray! Let them use the app now.
             req.session.token = user.getSessionToken();
             res.redirect("/users/myprofile");
           },
