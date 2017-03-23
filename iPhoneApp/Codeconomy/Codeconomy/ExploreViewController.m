@@ -64,6 +64,9 @@
         _allCategories = [[NSMutableArray alloc] init];
         _allEmojis = [[NSMutableArray alloc] init];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+        [self.view addGestureRecognizer:tap];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(reloadUserData:)
                                                      name:@"reloadUserData"
@@ -209,6 +212,14 @@
     [self.user fetch];
     self.price.text = [NSString stringWithFormat:@"%d🔑", self.user.credits];
     [self.price sizeToFit];
+}
+
+#pragma mark - Keyboard
+
+- (void)dismissKeyboard {
+    if (self.searchBar.isFirstResponder) {
+        [self.searchBar resignFirstResponder];
+    }
 }
 
 #pragma mark - Mock Data
