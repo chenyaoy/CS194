@@ -111,14 +111,7 @@
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"reloadUserData"
              object:self];
-            User *seller = self.couponData.seller.fetchIfNeeded;
-            NSURL *serverAddress = [NSURL URLWithString: [NSString stringWithFormat:@"https://codeconomy-web.herokuapp.com/users/addCredits?username=%@&credits=%d", seller.username, seller.credits]];
-            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-            [request setHTTPMethod:@"POST"];
-            [request setURL:serverAddress];
-            NSError *error = nil;
-            NSHTTPURLResponse *responseCode = nil;
-            NSData *oResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
+//            [connReq start];
 //            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:serverAddress cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
 //            [request setHTTPMethod:@"GET"];
 //            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -129,6 +122,13 @@
             NSLog(@"%@", error);
         }
     }];
+    User *seller = self.couponData.seller.fetchIfNeeded;
+    NSURL *serverAddress = [NSURL URLWithString: [NSString stringWithFormat:@"https://codeconomy-web.herokuapp.com/users/addCredits?username=%@&credits=%d", seller.username, seller.credits]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"POST"];
+    [request setURL:serverAddress];
+    NSURLConnection *connReq = [[NSURLConnection alloc] initWithRequest:request delegate:nil];
+    NSLog(@"ummmmm");
     [self.navigationController popViewControllerAnimated:YES];
 }
 
