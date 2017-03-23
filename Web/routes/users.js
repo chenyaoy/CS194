@@ -97,8 +97,9 @@ router.get('/addCredits', function(req, res) {
     console.log('first query');
     query.find({
         success: function (user) {
+            user.fetch();
             console.log('first query success');
-            console.log(user);
+            console.log(user.attributes);
             console.log(user.get("credits"));
             console.log(credits);
             user.set("credits", user.get("credits") + credits);
