@@ -87,6 +87,7 @@ router.get('/myCoupons/sold', function(req, res) {
 });
 
 router.get('/addCredits', function(req, res) {
+    Parse.Cloud.useMasterKey();
     console.log('entered route');
     var User = Parse.Object.extend("_User");
     var username = req.query.username;
