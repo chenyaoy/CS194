@@ -10,6 +10,7 @@
 #import "ExploreCollectionViewCell.h"
 #import "ListingsDetailViewController.h"
 #import "ListingsTableViewCell.h"
+#import "SearchViewController.h"
 #import "Coupon.h"
 #import "Util.h"
 #import <Parse/Parse.h>
@@ -136,6 +137,12 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    SearchViewController *searchVC = [[SearchViewController alloc] initWithUser:self.user withCategory:[self.allCategories objectAtIndex:indexPath.section * 2 + indexPath.row]];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationItem.backBarButtonItem = barButton;
+    searchVC.navigationItem.title = [self.allCategories objectAtIndex:indexPath.section * 2 + indexPath.row];
+    [self.navigationController pushViewController:searchVC animated:YES];
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
 }
 

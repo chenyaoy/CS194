@@ -238,9 +238,9 @@
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
+        self.activityIndicator.hidden = NO;
+        [self.activityIndicator startAnimating];
         if (self.currentButton == self.signUp) {
-            self.activityIndicator.hidden = NO;
-            [self.activityIndicator startAnimating];
             User *user = [User user];
             user.username = self.username.text;
             user.password = self.password.text;
