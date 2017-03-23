@@ -99,6 +99,7 @@ router.get('/addCredits', function(req, res) {
         success: function (user) {
             console.log('first query success');
             user.set("credits", user.get("credits") + credits);
+            console.log('masterkey query');
             user.save({
                 success: function (user) {
                     console.log('second query success');
@@ -107,14 +108,14 @@ router.get('/addCredits', function(req, res) {
                 error: function(user, error) {
                 // This will error, since the Parse.User is not authenticated
                     res.redirect('/users/login');
-                }
+                },
+                useMasterKey: true
             });
         },
         error: function (error) {
             //Show if no user was found to match
             res.redirect('/users/login');
-        },
-        useMasterKey: true
+        }
     });
 });
 
