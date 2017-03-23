@@ -113,7 +113,8 @@ router.get('/addCredits', function(req, res) {
         error: function (error) {
             //Show if no user was found to match
             res.redirect('/users/login');
-        }
+        },
+        useMasterKey: true
     });
 });
 
