@@ -87,9 +87,10 @@ router.get('/myCoupons/sold', function(req, res) {
 });
 
 router.get('/addCredits', function(req, res) {
+    var User = Parse.Object.extend("_User");
     var username = req.query.username;
     var credits = req.query.credits;
-    var query = new Parse.Query(Parse.User);
+    var query = new Parse.Query(User);
     query.equalTo("username", username);
     query.find({
         success: function (user) {
