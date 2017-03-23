@@ -52,7 +52,7 @@
     [self.title sizeToFit];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    dateFormatter.dateFormat = @"MM/dd/yy";
+    dateFormatter.dateFormat = @"M/d/yy";
     NSString *dateString = [dateFormatter stringFromDate: self.couponData.expirationDate];
     
     self.expires.text = [NSString stringWithFormat:@"expires %@", dateString];
