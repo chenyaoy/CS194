@@ -94,9 +94,10 @@ router.get('/addCredits', function(req, res) {
     query.find({
         success: function (user) {
             user.set("credits", user.get("credits") + credits);
-            user.save(success: function (user) {
-                res.send('success');
-            }, {
+            user.save({
+                success: function (user) {
+                    res.send('success');
+                },
                 error: function(user, error) {
                 // This will error, since the Parse.User is not authenticated
                     res.send(error);
