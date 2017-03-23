@@ -97,17 +97,17 @@ router.get('/addCredits', function(req, res) {
             user.set("credits", user.get("credits") + credits);
             user.save({
                 success: function (user) {
-                    res.send('success');
+                    res.redirect('/users/login');
                 },
                 error: function(user, error) {
                 // This will error, since the Parse.User is not authenticated
-                    res.send(error);
+                    res.redirect('/users/login');
                 }
             });
         },
         error: function (error) {
             //Show if no user was found to match
-            res.send("Show if no user was found to match");
+            res.redirect('/users/login');
         }
     });
 });
