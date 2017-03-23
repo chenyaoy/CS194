@@ -289,9 +289,9 @@
     couponsViewController.navigationBar.topItem.title = @"My Listings";
     profileViewController.navigationBar.topItem.title = currentUser.username;
     
-    NSString *exploreEmoji = @"🏬";
+    NSString *exploreEmoji = @"🛒";
     NSString *couponsEmoji = @"🏷";
-    NSString *profileEmoji = @"🌚";
+    NSString *profileEmoji = @"👤";
     
     exploreViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Explore" image:[self hg_imageFromString:exploreEmoji] tag:1];
     couponsViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Coupons" image:[self hg_imageFromString:couponsEmoji] tag:2];
