@@ -86,6 +86,26 @@ router.get('/myCoupons/sold', function(req, res) {
     });
 });
 
+router.post('/addCredits', function(req, res) {
+    var username = req.query.username;
+    var credits = req.query.credits;
+    var query = new Parse.Query(Parse.User);
+    query.equalTo("username", username);
+    query.find({
+        success: function (user) {
+            user.set("credits", user.get("credits") + credits);
+            user.save(null, {
+                error: function(user, error) {
+                // This will error, since the Parse.User is not authenticated
+                }
+            });
+        },
+        error: function (error) {
+            //Show if no user was found to match
+        }
+    });
+});
+
 function serveQuery(query, req, res, category) {
     query.find({
         success: function(coupons) {
