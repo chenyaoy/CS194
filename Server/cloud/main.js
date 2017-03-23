@@ -14,7 +14,7 @@ Parse.Cloud.define("addCredits", function(request, response) {
 	    success: function(userRecord) {
 	    	userRecord.fetch();
 			userRecord.set("credits", userRecord.get("credits") + credits);
-			userRecord.save(null, {
+			userRecord.save({useMasterKey: true}, {
                 success: function(user) {
                     console.log('save user success');
                     response.success("save user success")
