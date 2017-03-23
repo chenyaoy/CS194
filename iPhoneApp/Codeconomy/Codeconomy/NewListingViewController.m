@@ -369,6 +369,7 @@
     }
     NSString *credits = self.creditsField.text;
     BOOL categorySelected = (self.selectedCategory != nil);
+    NSString *code = self.codeField.text;
     NSMutableArray *missingFields = [[NSMutableArray alloc] init];
     
     if (store.length == 0) {
@@ -387,6 +388,9 @@
     }
     if (!categorySelected) {
         [missingFields addObject:@"category"];
+    }
+    if (code.length == 0) {
+        [missingFields addObject:@"code"];
     }
     return missingFields;
 }
