@@ -77,6 +77,20 @@ router.post('/postCoupon/submit', function(req, res) {
     });
 });
 
+router.post('/search', function(req, res) {
+    checkLogin(req, res).then(function(res) {
+        var queryString = req.body.search;
+        var Coupon = Parse.Object.extend("Coupon");
+        var storeQuery = new Parse.Query(Coupon);
+        storeQuery.contains("storeName", queryString);
+        var descriptionQuery = new Parse.Query(Coupon);
+        descriptionQuery.contains("couponDescription", queryString);
+        var query = Parse.Query.or(storeQuery, descriptionQuery);
+        query.equalTo("status", 1);
+        query.equalTo("deleted", false);
+        serveQuery(query, req, res, "Matching");
+    });
+});
 
 router.post('/purchaseCoupon', function(req, res) {
     checkLogin(req, res).then(function(res) {

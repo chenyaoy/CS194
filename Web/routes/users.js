@@ -132,7 +132,6 @@ router.get('/viewComments', function(req, res) {
             success: function(result) {
                 var Transaction = Parse.Object.extend("Transaction");
                 var tq = new Parse.Query(Transaction);
-                console.log(result.id);
                 tq.equalTo("seller", result);
                 tq.notEqualTo("stars", 0);
                 tq.find({
