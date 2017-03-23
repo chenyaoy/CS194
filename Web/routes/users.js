@@ -98,7 +98,9 @@ router.get('/addCredits', function(req, res) {
     query.find({
         success: function (user) {
             console.log('first query success');
+            console.log(user);
             user.set("credits", user.get("credits") + credits);
+            console.log("set new credits");
             // console.log('masterkey query');
             user.save({useMasterKey:true}, {
                 success: function (user) {
