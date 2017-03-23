@@ -95,7 +95,7 @@ router.get('/addCredits', function(req, res) {
     var query = new Parse.Query(User);
     query.equalTo("username", username);
     console.log('first query');
-    query.find({
+    query.get({
         success: function (user) {
             console.log('first query success');
             console.log(user);
