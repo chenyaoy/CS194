@@ -56,6 +56,9 @@
     NSString *dateString = [dateFormatter stringFromDate: self.couponData.expirationDate];
     
     self.expires.text = [NSString stringWithFormat:@"expires %@", dateString];
+    if (!dateString) {
+        self.expires.text = @"does not expire";
+    }
     [self.expires setFont:[UIFont systemFontOfSize:14.0f]];
     [self addSubview:self.expires];
     [self.expires sizeToFit];

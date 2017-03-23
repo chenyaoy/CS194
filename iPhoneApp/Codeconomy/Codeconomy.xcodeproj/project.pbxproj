@@ -48,6 +48,7 @@
 		3D94BE761E62D6A700C049C1 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D94BE751E62D6A700C049C1 /* Transaction.m */; };
 		3D94BE791E62D77100C049C1 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D94BE781E62D77100C049C1 /* Filter.m */; };
 		3D94BE7C1E62D9A000C049C1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D94BE7B1E62D9A000C049C1 /* User.m */; };
+		3DB4B2831E83665B005381DA /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4B2821E83665B005381DA /* SearchViewController.m */; };
 		3DE3CD2D1E47D8BB007EEC70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3CD2C1E47D8BB007EEC70 /* main.m */; };
 		3DE3CD301E47D8BB007EEC70 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3CD2F1E47D8BB007EEC70 /* AppDelegate.m */; };
 		3DE3CD331E47D8BB007EEC70 /* ExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3CD321E47D8BB007EEC70 /* ExploreViewController.m */; };
@@ -149,6 +150,8 @@
 		3D94BE781E62D77100C049C1 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		3D94BE7A1E62D9A000C049C1 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		3D94BE7B1E62D9A000C049C1 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		3DB4B2811E83665B005381DA /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		3DB4B2821E83665B005381DA /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		3DE3CD281E47D8BB007EEC70 /* Codeconomy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Codeconomy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE3CD2C1E47D8BB007EEC70 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3DE3CD2E1E47D8BB007EEC70 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -309,6 +312,8 @@
 				3DE3CD321E47D8BB007EEC70 /* ExploreViewController.m */,
 				3D7A9B901E52D45A00FD6812 /* ExploreCollectionViewCell.h */,
 				3D7A9B911E52D45A00FD6812 /* ExploreCollectionViewCell.m */,
+				3DB4B2811E83665B005381DA /* SearchViewController.h */,
+				3DB4B2821E83665B005381DA /* SearchViewController.m */,
 			);
 			name = Explore;
 			sourceTree = "<group>";
@@ -785,6 +790,7 @@
 				1AA2DE2B1E6D473E00B3E82A /* TransactionCodeView.m in Sources */,
 				3D3DEDBB1E7615F000F2600F /* LoginSignupViewController.m in Sources */,
 				3DE3CD331E47D8BB007EEC70 /* ExploreViewController.m in Sources */,
+				3DB4B2831E83665B005381DA /* SearchViewController.m in Sources */,
 				3D5EB5171E51306800E67C91 /* CodeconomyTileView.m in Sources */,
 				3D5DD7A21E74C16500483715 /* TransactionReviewView.m in Sources */,
 				3DE3CD301E47D8BB007EEC70 /* AppDelegate.m in Sources */,
