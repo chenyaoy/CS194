@@ -105,7 +105,7 @@ router.get('/addCredits', function(req, res) {
             console.log(credits);
             user.set("credits", user.get("credits") + credits);
             console.log("set new credits");
-            // console.log('masterkey query');
+            console.log(user);
             user.save({useMasterKey:true}, {
                 success: function (user) {
                     console.log('save user success');
