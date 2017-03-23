@@ -93,20 +93,23 @@ router.get('/addCredits', function(req, res) {
     var username = req.query.username;
     var credits = req.query.credits;
     var query = new Parse.Query(User);
+    query.equalTo("username", username);
     console.log('first query');
-    query.get(username, {
+    query.find({
         success: function (user) {
             console.log('first query success');
             user.set("credits", user.get("credits") + credits);
             // console.log('masterkey query');
-            user.save(null, {
+            user.save({useMasterKey:true}, {
                 success: function (user) {
                     console.log('save user success');
+                    res.send("save user success")
                     res.redirect('/users/login');
                 },
                 error: function(user, error) {
                 // This will error, since the Parse.User is not authenticated
                     console.log("failed to save user");
+                    res.send("failed to save user")
                     res.redirect('/users/login');
                 },
                 // useMasterKey: true
@@ -114,6 +117,7 @@ router.get('/addCredits', function(req, res) {
         },
         error: function (object, error) {
             console.log("query get failed");
+            res.send("query get failed");
             res.redirect('/users/login');
         }
     });
