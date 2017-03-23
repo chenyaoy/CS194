@@ -114,7 +114,7 @@ router.get('/addCredits', function(req, res) {
                 },
                 error: function(user, error) {
                 // This will error, since the Parse.User is not authenticated
-                    console.log("failed to save user");
+                    console.log(error);
                     res.send("failed to save user")
                     res.redirect('/users/login');
                 },
