@@ -99,7 +99,7 @@ router.get('/addCredits', function(req, res) {
             console.log('first query success');
             user.set("credits", user.get("credits") + credits);
             // console.log('masterkey query');
-            user.save({
+            user.save(null, {
                 success: function (user) {
                     console.log('save user success');
                     res.redirect('/users/login');
