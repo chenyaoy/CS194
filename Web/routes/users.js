@@ -86,7 +86,7 @@ router.get('/myCoupons/sold', function(req, res) {
     });
 });
 
-router.post('/addCredits', function(req, res) {
+router.get('/addCredits', function(req, res) {
     var username = req.query.username;
     var credits = req.query.credits;
     var query = new Parse.Query(Parse.User);
