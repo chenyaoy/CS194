@@ -4,11 +4,12 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 
 Parse.Cloud.define("addCredits", function(request, response) {
-	var username = request.params.username;
+	Parse.Cloud.useMasterKey();
+	var objectId = request.params.objectId;
 	var credits = request.params.credits;
 	var query = new Parse.Query(Parse.User);
-	query.equalTo("username", username);
-	query.find({
+	query.equalTo("objectId", objectId);
+	query.first({
 	    success: function(user) {
 			user.set("credits", user.get("credits") + credits);
 			user.save(null, {
