@@ -94,14 +94,18 @@ router.get('/addCredits', function(req, res) {
     query.find({
         success: function (user) {
             user.set("credits", user.get("credits") + credits);
-            user.save(null, {
+            user.save(success: function (user) {
+                res.send('success');
+            }, {
                 error: function(user, error) {
                 // This will error, since the Parse.User is not authenticated
+                    res.send(error);
                 }
             });
         },
         error: function (error) {
             //Show if no user was found to match
+            res.send("Show if no user was found to match");
         }
     });
 });
