@@ -65,6 +65,7 @@
         _allEmojis = [[NSMutableArray alloc] init];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+        [tap setCancelsTouchesInView:false];
         [self.view addGestureRecognizer:tap];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -203,6 +204,7 @@
     barButton.title = @"Back";
     self.navigationItem.backBarButtonItem = barButton;
     searchVC.navigationItem.title = @"Search";
+    [searchBar resignFirstResponder];
     [self.navigationController pushViewController:searchVC animated:YES];
 }
 
@@ -217,9 +219,7 @@
 #pragma mark - Keyboard
 
 - (void)dismissKeyboard {
-    if (self.searchBar.isFirstResponder) {
-        [self.searchBar resignFirstResponder];
-    }
+    [self.searchBar resignFirstResponder];
 }
 
 #pragma mark - Mock Data
