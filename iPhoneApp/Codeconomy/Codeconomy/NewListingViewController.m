@@ -155,6 +155,7 @@
     [_scrollView addSubview:_whenField];
     _whenPickerView = [[UIDatePicker alloc] init];
     _whenPickerView.datePickerMode = UIDatePickerModeDate;
+    _whenPickerView.minimumDate = [NSDate date];
     _whenField.inputView = _whenPickerView;
     [_whenPickerView addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventValueChanged];
     _extraInfo = [[UILabel alloc] init];
