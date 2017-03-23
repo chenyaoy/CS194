@@ -10,20 +10,22 @@ Parse.Cloud.define("addCredits", function(request, response) {
 	var query = new Parse.Query(Parse.User);
 	query.equalTo("objectId", objectId);
 	query.first({
-	    success: function(user) {
-			user.set("credits", user.get("credits") + credits);
-			user.save(null, {
+	    success: function(userRecord) {
+	    	userRecord.fetch();
+			userRecord.set("credits", userRecord.get("credits") + credits);
+			userRecord.save(null, {
                 success: function(user) {
                     console.log('save user success');
                     response.success("save user success")
+                    userRecord.fetch();
                 },
-                error: function(user, error) {
+                error: function(error) {
                     console.log("failed to save user");
                     response.error("failed to save user")
                 }
             });
 	    },
-	    error: function(object, error) {
+	    error: function(error) {
 	      response.error("add credits failed");
 	    }
 	});
