@@ -87,33 +87,33 @@ router.get('/myCoupons/sold', function(req, res) {
 });
 
 router.get('/addCredits', function(req, res) {
-    Parse.Cloud.useMasterKey();
+    // Parse.Cloud.useMasterKey();
     console.log('entered route');
     var User = Parse.Object.extend("_User");
     var username = req.query.username;
     var credits = req.query.credits;
     var query = new Parse.Query(User);
-    query.equalTo("username", username);
     console.log('first query');
-    query.find({
+    query.get(username, {
         success: function (user) {
             console.log('first query success');
             user.set("credits", user.get("credits") + credits);
-            console.log('masterkey query');
+            // console.log('masterkey query');
             user.save({
                 success: function (user) {
-                    console.log('second query success');
+                    console.log('save user success');
                     res.redirect('/users/login');
                 },
                 error: function(user, error) {
                 // This will error, since the Parse.User is not authenticated
+                    console.log("failed to save user");
                     res.redirect('/users/login');
                 },
-                useMasterKey: true
+                // useMasterKey: true
             });
         },
-        error: function (error) {
-            //Show if no user was found to match
+        error: function (object, error) {
+            console.log("query get failed");
             res.redirect('/users/login');
         }
     });
