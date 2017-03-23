@@ -85,12 +85,26 @@
             }
         }];
     } else {
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"(storeName CONTAINS[cd] %@) OR (couponDescription CONTAINS[cd] %@) OR (additionalInfo CONTAINS[cd] %@)", self.searchString, self.searchString, self.searchString];
-        PFQuery *query = [PFQuery queryWithClassName:@"Coupon" predicate:pred];
-        [query whereKey:@"seller" notEqualTo:self.user];
-        [query whereKey:@"status" equalTo:@1];
-        [query whereKey:@"deleted" equalTo:@NO];
-        [query whereKey:@"category" equalTo:self.category];
+        PFQuery *query1 = [PFQuery queryWithClassName:@"Coupon"];
+        [query1 whereKey:@"storeName" containsString:self.searchString];
+        [query1 whereKey:@"seller" notEqualTo:self.user];
+        [query1 whereKey:@"status" equalTo:@1];
+        [query1 whereKey:@"deleted" equalTo:@NO];
+        
+        PFQuery *query2 = [PFQuery queryWithClassName:@"Coupon"];
+        [query2 whereKey:@"couponDescription" containsString:self.searchString];
+        [query2 whereKey:@"seller" notEqualTo:self.user];
+        [query2 whereKey:@"status" equalTo:@1];
+        [query2 whereKey:@"deleted" equalTo:@NO];
+        
+        PFQuery *query3 = [PFQuery queryWithClassName:@"Coupon"];
+        [query3 whereKey:@"additionalInfo" containsString:self.searchString];
+        [query3 whereKey:@"seller" notEqualTo:self.user];
+        [query3 whereKey:@"status" equalTo:@1];
+        [query3 whereKey:@"deleted" equalTo:@NO];
+        
+        NSArray *arrQuery = [[NSArray alloc] initWithObjects:query1, query2, query3, nil];
+        PFQuery *query = [PFQuery orQueryWithSubqueries:arrQuery];
         [query includeKey:@"seller"];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
             if(!error) {

@@ -15,7 +15,7 @@
 #import "Util.h"
 #import <Parse/Parse.h>
 
-@interface ExploreViewController () <UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource>
+@interface ExploreViewController () <UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) NSMutableArray *allListings;
 @property (nonatomic, strong) NSMutableArray *allCategories;
@@ -190,6 +190,17 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     return view;
+}
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    SearchViewController *searchVC = [[SearchViewController alloc] initWithUser:self.user withSearchString:searchBar.text];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationItem.backBarButtonItem = barButton;
+    searchVC.navigationItem.title = @"Search";
+    [self.navigationController pushViewController:searchVC animated:YES];
 }
 
 #pragma mark - Helpers
