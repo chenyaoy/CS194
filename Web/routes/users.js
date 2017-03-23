@@ -100,18 +100,15 @@ router.get('/addCredits', function(req, res) {
             user.set("credits", user.get("credits") + parseInt(credits));
             user.save({useMasterKey:true}, {
                 success: function (user) {
-                    res.send("save user success")
+                    res.send("successfully added " + credits + " credits")
                 },
                 error: function(user, error) {
-                // This will error, since the Parse.User is not authenticated
-                    res.send("failed to save user")
+                    res.send(error);
                 },
             });
         },
         error: function (object, error) {
-            console.log("query get failed");
-            res.send("query get failed");
-            res.redirect('/users/login');
+            res.send("query for user failed. error: " + error);
         }
     });
 });
