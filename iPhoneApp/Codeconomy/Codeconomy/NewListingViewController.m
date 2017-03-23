@@ -452,10 +452,11 @@
 -(void)updateTextField:(id)sender
 {
     UIDatePicker *picker = (UIDatePicker *)self.whenField.inputView;
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    dateFormatter.dateFormat = @"MM/dd/yy";
+    picker.datePickerMode = UIDatePickerModeDateAndTime;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"M/d/yy 'at' h:mm a";
     NSString *dateString = [dateFormatter stringFromDate: picker.date];
-    self.whenField.text = [NSString stringWithFormat:@"%@",dateString];
+    self.whenField.text = [NSString stringWithFormat:@"%@", dateString];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
