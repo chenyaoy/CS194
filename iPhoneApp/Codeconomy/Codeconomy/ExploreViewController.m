@@ -10,11 +10,12 @@
 #import "ExploreCollectionViewCell.h"
 #import "ListingsDetailViewController.h"
 #import "ListingsTableViewCell.h"
+#import "SearchViewController.h"
 #import "Coupon.h"
 #import "Util.h"
 #import <Parse/Parse.h>
 
-@interface ExploreViewController () <UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource>
+@interface ExploreViewController () <UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) NSMutableArray *allListings;
 @property (nonatomic, strong) NSMutableArray *allCategories;
@@ -136,6 +137,12 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    SearchViewController *searchVC = [[SearchViewController alloc] initWithUser:self.user withCategory:[self.allCategories objectAtIndex:indexPath.section * 2 + indexPath.row]];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationItem.backBarButtonItem = barButton;
+    searchVC.navigationItem.title = [self.allCategories objectAtIndex:indexPath.section * 2 + indexPath.row];
+    [self.navigationController pushViewController:searchVC animated:YES];
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
 }
 
@@ -183,6 +190,17 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     return view;
+}
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    SearchViewController *searchVC = [[SearchViewController alloc] initWithUser:self.user withSearchString:searchBar.text];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Back";
+    self.navigationItem.backBarButtonItem = barButton;
+    searchVC.navigationItem.title = @"Search";
+    [self.navigationController pushViewController:searchVC animated:YES];
 }
 
 #pragma mark - Helpers
