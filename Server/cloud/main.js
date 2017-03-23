@@ -9,11 +9,12 @@ Parse.Cloud.define("addCredits", function(request, response) {
 	var credits = request.params.credits;
 	var query = new Parse.Query(Parse.User);
 	query.equalTo("objectId", objectId);
+	query.include("credits");
 	query.first({
 	    success: function(userRecord) {
 	    	userRecord.fetch();
-			userRecord.set("credits", credits);
-			userRecord.save(null, {
+			userRecord.set("credits", userRecord.get("credits") + credits);
+			userRecord.save({useMasterKey: true}, {
                 success: function(user) {
                     console.log('save user success');
                     response.success("save user success")
