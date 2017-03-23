@@ -87,16 +87,20 @@ router.get('/myCoupons/sold', function(req, res) {
 });
 
 router.get('/addCredits', function(req, res) {
+    console.log('entered route');
     var User = Parse.Object.extend("_User");
     var username = req.query.username;
     var credits = req.query.credits;
     var query = new Parse.Query(User);
     query.equalTo("username", username);
+    console.log('first query');
     query.find({
         success: function (user) {
+            console.log('first query success');
             user.set("credits", user.get("credits") + credits);
             user.save({
                 success: function (user) {
+                    console.log('second query success');
                     res.redirect('/users/login');
                 },
                 error: function(user, error) {
