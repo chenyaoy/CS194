@@ -87,7 +87,7 @@ router.get('/myCoupons/sold', function(req, res) {
 });
 
 router.get('/addCredits', function(req, res) {
-    // Parse.Cloud.useMasterKey();
+    Parse.Cloud.useMasterKey();
     console.log('entered route');
     var User = Parse.Object.extend("_User");
     var username = req.query.username;
@@ -95,7 +95,7 @@ router.get('/addCredits', function(req, res) {
     var query = new Parse.Query(User);
     query.equalTo("username", username);
     console.log('first query');
-    query.get({
+    query.find({
         success: function (user) {
             console.log('first query success');
             console.log(user);
