@@ -10,7 +10,7 @@
 #import "Coupon.h"
 #import "Util.h"
 
-@interface NewListingViewController ()
+@interface NewListingViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) User *user;
 
 @property (nonatomic, strong) UILabel *xButton;
@@ -89,6 +89,7 @@
     _whatStore.font = [UIFont systemFontOfSize:24.0f];
     [_scrollView addSubview:_whatStore];
     _storeField = [[UITextField alloc] init];
+    _storeField.delegate = self;
     _storeField.layer.cornerRadius = 10;
     _storeField.layer.masksToBounds = YES;
     _storeField.layer.borderWidth = 1.0f;
@@ -102,6 +103,7 @@
     _shortTitle.font = [UIFont systemFontOfSize:24.0f];
     [_scrollView addSubview:_shortTitle];
     _shortTitleField = [[UITextField alloc] init];
+    _shortTitleField.delegate = self;
     _shortTitleField.layer.cornerRadius = 10;
     _shortTitleField.layer.masksToBounds = YES;
     _shortTitleField.layer.borderWidth = 1.0f;
@@ -143,6 +145,7 @@
     [_when sizeToFit];
     [_scrollView addSubview:_when];
     _whenField = [[UITextField alloc] init];
+    _whenField.delegate = self;
     _whenField.layer.cornerRadius = 10;
     _whenField.layer.masksToBounds = YES;
     _whenField.layer.borderWidth = 1.0f;
@@ -152,6 +155,7 @@
     [_scrollView addSubview:_whenField];
     _whenPickerView = [[UIDatePicker alloc] init];
     _whenPickerView.datePickerMode = UIDatePickerModeDate;
+    _whenPickerView.minimumDate = [NSDate date];
     _whenField.inputView = _whenPickerView;
     [_whenPickerView addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventValueChanged];
     _extraInfo = [[UILabel alloc] init];
@@ -160,6 +164,7 @@
     [_extraInfo sizeToFit];
     [_scrollView addSubview:_extraInfo];
     _extraInfoField = [[UITextField alloc] init];
+    _extraInfoField.delegate = self;
     _extraInfoField.layer.cornerRadius = 10;
     _extraInfoField.layer.masksToBounds = YES;
     _extraInfoField.layer.borderWidth = 1.0f;
@@ -173,6 +178,7 @@
     [_creditsForCode sizeToFit];
     [_scrollView addSubview:_creditsForCode];
     _creditsField = [[UITextField alloc] init];
+    _creditsField.delegate = self;
     _creditsField.layer.cornerRadius = 10;
     _creditsField.layer.masksToBounds = YES;
     _creditsField.layer.borderWidth = 1.0f;
@@ -245,6 +251,7 @@
     [_couponCode sizeToFit];
     [_scrollView addSubview:_couponCode];
     _codeField = [[UITextField alloc] init];
+    _codeField.delegate = self;
     _codeField.layer.cornerRadius = 10;
     _codeField.layer.masksToBounds = YES;
     _codeField.layer.borderWidth = 1.0f;
@@ -281,7 +288,7 @@
 - (void)viewWillLayoutSubviews {
     self.xButton.frame = CGRectMake(20.0, 44.0 - self.xButton.frame.size.height / 2.0, self.xButton.frame.size.width, self.xButton.frame.size.height);
     self.listingTitle.frame = CGRectMake(self.view.frame.size.width / 2.0 - self.listingTitle.frame.size.width / 2.0, 44.0 - self.listingTitle.frame.size.height / 2.0, self.listingTitle.frame.size.width, self.listingTitle.frame.size.height);
-    self.scrollView.frame = CGRectMake(0.0, self.listingTitle.frame.origin.y + self.listingTitle.frame.size.height + 30.0, self.view.frame.size.width, self.view.frame.size.height - (self.listingTitle.frame.origin.y + self.listingTitle.frame.size.height + 30.0));
+    self.scrollView.frame = CGRectMake(0.0, self.listingTitle.frame.origin.y + self.listingTitle.frame.size.height + 15.0, self.view.frame.size.width, self.view.frame.size.height - (self.listingTitle.frame.origin.y + self.listingTitle.frame.size.height + 30.0));
     CGSize textSize = [self.whatStore.text boundingRectWithSize:CGSizeMake(self.whatStore.frame.size.width, MAXFLOAT)
                                                               options:NSStringDrawingUsesLineFragmentOrigin
                                                            attributes:@{NSFontAttributeName:self.whatStore.font}
@@ -322,6 +329,73 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UITextFieldDelegate
+
+- (bool)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == self.creditsField) {
+        NSCharacterSet *cs = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+        NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+        return [string isEqualToString:filtered];
+    } else {
+        return true;
+    }
+}
+
+- (bool)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == self.storeField) {
+        [self.shortTitleField becomeFirstResponder];
+    } else if (textField == self.shortTitleField) {
+        [textField resignFirstResponder];
+    } else if (textField == self.extraInfoField) {
+        [self.creditsField becomeFirstResponder];
+    } else if (textField == self.creditsField) {
+        [self.codeField becomeFirstResponder];
+    } else if (textField == self.codeField) {
+        [textField resignFirstResponder];
+    }
+    
+    return false;
+}
+
+#pragma mark - Helpers
+
+- (NSMutableArray *)getMissingFields {
+    NSString *store = self.storeField.text;
+    NSString *shortTitle = self.shortTitleField.text;
+    BOOL expiresChosen = (self.selectedExpire != nil);
+    BOOL expires = (self.selectedExpire == self.checkMark);
+    NSDate *expirationDate = nil;
+    if (expires) {
+        expirationDate = self.whenPickerView.date;
+    }
+    NSString *credits = self.creditsField.text;
+    BOOL categorySelected = (self.selectedCategory != nil);
+    NSString *code = self.codeField.text;
+    NSMutableArray *missingFields = [[NSMutableArray alloc] init];
+    
+    if (store.length == 0) {
+        [missingFields addObject:@"store/event name"];
+    }
+    if (shortTitle.length == 0) {
+        [missingFields addObject:@"short title"];
+    }
+    if (!expiresChosen) {
+        [missingFields addObject:@"expiration date"];
+    } else if (expires && expirationDate == nil) {
+        [missingFields addObject:@"expiration date"];
+    }
+    if (credits.length == 0) {
+        [missingFields addObject:@"price"];
+    }
+    if (!categorySelected) {
+        [missingFields addObject:@"category"];
+    }
+    if (code.length == 0) {
+        [missingFields addObject:@"code"];
+    }
+    return missingFields;
+}
+
 #pragma mark - Listeners
 
 - (void)tapX {
@@ -329,35 +403,50 @@
 }
 
 - (void)tapPostIt:(UIButton *)sender {
-    NSString *category = @"Clothing";
-    if (self.selectedCategory == self.categoryConcerts) {
-        category = @"Concerts";
-    } else if (self.selectedCategory == self.categoryFood) {
-        category = @"Food";
-    } else if (self.selectedCategory == self.categoryElectronics) {
-        category = @"Electronics";
-    }
-    NSDate *expirationDate = self.whenPickerView.date;
-    if (self.selectedExpire == self.xMark) {
-        expirationDate = NULL;
-    }
-    
-    Coupon *coupon1 = [[Coupon alloc] initWithSeller:_user
-                                                status:1
-                                                 price:[self.creditsField.text intValue]
-                                        expirationDate:expirationDate
-                                             storeName:self.storeField.text
-                                     couponDescription:self.shortTitleField.text
-                                        additionalInfo:self.extraInfoField.text
-                                                  code:self.codeField.text
-                                              category:category
-                                               deleted:0];
-    [coupon1 saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (!succeeded) {
-            NSLog(@"%@", error);
+    NSMutableArray *missingFields = [self getMissingFields];
+    if (missingFields.count > 0) {
+        NSMutableString *message = [[NSMutableString alloc] initWithString:@"You are missing some fields! Please fix the following fields before proceeding:\n"];
+        for (NSString *field in missingFields) {
+            [message appendString:[NSString stringWithFormat:@"- %@\n", field]];
         }
-    }];
-    [self dismissViewControllerAnimated:YES completion:nil];
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"New Listing"
+                                                                       message:[message substringToIndex:message.length - 1]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {}];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        NSString *category = @"Clothing";
+        if (self.selectedCategory == self.categoryConcerts) {
+            category = @"Concerts";
+        } else if (self.selectedCategory == self.categoryFood) {
+            category = @"Food";
+        } else if (self.selectedCategory == self.categoryElectronics) {
+            category = @"Electronics";
+        }
+        NSDate *expirationDate = self.whenPickerView.date;
+        if (self.selectedExpire == self.xMark) {
+            expirationDate = NULL;
+        }
+        
+        Coupon *coupon1 = [[Coupon alloc] initWithSeller:_user
+                                                    status:1
+                                                     price:[self.creditsField.text intValue]
+                                            expirationDate:expirationDate
+                                                 storeName:self.storeField.text
+                                         couponDescription:self.shortTitleField.text
+                                            additionalInfo:self.extraInfoField.text
+                                                      code:self.codeField.text
+                                                  category:category
+                                                   deleted:0];
+        [coupon1 saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (!succeeded) {
+                NSLog(@"%@", error);
+            }
+        }];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 -(void)updateTextField:(id)sender
@@ -437,6 +526,7 @@
 }
 
 #pragma mark - Keyboard
+
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     if (self.codeField.isEditing) {
