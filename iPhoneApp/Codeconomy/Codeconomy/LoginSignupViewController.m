@@ -267,6 +267,7 @@
                 self.activityIndicator.hidden = YES;
                 if (!error) {
                     [self loginUser:(User *)user];
+                    [self clearFields];
                 } else {
                     // error.code == 101 -> error.description = "Invalid username/password."
                     alert.message = error.localizedDescription;
