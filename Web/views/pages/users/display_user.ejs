@@ -15,28 +15,23 @@
     <% } else { %>
       <h1><%=displaying.get("username")%></h1>
     <% } %>
-    <p>Member since: <%=displaying.createdAt%></p>
-    <h2>Percent successful: <%=100*score%>%</h2>
+    <p>Member since <%=memberSince%></p>
+    <h2>Seller rating: <%=100*score%>%</h2>
   </div>
 
   <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
       <div class="text-center">
-          <a type="button" style="background-color:#77C9D4" class="btn-primary btn-lg btn-block" href="/users/viewComments?id=<%=displaying.id%>">Comments</a>
+        <a type="button" style="background-color:#77C9D4" class="btn-primary btn-lg btn-block" href="/users/viewComments?id=<%=displaying.id%>">Feedback</a>
       </div>
+    </div>
   </div>
-  </div>
-
 </div>
 
 <% if(user.id == displaying.id) {%>
 
-<div class="text-center">
-  <h2>You have <%=displaying.get("credits")%> 🔑</h2>
-</div>
-
-<div class="col-xs-12" style="height:30px;"></div>
+<!-- <div class="col-xs-12" style="height:30px;"></div> -->
 <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-2">

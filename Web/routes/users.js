@@ -204,6 +204,21 @@ router.post('/signup/submit', function(req, res) {
     }
 });
 
+function formatDate(date) {
+    var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return monthNames[monthIndex] + ' ' + day + ',' + ' ' + year;
+}
+
 router.get('/user', function(req, res) {
     checkLogin(req, res).then(function(res) {
         var User = Parse.Object.extend("_User");
@@ -224,12 +239,19 @@ router.get('/user', function(req, res) {
                                 successful++;
                             }
                         }
-                        if(total == 0) {
+                        if (total == 0) {
                             var score = 1.0;
                         } else {
                             var score = 1.0*successful/total;
                         }
-                        res.render('pages/users/display_user', {user:res.locals.user, displaying:result, score:score});
+                        
+                        var memberSince = formatDate(result.createdAt);
+                        res.render('pages/users/display_user', {
+                            user:res.locals.user, 
+                            displaying:result, 
+                            score:score,
+                            memberSince:memberSince
+                        });
                     },
                     error: function(error) {
                         res.render('pages/error_try_again');
