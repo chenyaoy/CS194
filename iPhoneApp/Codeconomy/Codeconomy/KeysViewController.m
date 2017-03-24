@@ -127,7 +127,8 @@
                                                                       [[NSNotificationCenter defaultCenter]
                                                                        postNotificationName:@"reloadUserData"
                                                                        object:self];
-                                                                      [self dismissViewControllerAnimated:YES completion:nil];
+                                                                      [[self navigationController] popViewControllerAnimated:YES];
+                                                                      self.tabBarController.selectedIndex = 0;
                                                                   } else {
                                                                       NSLog(@"failed to buy keys");
                                                                   }

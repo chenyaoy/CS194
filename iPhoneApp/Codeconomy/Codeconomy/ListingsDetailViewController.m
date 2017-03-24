@@ -127,7 +127,8 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"POST"];
     [request setURL:serverAddress];
-    NSURLConnection *connReq = [[NSURLConnection alloc] initWithRequest:request delegate:nil];
+    NSURLConnection *connReq = [[NSURLConnection alloc] initWithRequest:request delegate:nil startImmediately:NO];
+    [connReq start];
     NSLog(@"ummmmm");
     [self.navigationController popViewControllerAnimated:YES];
 }
