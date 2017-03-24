@@ -443,6 +443,10 @@
         [coupon1 saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (!succeeded) {
                 NSLog(@"%@", error);
+            } else {
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"postedCoupon"
+                 object:self];
             }
         }];
         [self dismissViewControllerAnimated:YES completion:nil];

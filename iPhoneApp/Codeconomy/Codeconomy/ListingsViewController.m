@@ -29,6 +29,11 @@
         
         UIBarButtonItem *postListing = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self action:@selector(refreshPropertyList:)];
         self.navigationItem.rightBarButtonItem = postListing;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reloadUserData:)
+                                                     name:@"postedCoupon"
+                                                   object:nil];
     }
     return self;
 }
@@ -122,6 +127,12 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     return view;
+}
+
+#pragma mark - Helpers
+
+- (void)reloadUserData:(NSNotification *) notification {
+    [self generateMockData];
 }
 
 #pragma mark - Segue

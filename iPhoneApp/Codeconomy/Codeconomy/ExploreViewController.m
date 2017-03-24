@@ -241,6 +241,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Coupon"];
     [query whereKey:@"status" equalTo:@1];
     [query whereKey:@"seller" notEqualTo:self.user];
+    [query whereKey:@"deleted" equalTo:@NO];
     [query includeKey:@"seller"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
         if(!error) {
