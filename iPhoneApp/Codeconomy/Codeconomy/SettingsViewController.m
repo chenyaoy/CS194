@@ -216,13 +216,13 @@
         _user.username = username;
         [_user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (succeeded) {
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self.navigationController popViewControllerAnimated:YES];
             } else {
                 NSLog(@"%@", error);
             }
         }];
     } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -251,7 +251,7 @@
         } else {
             [_user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
-                    [self dismissViewControllerAnimated:YES completion:nil];
+                    [self.navigationController popViewControllerAnimated:YES];
                 } else {
                     NSLog(@"%@", error);
                 }
