@@ -11,6 +11,7 @@
 #import "User.h"
 #import "Coupon.h"
 #import "Transaction.h"
+#import "Util.h"
 #import <Parse/Parse.h>
 
 @interface AppDelegate ()
@@ -43,6 +44,30 @@
     [self.window makeKeyAndVisible];
     
 //    [[UILabel appearance] setSubstituteFontName:@"Rubik-Regular"];
+    
+    // Change search bar font
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setDefaultTextAttributes:@{NSFontAttributeName: [Util getRegularFont:14.0]}];
+
+    // Hide line under navigation bar
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init]
+                                      forBarPosition:UIBarPositionAny
+                                          barMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+    
+    // Hide arrow from navigation bar
+    [UINavigationBar appearance].backIndicatorImage = [[UIImage alloc] init];
+    [UINavigationBar appearance].backIndicatorTransitionMaskImage = [[UIImage alloc] init];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-10, 0) forBarMetrics:UIBarMetricsDefault];
+    
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UINavigationBar class]]] setTitleTextAttributes:@{
+                                                                                                                       NSFontAttributeName: [Util getRegularFont:17.0],
+                                                                                                                       NSForegroundColorAttributeName: [UIColor blackColor]} forState:UIControlStateNormal];
+    
+    // Set tab bar item font
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName:[Util getRegularFont:10.0]} forState:UIControlStateNormal];
+    [[UITabBar appearance] setTintColor:[[Util sharedManager] colorWithHexString:[Util getBlueColorHex]]];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName: [Util getRegularFont:19.0]}];
     return YES;
 }
 

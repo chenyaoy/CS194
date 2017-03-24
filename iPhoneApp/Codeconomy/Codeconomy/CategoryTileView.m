@@ -21,8 +21,8 @@
     if (self) {
         _emojiLabel = [[UILabel alloc] init];
         _categoryLabel = [[UILabel alloc] init];
-        _emojiLabel.font = [UIFont systemFontOfSize:30.0f];
-        _categoryLabel.font = [UIFont systemFontOfSize:18.0f];
+        _emojiLabel.font = [Util getRegularFont:30.0];
+        _categoryLabel.font = [Util getRegularFont:18.0];
         [self setBackgroundColor: [[Util sharedManager] colorWithHexString:@"FFFFFF"]];
         self.layer.cornerRadius = 10;
         self.layer.masksToBounds = YES;

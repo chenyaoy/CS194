@@ -40,22 +40,22 @@
         
         _title = [[UILabel alloc] init];
         _title.text = @"Buy More Keys";
-        _title.font = [UIFont systemFontOfSize:20.0];
+        _title.font = [Util getRegularFont:20.0];
         [self addSubview:_title];
         
         _tenKeysQuantity = [[UILabel alloc] init];
         _tenKeysQuantity.text = @"10🔑";
-        _tenKeysQuantity.font = [UIFont systemFontOfSize:24.0];
+        _tenKeysQuantity.font = [Util getRegularFont:24.0];
         [self addSubview:_tenKeysQuantity];
 
         _fiftyKeysQuantity = [[UILabel alloc] init];
         _fiftyKeysQuantity.text = @"50🔑";
-        _fiftyKeysQuantity.font = [UIFont systemFontOfSize:24.0];
+        _fiftyKeysQuantity.font = [Util getRegularFont:24.0];
         [self addSubview:_fiftyKeysQuantity];
         
         _hundredKeysQuantity = [[UILabel alloc] init];
         _hundredKeysQuantity.text = @"100🔑";
-        _hundredKeysQuantity.font = [UIFont systemFontOfSize:24.0];
+        _hundredKeysQuantity.font = [Util getRegularFont:24.0];
         [self addSubview:_hundredKeysQuantity];
         
         _buyTenKeys = [[UIButton alloc] init];
@@ -63,7 +63,7 @@
         [_buyTenKeys setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_buyTenKeys addTarget:self action:@selector(tapKeyQuantity:) forControlEvents:UIControlEventTouchUpInside];
         _buyTenKeys.titleLabel.textAlignment = NSTextAlignmentCenter;
-        _buyTenKeys.titleLabel.font = [UIFont systemFontOfSize:24.0];
+        _buyTenKeys.titleLabel.font = [Util getRegularFont:24.0];
         _buyTenKeys.layer.borderWidth = 2.0f;
         _buyTenKeys.layer.borderColor = [[UIColor blackColor] CGColor];
         _buyTenKeys.layer.cornerRadius = 10;
@@ -76,7 +76,7 @@
         [_buyFiftyKeys setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_buyFiftyKeys addTarget:self action:@selector(tapKeyQuantity:) forControlEvents:UIControlEventTouchUpInside];
         _buyFiftyKeys.titleLabel.textAlignment = NSTextAlignmentCenter;
-        _buyFiftyKeys.titleLabel.font = [UIFont systemFontOfSize:24.0];
+        _buyFiftyKeys.titleLabel.font = [Util getRegularFont:24.0];
         _buyFiftyKeys.layer.borderWidth = 2.0f;
         _buyFiftyKeys.layer.borderColor = [[UIColor blackColor] CGColor];
         _buyFiftyKeys.layer.cornerRadius = 10;
@@ -89,7 +89,7 @@
         [_buyHundredKeys setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_buyHundredKeys addTarget:self action:@selector(tapKeyQuantity:) forControlEvents:UIControlEventTouchUpInside];
         _buyHundredKeys.titleLabel.textAlignment = NSTextAlignmentCenter;
-        _buyHundredKeys.titleLabel.font = [UIFont systemFontOfSize:24.0];
+        _buyHundredKeys.titleLabel.font = [Util getRegularFont:24.0];
         _buyHundredKeys.layer.borderWidth = 2.0f;
         _buyHundredKeys.layer.borderColor = [[UIColor blackColor] CGColor];
         _buyHundredKeys.layer.cornerRadius = 10;
@@ -99,28 +99,29 @@
         
         _cardNumberLabel = [[UILabel alloc] init];
         _cardNumberLabel.text = @"Card Number";
-        _cardNumberLabel.font = [UIFont systemFontOfSize:16.0];
+        _cardNumberLabel.font = [Util getRegularFont:16.0];
         [self addSubview:_cardNumberLabel];
         
         _expirationDateLabel = [[UILabel alloc] init];
         _expirationDateLabel.text = @"Expiration Date";
-        _expirationDateLabel.font = [UIFont systemFontOfSize:16.0];
+        _expirationDateLabel.font = [Util getRegularFont:16.0];
         [self addSubview:_expirationDateLabel];
         
         _securityCodeLabel = [[UILabel alloc] init];
         _securityCodeLabel.text = @"Security Code";
-        _securityCodeLabel.font = [UIFont systemFontOfSize:16.0];
+        _securityCodeLabel.font = [Util getRegularFont:16.0];
         [self addSubview:_securityCodeLabel];
         
         _zipCodeLabel = [[UILabel alloc] init];
         _zipCodeLabel.text = @"Zip Code";
-        _zipCodeLabel.font = [UIFont systemFontOfSize:16.0];
+        _zipCodeLabel.font = [Util getRegularFont:16.0];
         [self addSubview:_zipCodeLabel];
         
         _cardNumberField = [[UITextField alloc] init];
         _cardNumberField.delegate = self;
         _cardNumberField.placeholder = @"Add Card Number";
         _cardNumberField.textAlignment = NSTextAlignmentLeft;
+        _cardNumberField.font = [Util getRegularFont:17.0];
         _cardNumberField.layer.cornerRadius = 10;
         _cardNumberField.layer.masksToBounds = YES;
         _cardNumberField.layer.borderWidth = 1.0f;
@@ -133,6 +134,7 @@
         _expirationDateField.delegate = self;
         _expirationDateField.placeholder = @"MMYY";
         _expirationDateField.textAlignment = NSTextAlignmentLeft;
+        _expirationDateField.font = [Util getRegularFont:17.0];
         _expirationDateField.layer.cornerRadius = 10;
         _expirationDateField.layer.masksToBounds = YES;
         _expirationDateField.layer.borderWidth = 1.0f;
@@ -145,6 +147,7 @@
         _securityCodeField.delegate = self;
         _securityCodeField.placeholder = @"CVV";
         _securityCodeField.textAlignment = NSTextAlignmentLeft;
+        _securityCodeField.font = [Util getRegularFont:17.0];
         _securityCodeField.layer.cornerRadius = 10;
         _securityCodeField.layer.masksToBounds = YES;
         _securityCodeField.layer.borderWidth = 1.0f;
@@ -157,6 +160,7 @@
         _zipCodeField.delegate = self;
         _zipCodeField.placeholder = @"Zip Code";
         _zipCodeField.textAlignment = NSTextAlignmentLeft;
+        _zipCodeField.font = [Util getRegularFont:17.0];
         _zipCodeField.layer.cornerRadius = 10;
         _zipCodeField.layer.masksToBounds = YES;
         _zipCodeField.layer.borderWidth = 1.0f;

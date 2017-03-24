@@ -54,6 +54,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [[Util sharedManager] colorWithHexString:@"F7F7F7"];
     
+    [self.price setFont:[Util getRegularFont:17.0]];
     [_price sizeToFit];
     [self.view addSubview:_headerView];
     [self.view addSubview:_detailView];
@@ -71,7 +72,7 @@
         _buy.backgroundColor = [[Util sharedManager] colorWithHexString:[Util getBlueColorHex]];
         [_buy addTarget:self action:@selector(tapBuy:) forControlEvents:UIControlEventTouchUpInside];
     }
-    _buy.titleLabel.font = [UIFont systemFontOfSize:30.0f weight:UIFontWeightMedium];
+    _buy.titleLabel.font = [Util getMediumFont:30.0];
     _buy.layer.cornerRadius = 10;
     _buy.layer.masksToBounds = YES;
 }
@@ -82,7 +83,7 @@
 }
 
 - (void)viewWillLayoutSubviews {
-    self.headerView.frame = CGRectMake(20.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 15.0, self.view.frame.size.width - 40.0, 147.0);
+    self.headerView.frame = CGRectMake(20.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 23.0, self.view.frame.size.width - 40.0, 147.0);
     self.detailView.frame = CGRectMake(20.0, self.headerView.frame.origin.y + self.headerView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 127.0);
     self.createdView.frame = CGRectMake(20.0, self.detailView.frame.origin.y + self.detailView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 72.0);
     self.buy.frame = CGRectMake(20.0, self.createdView.frame.origin.y + self.createdView.frame.size.height + 25.0, self.view.frame.size.width - 40.0, 50.0);

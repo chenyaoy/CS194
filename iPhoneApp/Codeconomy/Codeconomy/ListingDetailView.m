@@ -26,7 +26,7 @@
         
         _price = [[UILabel alloc] init];
         _price.text = [NSString stringWithFormat:@"Price: %d🔑", price];
-        _price.font = [UIFont systemFontOfSize:36.0];
+        _price.font = [Util getRegularFont:36.0];
         [self addSubview:_price];
         
         _expirationDate = [[UILabel alloc] init];
@@ -39,12 +39,12 @@
         } else {
             _expirationDate.text = @"This code does not expire.";
         }
-        _expirationDate.font = [UIFont systemFontOfSize:20.0];
+        _expirationDate.font = [Util getRegularFont:20.0];
         [self addSubview:_expirationDate];
         
         _category = [[UILabel alloc] init];
         _category.text = [self translateCategoryText:category];
-        _category.font = [UIFont systemFontOfSize:20.0];
+        _category.font = [Util getRegularFont:20.0];
         [self addSubview:_category];
         
         self.layer.cornerRadius = 10;

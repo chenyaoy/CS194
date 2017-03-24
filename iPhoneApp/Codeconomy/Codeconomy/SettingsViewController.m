@@ -51,8 +51,9 @@
     _displayName = [[UILabel alloc] init];
     _displayName.text = @"🙂";
     _displayName.numberOfLines = 1;
-    _displayName.font = [UIFont systemFontOfSize:24.0f];
+    _displayName.font = [Util getRegularFont:24.0];
     [_scrollView addSubview:_displayName];
+    
     _displayNameField = [[UITextField alloc] init];
     _displayNameField.layer.cornerRadius = 10;
     _displayNameField.layer.masksToBounds = YES;
@@ -66,8 +67,9 @@
     _username = [[UILabel alloc] init];
     _username.text = @"🆔";
     _username.numberOfLines = 1;
-    _username.font = [UIFont systemFontOfSize:24.0f];
+    _username.font = [Util getRegularFont:24.0];
     [_scrollView addSubview:_username];
+    
     _usernameField = [[UITextField alloc] init];
     _usernameField.layer.cornerRadius = 10;
     _usernameField.layer.masksToBounds = YES;
@@ -81,7 +83,7 @@
     _saveProfile = [[UIButton alloc] init];
     [_saveProfile setTitle: @"Save Profile" forState: UIControlStateNormal];
     _saveProfile.backgroundColor = [[Util sharedManager] colorWithHexString:[Util getBlueColorHex]];
-    _saveProfile.titleLabel.font = [UIFont systemFontOfSize:30.0f weight:UIFontWeightMedium];
+    _saveProfile.titleLabel.font = [Util getMediumFont:30.0];
     _saveProfile.layer.cornerRadius = 10;
     _saveProfile.layer.masksToBounds = YES;
     [_saveProfile addTarget:self action:@selector(tapSaveProfile:) forControlEvents:UIControlEventTouchUpInside];
@@ -90,10 +92,12 @@
     _currentPassword = [[UILabel alloc] init];
     _currentPassword.text = @"🔓";
     _currentPassword.numberOfLines = 1;
-    _currentPassword.font = [UIFont systemFontOfSize:24.0f];
+    _currentPassword.font = [Util getRegularFont:24.0];
     [_scrollView addSubview:_currentPassword];
+    
     _currentPasswordField = [[UITextField alloc] init];
-    _currentPasswordField.placeholder = @"Current Password";
+    _currentPasswordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Current Password"
+                                                                                 attributes:@{NSFontAttributeName: [Util getRegularFont:17.0]}];
     _currentPasswordField.secureTextEntry = true;
     _currentPasswordField.layer.cornerRadius = 10;
     _currentPasswordField.layer.masksToBounds = YES;
@@ -106,10 +110,12 @@
     _updatePassword = [[UILabel alloc] init];
     _updatePassword.text = @"🆕";
     _updatePassword.numberOfLines = 1;
-    _updatePassword.font = [UIFont systemFontOfSize:24.0f];
+    _updatePassword.font = [Util getRegularFont:24.0];
     [_scrollView addSubview:_updatePassword];
+    
     _updatePasswordField = [[UITextField alloc] init];
-    _updatePasswordField.placeholder = @"New Password";
+    _updatePasswordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"New Password"
+                                                                         attributes:@{NSFontAttributeName: [Util getRegularFont:17.0]}];
     _updatePasswordField.secureTextEntry = true;
     _updatePasswordField.layer.cornerRadius = 10;
     _updatePasswordField.layer.masksToBounds = YES;
@@ -122,7 +128,7 @@
     _savePassword = [[UIButton alloc] init];
     [_savePassword setTitle: @"Save Password" forState: UIControlStateNormal];
     _savePassword.backgroundColor = [[Util sharedManager] colorWithHexString:[Util getBlueColorHex]];
-    _savePassword.titleLabel.font = [UIFont systemFontOfSize:30.0f weight:UIFontWeightMedium];
+    _savePassword.titleLabel.font = [Util getMediumFont:30.0];
     _savePassword.layer.cornerRadius = 10;
     _savePassword.layer.masksToBounds = YES;
     [_savePassword addTarget:self action:@selector(tapSavePassword:) forControlEvents:UIControlEventTouchUpInside];

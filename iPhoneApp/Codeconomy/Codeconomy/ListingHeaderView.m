@@ -26,15 +26,15 @@
         
         _storeName = [[UILabel alloc] init];
         _storeName.text = storeName;
-        _storeName.font = [UIFont boldSystemFontOfSize:40.0f];
+        _storeName.font = [Util getMediumFont:40.0];
         [self addSubview:_storeName];
         _title = [[UILabel alloc] init];
         _title.text = title;
-        _title.font = [UIFont systemFontOfSize:30.0f];
+        _title.font = [Util getRegularFont:30.0];
         [self addSubview:_title];
         _couponDescription = [[UILabel alloc] init];
         _couponDescription.text = couponDescription;
-        _couponDescription.font = [UIFont systemFontOfSize:20.0f];
+        _couponDescription.font = [Util getRegularFont:20.0];
         [self addSubview:_couponDescription];
         self.layer.cornerRadius = 10;
         self.layer.masksToBounds = YES;

@@ -28,6 +28,7 @@
         _title = [[UILabel alloc] init];
         _expires = [[UILabel alloc] init];
         _posted = [[UILabel alloc] init];
+        
         [self setBackgroundColor: [[Util sharedManager] colorWithHexString:@"FFFFFF"]];
         self.layer.cornerRadius = 10;
         self.layer.masksToBounds = YES;
@@ -42,19 +43,17 @@
 
 - (void)setLabels {
     self.credits.text = [NSString stringWithFormat:@"%d🔑", self.couponData.price];
-    [self.credits setFont:[UIFont boldSystemFontOfSize:22.0f]];
+    [self.credits setFont:[Util getRegularFont:22.0]];
     [self addSubview:self.credits];
     [self.credits sizeToFit];
     
-    NSMutableAttributedString *storeString = [[NSMutableAttributedString alloc] initWithString:self.couponData.storeName];
-    [storeString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18.0f] range:NSMakeRange(0, self.couponData.storeName.length)];
-    self.store.attributedText = storeString;
+    self.store.text = self.couponData.storeName;
+    [self.store setFont:[Util getMediumFont:18.0]];
     [self addSubview:self.store];
     [self.store sizeToFit];
     
-    NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:self.couponData.couponDescription];
-    [titleString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0f] range:NSMakeRange(0, self.couponData.couponDescription.length)];
-    self.title.attributedText = titleString;
+    self.title.text = self.couponData.couponDescription;
+    [self.title setFont:[Util getRegularFont:18.0]];
     [self addSubview:self.title];
     [self.title sizeToFit];
     
@@ -66,7 +65,7 @@
     if (!dateString) {
         self.expires.text = @"does not expire";
     }
-    [self.expires setFont:[UIFont systemFontOfSize:14.0f]];
+    [self.expires setFont:[Util getItalicFont:14.0]];
     [self addSubview:self.expires];
     [self.expires sizeToFit];
     
@@ -74,7 +73,7 @@
     int hoursBetweenDates = distanceBetweenDates / 3600;
     
     self.posted.text = [NSString stringWithFormat:@"posted %dh ago", hoursBetweenDates];
-    [self.posted setFont:[UIFont systemFontOfSize:14.0f]];
+    [self.posted setFont:[Util getItalicFont:14.0]];
     [self addSubview:self.posted];
     [self.posted sizeToFit];
     [self setNeedsLayout];

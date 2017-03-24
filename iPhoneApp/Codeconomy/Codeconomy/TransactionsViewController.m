@@ -39,6 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.price setFont:[Util getRegularFont:17.0]];
     [_price sizeToFit];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.price];
     self.navigationItem.rightBarButtonItem = item;
@@ -61,7 +62,7 @@
 }
 
 - (void)viewWillLayoutSubviews {
-    self.transactions.frame = CGRectMake(20.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height, self.view.frame.size.width - 40.0, self.tabBarController.tabBar.frame.origin.y - (self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 30.0));
+    self.transactions.frame = CGRectMake(20.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height - 8.0, self.view.frame.size.width - 40.0, self.tabBarController.tabBar.frame.origin.y - (self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 30.0));
 }
 
 - (void)loadTransactions {

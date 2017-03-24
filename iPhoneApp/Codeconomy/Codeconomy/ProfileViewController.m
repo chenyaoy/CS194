@@ -52,7 +52,7 @@
     
     self.name = [[UILabel alloc] init];
     [self.name setText:self.user.displayName];
-    [self.name setFont:[UIFont systemFontOfSize:40.0f]];
+    [self.name setFont:[Util getRegularFont:40.0]];
     [self.name sizeToFit];
     [self.view addSubview:self.name];
     
@@ -76,7 +76,7 @@
     
     self.memberSince = [[UILabel alloc] init];
     [self.memberSince setText:[NSString stringWithFormat:@"Member since %@", dateString]];
-    self.memberSince.font = [UIFont systemFontOfSize:20.0f];
+    self.memberSince.font = [Util getRegularFont:20.0];
     self.memberSince.textAlignment = NSTextAlignmentCenter;
     [self.memberSince sizeToFit];
     [self.view addSubview:self.memberSince];
@@ -102,7 +102,7 @@
             } else {
                 [self.ratingLabel setText:@"You don't have a seller rating yet."];
             }
-            self.ratingLabel.font = [UIFont systemFontOfSize:20.0f];
+            self.ratingLabel.font = [Util getRegularFont:20.0];
             self.ratingLabel.textAlignment = NSTextAlignmentCenter;
             [self.ratingLabel sizeToFit];
             [self.view addSubview:self.ratingLabel];
@@ -136,7 +136,7 @@
     self.logOut = [[ProfileTile alloc] init];
     [self.view addSubview:self.logOut];
     [self.logOut setLeftLabel:@"✌️"];
-    [self.logOut setRightLabelBold:@"Log Out ➡️"];
+    [self.logOut setRightLabelMedium:@"Log Out ➡️"];
     _logOutTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLogOut)];
     [_logOut addGestureRecognizer:_logOutTap];
     
@@ -146,14 +146,14 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    self.name.center = CGPointMake(self.view.frame.size.width / 2.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 50.0);
+    self.name.center = CGPointMake(self.view.frame.size.width / 2.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 30.0);
     self.memberSince.frame = CGRectMake(0, 0, self.memberSince.frame.size.width + 10.0, self.memberSince.frame.size.height);
     self.memberSince.center = CGPointMake(self.view.frame.size.width / 2.0, self.name.frame.origin.y + self.name.frame.size.height + 16.0);
     
     self.ratingLabel.frame = CGRectMake(0, 0, self.ratingLabel.frame.size.width + 10.0, self.ratingLabel.frame.size.height);
     self.ratingLabel.center = CGPointMake(self.view.frame.size.width / 2.0, self.memberSince.frame.origin.y + self.memberSince.frame.size.height + 15.0);
     
-    self.manageKeys.frame = CGRectMake(self.view.frame.origin.x + 20.0, self.ratingLabel.frame.origin.y + self.ratingLabel.frame.size.height + 25.0, self.view.frame.size.width - 40.0, 60.0);
+    self.manageKeys.frame = CGRectMake(self.view.frame.origin.x + 20.0, self.ratingLabel.frame.origin.y + self.ratingLabel.frame.size.height + 20.0, self.view.frame.size.width - 40.0, 60.0);
     self.transactionHistory.frame = CGRectMake(self.manageKeys.frame.origin.x, self.manageKeys.frame.origin.y + self.manageKeys.frame.size.height + 8.0, self.manageKeys.frame.size.width, self.manageKeys.frame.size.height);
     self.accountSettings.frame = CGRectMake(self.transactionHistory.frame.origin.x, self.transactionHistory.frame.origin.y + self.transactionHistory.frame.size.height + 8.0, self.transactionHistory.frame.size.width, self.transactionHistory.frame.size.height);
     self.logOut.frame = CGRectMake(self.accountSettings.frame.origin.x, self.accountSettings.frame.origin.y + self.accountSettings.frame.size.height + 8.0, self.accountSettings.frame.size.width, self.accountSettings.frame.size.height);

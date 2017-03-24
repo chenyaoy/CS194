@@ -7,6 +7,7 @@
 //
 
 #import "ProfileTile.h"
+#import "Util.h"
 
 @interface ProfileTile ()
 @property (nonatomic, strong) UILabel *left;
@@ -29,7 +30,7 @@
 
 - (void)setLeftLabel:(NSString *)label {
     self.left.text = label;
-    [self.left setFont:[UIFont systemFontOfSize:28.0f]];
+    [self.left setFont:[Util getRegularFont:28.0]];
     self.left.numberOfLines = 0;
     [self addSubview:self.left];
     [self.left sizeToFit];
@@ -37,7 +38,15 @@
 
 - (void)setRightLabel:(NSString *)label {
     self.right.text = label;
-    [self.right setFont:[UIFont systemFontOfSize:20.0f]];
+    [self.right setFont:[Util getRegularFont:20.0]];
+    self.right.numberOfLines = 0;
+    [self addSubview:self.right];
+    [self.right sizeToFit];
+}
+
+- (void)setRightLabelMedium:(NSString *)label {
+    self.right.text = label;
+    [self.right setFont:[Util getMediumFont:20.0]];
     self.right.numberOfLines = 0;
     [self addSubview:self.right];
     [self.right sizeToFit];
@@ -45,7 +54,7 @@
 
 - (void)setRightLabelBold:(NSString *)label {
     self.right.text = label;
-    [self.right setFont:[UIFont boldSystemFontOfSize:20.0f]];
+    [self.right setFont:[Util getBoldFont:20.0]];
     self.right.numberOfLines = 0;
     [self addSubview:self.right];
     [self.right sizeToFit];

@@ -246,6 +246,8 @@
 				1AA2DE181E6CE48600B3E82A /* TransactionsViewController.m */,
 				1AA2DE1B1E6CE92400B3E82A /* TransactionsTableViewCell.h */,
 				1AA2DE1C1E6CE92400B3E82A /* TransactionsTableViewCell.m */,
+				1AA2DE211E6CEC1000B3E82A /* TransactionTileView.h */,
+				1AA2DE221E6CEC1000B3E82A /* TransactionTileView.m */,
 			);
 			name = TableView;
 			sourceTree = "<group>";
@@ -255,8 +257,6 @@
 			children = (
 				1AA2DE1E1E6CE96F00B3E82A /* TransactionsDetailViewController.h */,
 				1AA2DE1F1E6CE96F00B3E82A /* TransactionsDetailViewController.m */,
-				1AA2DE211E6CEC1000B3E82A /* TransactionTileView.h */,
-				1AA2DE221E6CEC1000B3E82A /* TransactionTileView.m */,
 				1AA2DE261E6D40EF00B3E82A /* TransactionTimeView.h */,
 				1AA2DE271E6D40EF00B3E82A /* TransactionTimeView.m */,
 				1AA2DE291E6D473E00B3E82A /* TransactionCodeView.h */,

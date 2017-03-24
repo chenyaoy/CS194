@@ -39,10 +39,10 @@
     if (self) {
         _codeconomy = [[UILabel alloc] init];
         _codeconomy.text = @"Codeconomy";
-        _codeconomy.font = [UIFont systemFontOfSize:48.0 weight:UIFontWeightMedium];
+        _codeconomy.font = [Util getMediumFont:48.0];
         _codeconomyDescription = [[UILabel alloc] init];
         _codeconomyDescription.text = @"Get the codes that\nyou want and make\nuse of the ones that\nyou don't need.";
-        _codeconomyDescription.font = [UIFont systemFontOfSize:24.0 weight:UIFontWeightRegular];
+        _codeconomyDescription.font = [Util getRegularFont:24.0];
         _codeconomyDescription.textAlignment = NSTextAlignmentCenter;
         _codeconomyDescription.numberOfLines = 4;
         
@@ -51,18 +51,19 @@
         [_signUp setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_signUp addTarget:self action:@selector(tapSignUpLogin:) forControlEvents:UIControlEventTouchUpInside];
         _signUp.titleLabel.textAlignment = NSTextAlignmentCenter;
-        _signUp.titleLabel.font = [UIFont systemFontOfSize:30.0];
+        _signUp.titleLabel.font = [Util getRegularFont:30.0];
         _signUp.layer.cornerRadius = 10;
         _signUp.layer.masksToBounds = YES;
         _signUp.layer.borderWidth = 2.0f;
         _signUp.layer.borderColor = [UIColor grayColor].CGColor;
         _signUp.backgroundColor = [UIColor whiteColor];
+        
         _login = [[UIButton alloc] init];
         [_login setTitle:@"Login" forState:UIControlStateNormal];
         [_login setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_login addTarget:self action:@selector(tapSignUpLogin:) forControlEvents:UIControlEventTouchUpInside];
         _login.titleLabel.textAlignment = NSTextAlignmentCenter;
-        _login.titleLabel.font = [UIFont systemFontOfSize:30.0];
+        _login.titleLabel.font = [Util getRegularFont:30.0];
         _login.layer.cornerRadius = 10;
         _login.layer.masksToBounds = YES;
         _login.layer.borderWidth = 2.0f;
@@ -73,7 +74,8 @@
         
         _username = [[UITextField alloc] init];
         _username.delegate = self;
-        _username.placeholder = @"Username";
+        _username.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username"
+                                                                             attributes:@{NSFontAttributeName: [Util getRegularFont:17.0]}];
         _username.layer.cornerRadius = 10;
         _username.layer.masksToBounds = YES;
         _username.layer.borderWidth = 2.0f;
@@ -83,7 +85,8 @@
         
         _password = [[UITextField alloc] init];
         _password.delegate = self;
-        _password.placeholder = @"Password";
+        _password.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password"
+                                                                             attributes:@{NSFontAttributeName: [Util getRegularFont:17.0]}];
         _password.secureTextEntry = true;
         _password.layer.cornerRadius = 10;
         _password.layer.masksToBounds = YES;
@@ -94,7 +97,8 @@
         
         _displayName = [[UITextField alloc] init];
         _displayName.delegate = self;
-        _displayName.placeholder = @"Display Name";
+        _displayName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Display Name"
+                                                                             attributes:@{NSFontAttributeName: [Util getRegularFont:17.0]}];
         _displayName.layer.cornerRadius = 10;
         _displayName.layer.masksToBounds = YES;
         _displayName.layer.borderWidth = 2.0f;
@@ -107,7 +111,7 @@
         [_go setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_go addTarget:self action:@selector(tapGo:) forControlEvents:UIControlEventTouchUpInside];
         _go.titleLabel.textAlignment = NSTextAlignmentCenter;
-        _go.titleLabel.font = [UIFont systemFontOfSize:24.0 weight:UIFontWeightMedium];
+        _go.titleLabel.font = [Util getMediumFont:24.0];
         _go.layer.cornerRadius = 10;
         _go.layer.masksToBounds = YES;
         _go.backgroundColor = [[Util sharedManager] colorWithHexString:@"9FCBFE"];
@@ -267,6 +271,7 @@
                 self.activityIndicator.hidden = YES;
                 if (!error) {
                     [self loginUser:(User *)user];
+                    [self clearFields];
                 } else {
                     // error.code == 101 -> error.description = "Invalid username/password."
                     alert.message = error.localizedDescription;

@@ -29,7 +29,7 @@
         
         [codeString beginEditing];
         [codeString addAttribute:NSFontAttributeName
-                           value:[UIFont boldSystemFontOfSize:16.0f]
+                           value:[Util getBoldFont:16.0]
                            range:selectedRange];
         [codeString endEditing];
         _transactionCodeLabel.attributedText = codeString;
