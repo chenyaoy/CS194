@@ -23,7 +23,7 @@
         _transactionTimeLabel = [[UILabel alloc] init];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
-        dateFormatter.dateFormat = @"M/d/yy 'at' h:mm a";
+        dateFormatter.dateFormat = @"MMMM d, yyyy 'at' h:mm a";
         NSString *dateString = [dateFormatter stringFromDate: transactionDate];
         if (userBought) {
             _transactionTimeLabel.text = [NSString stringWithFormat:@"You bought this code from %@ on %@.", otherUser.displayName, dateString];

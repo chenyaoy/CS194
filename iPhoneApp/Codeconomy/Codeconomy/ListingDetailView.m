@@ -64,13 +64,13 @@
 
 - (NSString *)translateCategoryText:(NSString *)category {
     if ([category isEqualToString:@"Clothing"]) {
-        return @"Clothing 👖";
+        return @"Category: Clothing 👖";
     } else if ([category isEqualToString:@"Concerts"]) {
-        return @"Concerts 🎟";
+        return @"Category: Concerts 🎟";
     } else if ([category isEqualToString:@"Food"]) {
-        return @"Food 🍽";
+        return @"Category: Food 🍽";
     } else {
-        return @"Electronics 🖥";
+        return @"Category: Electronics 🖥";
     }
 }
 

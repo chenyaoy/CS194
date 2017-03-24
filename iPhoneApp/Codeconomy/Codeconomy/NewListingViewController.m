@@ -412,7 +412,7 @@
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"New Listing"
                                                                        message:[message substringToIndex:message.length - 1]
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) {}];
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:nil];
@@ -452,10 +452,15 @@
 -(void)updateTextField:(id)sender
 {
     UIDatePicker *picker = (UIDatePicker *)self.whenField.inputView;
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    dateFormatter.dateFormat = @"MM/dd/yy";
+    picker.datePickerMode = UIDatePickerModeDateAndTime;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"M/d/yy 'at' h:mm a";
     NSString *dateString = [dateFormatter stringFromDate: picker.date];
-    self.whenField.text = [NSString stringWithFormat:@"%@",dateString];
+    self.whenField.text = [NSString stringWithFormat:@"%@", dateString];
+    self.xMark.layer.opacity = 0.33;
+    self.checkMark.layer.opacity = 0.33;
+    self.checkMark.layer.opacity = 1.0;
+    self.selectedExpire = self.checkMark;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -473,9 +478,15 @@
     if (sender == self.xMark) {
         self.xMark.layer.opacity = 1.0;
         self.checkMark.layer.opacity = 0.33;
+        self.whenField.layer.opacity = 0.33;
+        self.whenField.enabled = false;
+        self.whenPickerView.layer.opacity = 0.33;
         self.selectedExpire = self.xMark;
     } else {
         self.checkMark.layer.opacity = 1.0;
+        self.whenField.layer.opacity = 1.0;
+        self.whenField.enabled = true;
+        self.whenPickerView.layer.opacity = 1.0;
         self.xMark.layer.opacity = 0.33;
         self.selectedExpire = self.checkMark;
     }

@@ -111,25 +111,26 @@
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"reloadUserData"
              object:self];
-//            [connReq start];
-//            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:serverAddress cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-//            [request setHTTPMethod:@"GET"];
-//            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-//            [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//                NSLog(@"success");
-//            }] resume];
+            
+            User *seller = self.couponData.seller.fetchIfNeeded;
+            NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"https://codeconomy-web.herokuapp.com/users/addCredits?username=%@&credits=%d", seller.username, self.couponData.price]];
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+            NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+            [request setHTTPMethod:@"POST"];
+            NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                if (error) {
+                    NSLog(@"ERROR!!: %@", error.localizedDescription);
+                } else {
+                    NSLog(@"successfully added keys to the seller's account!");
+                }
+            }];
+            [dataTask resume];
+
         } else {
             NSLog(@"%@", error);
         }
     }];
-    User *seller = self.couponData.seller.fetchIfNeeded;
-    NSURL *serverAddress = [NSURL URLWithString: [NSString stringWithFormat:@"https://codeconomy-web.herokuapp.com/users/addCredits?username=%@&credits=%d", seller.username, seller.credits]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setHTTPMethod:@"POST"];
-    [request setURL:serverAddress];
-    NSURLConnection *connReq = [[NSURLConnection alloc] initWithRequest:request delegate:nil startImmediately:NO];
-    [connReq start];
-    NSLog(@"ummmmm");
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -148,11 +149,11 @@
 - (void)tapBuy:(UIButton *)sender {
 //    int keyDifference = abs([User currentUser].credits - _couponData.price);
     int keyDifference = abs(self.user.credits - _couponData.price);
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Purchase"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Purchase Code"
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
     if (keyDifference >= 0) {
-        NSString *message = [NSString stringWithFormat:@"This code will cost %d🔑. Are you sure you want to purchase it?", _couponData.price];
+        NSString *message = [NSString stringWithFormat:@"This code will cost you %d🔑. Are you sure you want to purchase it?", _couponData.price];
         [alert setMessage:message];
         
         UIAlertAction* yesAction = [UIAlertAction actionWithTitle:@"Yes"
@@ -160,7 +161,7 @@
                                                           handler:^(UIAlertAction * action) {
                                                               [self purchaseCoupon];
                                                           }];
-        UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"No"
+        UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * action) {}];
         [alert addAction:yesAction];
@@ -168,7 +169,7 @@
     } else {
         NSString *message = [NSString stringWithFormat:@"You do not have enough 🔑 to purchase this code. You need %d more 🔑.", keyDifference];
         [alert setMessage:message];
-        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) {}];
         [alert addAction:okAction];
     }
@@ -176,7 +177,7 @@
 }
 
 - (void)tapDelete:(UIButton *)sender {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete Listing"
                                                                    message:@"Are you sure you want to delete this listing?"
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
@@ -184,7 +185,7 @@
                                                           handler:^(UIAlertAction * action) {
                                                               [self deleteCoupon];
                                                           }];
-    UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel
+    UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
                                                      handler:^(UIAlertAction * action) {}];
     [alert addAction:yesAction];
     [alert addAction:noAction];

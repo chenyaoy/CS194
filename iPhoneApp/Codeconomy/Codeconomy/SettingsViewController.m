@@ -104,7 +104,7 @@
     [_scrollView addSubview:_currentPasswordField];
     
     _updatePassword = [[UILabel alloc] init];
-    _updatePassword.text = @"🔐";
+    _updatePassword.text = @"🆕";
     _updatePassword.numberOfLines = 1;
     _updatePassword.font = [UIFont systemFontOfSize:24.0f];
     [_scrollView addSubview:_updatePassword];
@@ -216,13 +216,13 @@
         _user.username = username;
         [_user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (succeeded) {
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self.navigationController popViewControllerAnimated:YES];
             } else {
                 NSLog(@"%@", error);
             }
         }];
     } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -251,7 +251,7 @@
         } else {
             [_user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
-                    [self dismissViewControllerAnimated:YES completion:nil];
+                    [self.navigationController popViewControllerAnimated:YES];
                 } else {
                     NSLog(@"%@", error);
                 }

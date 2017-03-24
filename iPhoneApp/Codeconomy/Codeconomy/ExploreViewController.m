@@ -64,6 +64,10 @@
         _allCategories = [[NSMutableArray alloc] init];
         _allEmojis = [[NSMutableArray alloc] init];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+        [tap setCancelsTouchesInView:false];
+        [self.view addGestureRecognizer:tap];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(reloadUserData:)
                                                      name:@"reloadUserData"
@@ -179,7 +183,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60.0;
+    return 89.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -200,6 +204,7 @@
     barButton.title = @"Back";
     self.navigationItem.backBarButtonItem = barButton;
     searchVC.navigationItem.title = @"Search";
+    [searchBar resignFirstResponder];
     [self.navigationController pushViewController:searchVC animated:YES];
 }
 
@@ -209,6 +214,12 @@
     [self.user fetch];
     self.price.text = [NSString stringWithFormat:@"%d🔑", self.user.credits];
     [self.price sizeToFit];
+}
+
+#pragma mark - Keyboard
+
+- (void)dismissKeyboard {
+    [self.searchBar resignFirstResponder];
 }
 
 #pragma mark - Mock Data

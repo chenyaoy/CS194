@@ -35,7 +35,7 @@ body {
     color: white;
     font-size: 2em;
     border-radius: 10px;
-    border-color: transparent; 
+    border-color: transparent;
 }
 
 .btn-secondary {
@@ -59,6 +59,10 @@ body {
 
 .container-fluid {
     background: #2B2B2B;
+}
+
+.navbar {
+    border-radius: 0px;
 }
 
 .navbar-inverse .navbar-nav>li>a {

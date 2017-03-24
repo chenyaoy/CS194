@@ -15,16 +15,8 @@
         <li><a href="/users/myProfile">My Profile</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/balance">Account Balance: <%= user.get("credits") %>🔑</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/users/settings">Account settings</a></li>
-            <li role="separator" class="divider"></li>
-
-            <li><a href="/users/logout">Logout</a></li>
-          </ul>
-        </li>
+        <li><a href="/users/myprofile">Account Balance: <%= user.get("credits") %>🔑</a></li>
+        <li><a href="/users/logout">Logout</a></li>
       </ul>
     </div>
   </div>
