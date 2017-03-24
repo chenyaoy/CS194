@@ -10,5 +10,8 @@
 #import "User.h"
 
 @interface ListingTimeCreatedView : UIView
-- (instancetype)initWithCreatedDate:(NSDate *)createdDate seller:(User *)seller;
+- (instancetype)initWithCreatedDate:(NSDate *)createdDate
+                             seller:(User *)seller
+                           userOwns:(bool)userOwns;
+- (CGSize)getLabelSize;
 @end

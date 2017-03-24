@@ -32,16 +32,14 @@
     self = [super init];
     if (self) {
         _user = user;
-        
+        _userOwns = !buy;
         _price = [[UILabel alloc] init];
         _price.text = [NSString stringWithFormat:@"%d🔑", self.user.credits];
         _couponData = couponData;
         _headerView = [[ListingHeaderView alloc] initWithStoreName:_couponData.storeName title:_couponData.couponDescription description:_couponData.additionalInfo];
         _detailView = [[ListingDetailView alloc] initWithPrice:_couponData.price expirationDate:_couponData.expirationDate category:_couponData.category];
-//        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdAt seller:[NSString stringWithFormat:@"%d", _couponData.sellerId]];
-        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdAt seller:_couponData.seller]; // TODO: this should be the seller display name or user name
+        _createdView = [[ListingTimeCreatedView alloc] initWithCreatedDate:_couponData.createdAt seller:_couponData.seller userOwns:_userOwns];
         _buy = [[UIButton alloc] init];
-        _userOwns = !buy;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(reloadUserData:)
                                                      name:@"reloadUserData"
@@ -85,7 +83,11 @@
 - (void)viewWillLayoutSubviews {
     self.headerView.frame = CGRectMake(20.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 23.0, self.view.frame.size.width - 40.0, 147.0);
     self.detailView.frame = CGRectMake(20.0, self.headerView.frame.origin.y + self.headerView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 127.0);
-    self.createdView.frame = CGRectMake(20.0, self.detailView.frame.origin.y + self.detailView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 72.0);
+    if (self.userOwns) {
+        self.createdView.frame = CGRectMake(20.0, self.detailView.frame.origin.y + self.detailView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 48.0);
+    } else {
+        self.createdView.frame = CGRectMake(20.0, self.detailView.frame.origin.y + self.detailView.frame.size.height + 8.0, self.view.frame.size.width - 40.0, 72.0);
+    }
     self.buy.frame = CGRectMake(20.0, self.createdView.frame.origin.y + self.createdView.frame.size.height + 25.0, self.view.frame.size.width - 40.0, 50.0);
 }
 
@@ -148,7 +150,6 @@
 #pragma mark - Listeners
 
 - (void)tapBuy:(UIButton *)sender {
-//    int keyDifference = abs([User currentUser].credits - _couponData.price);
     int keyDifference = abs(self.user.credits - _couponData.price);
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Purchase Code"
                                                                    message:nil
