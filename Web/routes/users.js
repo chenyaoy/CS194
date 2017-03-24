@@ -244,11 +244,11 @@ router.get('/user', function(req, res) {
                         } else {
                             var score = 1.0*successful/total;
                         }
-                        
+
                         var memberSince = formatDate(result.createdAt);
                         res.render('pages/users/display_user', {
-                            user:res.locals.user, 
-                            displaying:result, 
+                            user:res.locals.user,
+                            displaying:result,
                             score:score,
                             memberSince:memberSince
                         });
@@ -277,7 +277,7 @@ router.get('/myprofile', function(req, res) {
 
 router.get('/logout', function(req, res) {
     checkLogin(req, res).then(function(res) {
-        res.render('pages/users/logout',{user:res.locals.user});
+        res.render('pages/users/logout',{user: res.locals.user});
     }, function(err) {
         res.redirect('/users/login');
     });
