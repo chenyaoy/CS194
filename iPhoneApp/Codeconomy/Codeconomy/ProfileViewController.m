@@ -11,12 +11,15 @@
 #import "SettingsViewController.h"
 #import "TransactionsViewController.h"
 #import "ProfileTile.h"
+#import "Transaction.h"
 #import "Util.h"
 
 @interface ProfileViewController ()
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) UILabel *name;
 @property (nonatomic, strong) UILabel *memberSince;
+@property float sellerRating;
+@property (nonatomic, strong) UILabel *ratingLabel;
 @property (nonatomic, strong) ProfileTile *manageKeys;
 @property (nonatomic, strong) ProfileTile *transactionHistory;
 @property (nonatomic, strong) ProfileTile *accountSettings;
@@ -73,9 +76,41 @@
     
     self.memberSince = [[UILabel alloc] init];
     [self.memberSince setText:[NSString stringWithFormat:@"Member since %@", dateString]];
-    self.memberSince.font = [UIFont italicSystemFontOfSize:20.0f];
+    self.memberSince.font = [UIFont systemFontOfSize:20.0f];
+    self.memberSince.textAlignment = NSTextAlignmentCenter;
     [self.memberSince sizeToFit];
     [self.view addSubview:self.memberSince];
+    
+    self.sellerRating = 0;
+    PFQuery *query = [PFQuery queryWithClassName:[Transaction parseClassName]];
+    [query whereKey:@"seller" equalTo:_user];
+    [query includeKey:@"stars"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
+        if (!error) {
+            int total = 0;
+            for (Transaction *t in objects) {
+                if (t.stars != 0) {
+                    self.sellerRating += MAX(0, t.stars);
+                    total += 1;
+                }
+            }
+            self.sellerRating /= total;
+            self.sellerRating *= 100;
+            self.ratingLabel = [[UILabel alloc] init];
+            if (total > 0) {
+                [self.ratingLabel setText:[NSString stringWithFormat:@"Seller rating: %d%%", (int) (self.sellerRating + 0.5)]];
+            } else {
+                [self.ratingLabel setText:@"You don't have a seller rating yet."];
+            }
+            self.ratingLabel.font = [UIFont systemFontOfSize:20.0f];
+            self.ratingLabel.textAlignment = NSTextAlignmentCenter;
+            [self.ratingLabel sizeToFit];
+            [self.view addSubview:self.ratingLabel];
+            
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
     
     self.manageKeys = [[ProfileTile alloc] init];
     [self.view addSubview:self.manageKeys];
@@ -113,9 +148,12 @@
     
     self.name.center = CGPointMake(self.view.frame.size.width / 2.0, self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 50.0);
     self.memberSince.frame = CGRectMake(0, 0, self.memberSince.frame.size.width + 10.0, self.memberSince.frame.size.height);
-    self.memberSince.textAlignment = NSTextAlignmentCenter;
     self.memberSince.center = CGPointMake(self.view.frame.size.width / 2.0, self.name.frame.origin.y + self.name.frame.size.height + 16.0);
-    self.manageKeys.frame = CGRectMake(self.view.frame.origin.x + 20.0, self.memberSince.frame.origin.y + self.memberSince.frame.size.height + 25.0, self.view.frame.size.width - 40.0, 60.0);
+    
+    self.ratingLabel.frame = CGRectMake(0, 0, self.ratingLabel.frame.size.width + 10.0, self.ratingLabel.frame.size.height);
+    self.ratingLabel.center = CGPointMake(self.view.frame.size.width / 2.0, self.memberSince.frame.origin.y + self.memberSince.frame.size.height + 15.0);
+    
+    self.manageKeys.frame = CGRectMake(self.view.frame.origin.x + 20.0, self.ratingLabel.frame.origin.y + self.ratingLabel.frame.size.height + 25.0, self.view.frame.size.width - 40.0, 60.0);
     self.transactionHistory.frame = CGRectMake(self.manageKeys.frame.origin.x, self.manageKeys.frame.origin.y + self.manageKeys.frame.size.height + 8.0, self.manageKeys.frame.size.width, self.manageKeys.frame.size.height);
     self.accountSettings.frame = CGRectMake(self.transactionHistory.frame.origin.x, self.transactionHistory.frame.origin.y + self.transactionHistory.frame.size.height + 8.0, self.transactionHistory.frame.size.width, self.transactionHistory.frame.size.height);
     self.logOut.frame = CGRectMake(self.accountSettings.frame.origin.x, self.accountSettings.frame.origin.y + self.accountSettings.frame.size.height + 8.0, self.accountSettings.frame.size.width, self.accountSettings.frame.size.height);
