@@ -102,35 +102,36 @@ router.post('/purchaseCoupon', function(req, res) {
                 var price = result.get("price");
                 if(price > res.locals.user.get("credits")) {
                     res.render("pages/error_try_again");
+                } else {
+                    var Transaction = Parse.Object.extend("Transaction");
+                    var transaction = new Transaction();
+                    transaction.set("buyer", res.locals.user);
+                    transaction.set("seller", seller);
+                    transaction.set("coupon", result);
+                    transaction.set("reviewDescription", null);
+                    transaction.set("stars", 0);
+                    transaction.set("transactionDate", new Date());
+                    transaction.save(null, {
+                        success: function(transaction) {
+                            Parse.Cloud.useMasterKey();
+                            seller.set("credits", seller.get("credits") + price);
+                            res.locals.user.set("credits", res.locals.user.get("credits") - price);
+                            result.set("status", 0);
+                            var toSave = [result, res.locals.user, seller];
+                            Parse.Object.saveAll(toSave, {
+                                success: function() {
+                                    res.redirect('/coupons/coupon?id=' + result.id);
+                                },
+                                error: function() {
+                                    res.render("pages/error_try_again");
+                                }
+                            });
+                        },
+                        error: function(transaction, error) {
+                            res.render("pages/error_try_again");
+                        }
+                    });
                 }
-                var Transaction = Parse.Object.extend("Transaction");
-                var transaction = new Transaction();
-                transaction.set("buyer", res.locals.user);
-                transaction.set("seller", seller);
-                transaction.set("coupon", result);
-                transaction.set("reviewDescription", null);
-                transaction.set("stars", 0);
-                transaction.set("transactionDate", new Date());
-                transaction.save(null, {
-                    success: function(transaction) {
-                        Parse.Cloud.useMasterKey();
-                        seller.set("credits", seller.get("credits") + price);
-                        res.locals.user.set("credits", res.locals.user.get("credits") - price);
-                        result.set("status", 0);
-                        var toSave = [result, res.locals.user, seller];
-                        Parse.Object.saveAll(toSave, {
-                            success: function() {
-                                res.redirect('/coupons/coupon?id=' + result.id);
-                            },
-                            error: function() {
-                                res.render("pages/error_try_again");
-                            }
-                        });
-                    },
-                    error: function(transaction, error) {
-                        res.render("pages/error_try_again");
-                    }
-                });
             },
             error: function(error) {
                 console.log(error.message);
