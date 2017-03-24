@@ -57,19 +57,17 @@
     self.circle.layer.masksToBounds = YES;
     [self addSubview:self.circle];
 
-    NSMutableAttributedString *storeString = [[NSMutableAttributedString alloc] initWithString:self.couponData.storeName];
-    [storeString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18.0f] range:NSMakeRange(0, self.couponData.storeName.length)];
-    self.store.attributedText = storeString;
+    self.store.text = self.couponData.storeName;
+    [self.store setFont:[Util getMediumFont:18.0]];
     [self addSubview:self.store];
     [self.store sizeToFit];
     
-    NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:self.couponData.couponDescription];
-    [titleString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0f] range:NSMakeRange(0, self.couponData.couponDescription.length)];
-    self.title.attributedText = titleString;
+    self.title.text = self.couponData.couponDescription;
+    [self.title setFont:[Util getRegularFont:18.0]];
     [self addSubview:self.title];
     [self.title sizeToFit];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"MMMM d, yyyy";
     NSString *dateString = [dateFormatter stringFromDate: self.transactionData.transactionDate];
     
@@ -78,7 +76,7 @@
     } else {
         self.dateTransacted.text = [NSString stringWithFormat:@"you sold this on %@", dateString];
     }
-    [self.dateTransacted setFont:[UIFont systemFontOfSize:14.0f]];
+    [self.dateTransacted setFont:[Util getRegularFont:14.0]];
     [self addSubview:self.dateTransacted];
     [self.dateTransacted sizeToFit];
     

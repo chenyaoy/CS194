@@ -72,7 +72,7 @@
     
     _xButton = [[UILabel alloc] init];
     _xButton.text = @"✕";
-    _xButton.font = [UIFont systemFontOfSize:24.0f];
+    _xButton.font = [Util getRegularFont:24.0];
     [_xButton sizeToFit];
     _xButton.userInteractionEnabled = YES;
     _xButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapX)];
@@ -80,13 +80,13 @@
     [self.view addSubview:_xButton];
     _listingTitle = [[UILabel alloc] init];
     _listingTitle.text = @"New Listing";
-    _listingTitle.font = [UIFont systemFontOfSize:18.0f];
+    _listingTitle.font = [Util getRegularFont:18.0];
     [_listingTitle sizeToFit];
     [self.view addSubview:_listingTitle];
     _whatStore = [[UILabel alloc] init];
     _whatStore.text = @"What store/event is your code for?";
     _whatStore.numberOfLines = 2;
-    _whatStore.font = [UIFont systemFontOfSize:24.0f];
+    _whatStore.font = [Util getRegularFont:24.0];
     [_scrollView addSubview:_whatStore];
     _storeField = [[UITextField alloc] init];
     _storeField.delegate = self;
@@ -100,7 +100,7 @@
     _shortTitle = [[UILabel alloc] init];
     _shortTitle.text = @"Write a short title! (e.g. \"$5 off $20 purchase\")";
     _shortTitle.numberOfLines = 2;
-    _shortTitle.font = [UIFont systemFontOfSize:24.0f];
+    _shortTitle.font = [Util getRegularFont:24.0];
     [_scrollView addSubview:_shortTitle];
     _shortTitleField = [[UITextField alloc] init];
     _shortTitleField.delegate = self;
@@ -113,14 +113,14 @@
     [_scrollView addSubview:_shortTitleField];
     _doesItExpire = [[UILabel alloc] init];
     _doesItExpire.text = @"Does it expire?";
-    _doesItExpire.font = [UIFont systemFontOfSize:24.0f];
+    _doesItExpire.font = [Util getRegularFont:24.0];
     [_doesItExpire sizeToFit];
     [_scrollView addSubview:_doesItExpire];
     _checkMark = [[UIButton alloc] init];
     [_checkMark setTitle:@"✔" forState:UIControlStateNormal];
     [_checkMark addTarget:self action:@selector(tapExpire:) forControlEvents:UIControlEventTouchUpInside];
     _checkMark.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _checkMark.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+    _checkMark.titleLabel.font = [Util getBoldFont:18.0];
     _checkMark.layer.borderWidth = 6.0f;
     _checkMark.layer.borderColor = [[UIColor blackColor] CGColor];
     _checkMark.layer.opacity = 0.33;
@@ -132,7 +132,7 @@
     [_xMark setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_xMark addTarget:self action:@selector(tapExpire:) forControlEvents:UIControlEventTouchUpInside];
     _xMark.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _xMark.titleLabel.font = [UIFont boldSystemFontOfSize:24.0f];
+    _xMark.titleLabel.font = [Util getBoldFont:24.0];
     _xMark.layer.borderWidth = 6.0f;
     _xMark.layer.borderColor = [[UIColor blackColor] CGColor];
     _xMark.layer.opacity = 0.33;
@@ -141,7 +141,7 @@
     [_scrollView addSubview:_xMark];
     _when = [[UILabel alloc] init];
     _when.text = @"When?";
-    _when.font = [UIFont systemFontOfSize:24.0f];
+    _when.font = [Util getRegularFont:24.0];
     [_when sizeToFit];
     [_scrollView addSubview:_when];
     _whenField = [[UITextField alloc] init];
@@ -160,7 +160,7 @@
     [_whenPickerView addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventValueChanged];
     _extraInfo = [[UILabel alloc] init];
     _extraInfo.text = @"Any more information?";
-    _extraInfo.font = [UIFont systemFontOfSize:24.0f];
+    _extraInfo.font = [Util getRegularFont:24.0];
     [_extraInfo sizeToFit];
     [_scrollView addSubview:_extraInfo];
     _extraInfoField = [[UITextField alloc] init];
@@ -174,7 +174,7 @@
     [_scrollView addSubview:_extraInfoField];
     _creditsForCode = [[UILabel alloc] init];
     _creditsForCode.text = @"🔑 for your code?";
-    _creditsForCode.font = [UIFont systemFontOfSize:24.0f];
+    _creditsForCode.font = [Util getRegularFont:24.0];
     [_creditsForCode sizeToFit];
     [_scrollView addSubview:_creditsForCode];
     _creditsField = [[UITextField alloc] init];
@@ -188,7 +188,7 @@
     [_scrollView addSubview:_creditsField];
     _pickCategory = [[UILabel alloc] init];
     _pickCategory.text = @"Pick a category for your code.";
-    _pickCategory.font = [UIFont systemFontOfSize:24.0f];
+    _pickCategory.font = [Util getRegularFont:24.0];
     [_pickCategory sizeToFit];
     [_scrollView addSubview:_pickCategory];
     
@@ -197,7 +197,7 @@
     [_categoryClothing setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_categoryClothing addTarget:self action:@selector(tapCategory:) forControlEvents:UIControlEventTouchUpInside];
     _categoryClothing.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _categoryClothing.titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    _categoryClothing.titleLabel.font = [Util getRegularFont:18.0];
     _categoryClothing.layer.borderWidth = 1.0f;
     _categoryClothing.layer.borderColor = [[UIColor blackColor] CGColor];
     _categoryClothing.layer.cornerRadius = 10;
@@ -210,7 +210,7 @@
     [_categoryConcerts setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_categoryConcerts addTarget:self action:@selector(tapCategory:) forControlEvents:UIControlEventTouchUpInside];
     _categoryConcerts.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _categoryConcerts.titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    _categoryConcerts.titleLabel.font = [Util getRegularFont:18.0];
     _categoryConcerts.layer.borderWidth = 1.0f;
     _categoryConcerts.layer.borderColor = [[UIColor blackColor] CGColor];
     _categoryConcerts.layer.cornerRadius = 10;
@@ -223,7 +223,7 @@
     [_categoryFood setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_categoryFood addTarget:self action:@selector(tapCategory:) forControlEvents:UIControlEventTouchUpInside];
     _categoryFood.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _categoryFood.titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    _categoryFood.titleLabel.font = [Util getRegularFont:18.0];
     _categoryFood.layer.borderWidth = 1.0f;
     _categoryFood.layer.borderColor = [[UIColor blackColor] CGColor];
     _categoryFood.layer.cornerRadius = 10;
@@ -236,7 +236,7 @@
     [_categoryElectronics addTarget:self action:@selector(tapCategory:) forControlEvents:UIControlEventTouchUpInside];
     [_categoryElectronics setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     _categoryElectronics.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _categoryElectronics.titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    _categoryElectronics.titleLabel.font = [Util getRegularFont:18.0];
     _categoryElectronics.layer.borderWidth = 1.0f;
     _categoryElectronics.layer.borderColor = [[UIColor blackColor] CGColor];
     _categoryElectronics.layer.cornerRadius = 10;
@@ -247,7 +247,7 @@
     
     _couponCode = [[UILabel alloc] init];
     _couponCode.text = @"Finally, what is the code?";
-    _couponCode.font = [UIFont systemFontOfSize:24.0f];
+    _couponCode.font = [Util getRegularFont:24.0];
     [_couponCode sizeToFit];
     [_scrollView addSubview:_couponCode];
     _codeField = [[UITextField alloc] init];
@@ -262,7 +262,7 @@
     _postIt = [[UIButton alloc] init];
     [_postIt setTitle: @"Post it!" forState: UIControlStateNormal];
     _postIt.backgroundColor = [[Util sharedManager] colorWithHexString:@"9FCBFE"];
-    _postIt.titleLabel.font = [UIFont systemFontOfSize:30.0f weight:UIFontWeightMedium];
+    _postIt.titleLabel.font = [Util getMediumFont:30.0];
     _postIt.layer.cornerRadius = 10;
     _postIt.layer.masksToBounds = YES;
     [_postIt addTarget:self action:@selector(tapPostIt:) forControlEvents:UIControlEventTouchUpInside];

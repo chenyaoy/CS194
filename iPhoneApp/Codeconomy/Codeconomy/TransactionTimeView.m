@@ -26,9 +26,9 @@
         dateFormatter.dateFormat = @"MMMM d, yyyy 'at' h:mm a";
         NSString *dateString = [dateFormatter stringFromDate: transactionDate];
         if (userBought) {
-            _transactionTimeLabel.text = [NSString stringWithFormat:@"You bought this code from %@ on %@.", otherUser.displayName, dateString];
+            _transactionTimeLabel.text = [NSString stringWithFormat:@"You bought this code from %@ on %@.", otherUser.username, dateString];
         } else {
-            _transactionTimeLabel.text = [NSString stringWithFormat:@"You sold this code to %@ on %@.", otherUser.displayName, dateString];
+            _transactionTimeLabel.text = [NSString stringWithFormat:@"You sold this code to %@ on %@.", otherUser.username, dateString];
         }
         _transactionTimeLabel.numberOfLines = 0;
         [self addSubview:_transactionTimeLabel];

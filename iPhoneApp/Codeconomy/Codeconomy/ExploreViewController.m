@@ -52,7 +52,7 @@
         
         _whatsNew = [[UILabel alloc] init];
         _whatsNew.text = @"What's New";
-        _whatsNew.font = [UIFont systemFontOfSize:18.0f];
+        _whatsNew.font = [Util getRegularFont:18.0];
         
         _couponTableView = [[UITableView alloc] init];
         _couponTableView.delegate = self;
@@ -80,6 +80,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor: [[Util sharedManager] colorWithHexString:@"F7F7F7"]];
+    [self.price setFont:[Util getRegularFont:17.0]];
     [_price sizeToFit];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.price];
     self.navigationItem.rightBarButtonItem = item;

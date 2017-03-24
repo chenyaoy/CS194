@@ -32,7 +32,7 @@
         _buy = [[UIButton alloc] init];
         [_buy addTarget:self action:@selector(tapBuy:) forControlEvents:UIControlEventTouchUpInside];
         [_buy setTitle: @"Buy" forState: UIControlStateNormal];
-        _buy.titleLabel.font = [UIFont systemFontOfSize:24.0 weight:UIFontWeightRegular];
+        _buy.titleLabel.font = [Util getRegularFont:24.0];
         _buy.backgroundColor = [[Util sharedManager] colorWithHexString:[Util getBlueColorHex]];
         _buy.layer.cornerRadius = 10;
         _buy.layer.masksToBounds = YES;

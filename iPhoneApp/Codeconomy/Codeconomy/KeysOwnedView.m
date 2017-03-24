@@ -23,7 +23,7 @@
         
         _keys = [[UILabel alloc] init];
         _keys.text = [NSString stringWithFormat:@"You currently have\n%d🔑", credits];
-        _keys.font = [UIFont systemFontOfSize:20.0];
+        _keys.font = [Util getRegularFont:20.0];
         _keys.numberOfLines = 0;
         [_keys setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_keys];

@@ -36,7 +36,7 @@
         self.backgroundColor = [[Util sharedManager] colorWithHexString:[Util getWhiteColorHex]];
         
         _leaveReview = [[UILabel alloc] init];
-        _leaveReview.font = [UIFont systemFontOfSize:20.0f weight:UIFontWeightMedium];
+        _leaveReview.font = [Util getMediumFont:20.0];
         _leaveReview.text = @"Leave a Review!";
         [self addSubview:_leaveReview];
         
@@ -44,7 +44,7 @@
         [_checkMark setTitle:@"✔" forState:UIControlStateNormal];
         [_checkMark addTarget:self action:@selector(tapWorks:) forControlEvents:UIControlEventTouchUpInside];
         _checkMark.titleLabel.textAlignment = NSTextAlignmentCenter;
-        _checkMark.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+        _checkMark.titleLabel.font = [Util getBoldFont:18.0];
         _checkMark.layer.borderWidth = 6.0f;
         _checkMark.layer.borderColor = [[UIColor blackColor] CGColor];
         _checkMark.layer.opacity = 0.33;
@@ -56,7 +56,7 @@
         [_xMark setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_xMark addTarget:self action:@selector(tapWorks:) forControlEvents:UIControlEventTouchUpInside];
         _xMark.titleLabel.textAlignment = NSTextAlignmentCenter;
-        _xMark.titleLabel.font = [UIFont boldSystemFontOfSize:24.0f];
+        _xMark.titleLabel.font = [Util getBoldFont:24.0];
         _xMark.layer.borderWidth = 6.0f;
         _xMark.layer.borderColor = [[UIColor blackColor] CGColor];
         _xMark.layer.opacity = 0.33;
@@ -65,12 +65,12 @@
         [self addSubview:_xMark];
         
         _didCodeWork = [[UILabel alloc] init];
-        _didCodeWork.font = [UIFont systemFontOfSize:20.0f weight:UIFontWeightMedium];
+        _didCodeWork.font = [Util getMediumFont:20.0];
         _didCodeWork.text = @"Did this code work?";
         [self addSubview:_didCodeWork];
         
         _commentView = [[UITextView alloc] init];
-        _commentView.font = [UIFont systemFontOfSize:20.0 weight:UIFontWeightLight];
+        _commentView.font = [Util getLightFont:20.0];
         UIColor *borderColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.33];
         _commentView.layer.borderColor = borderColor.CGColor;
         _commentView.layer.borderWidth = 1.0;
@@ -78,7 +78,7 @@
         [self addSubview:_commentView];
         
         _defaultLabel = [[UILabel alloc] init];
-        _defaultLabel.font = [UIFont systemFontOfSize:20.0 weight:UIFontWeightLight];
+        _defaultLabel.font = [Util getLightFont:20.0];
         _defaultLabel.text = @"Leave a comment (optional).";
         [_defaultLabel setAlpha:0.33];
         [self.commentView addSubview:_defaultLabel];
@@ -87,7 +87,7 @@
         [_submitReview setTitle: @"Write a review" forState: UIControlStateNormal];
         _submitReview.backgroundColor = [[Util sharedManager] colorWithHexString:[Util getBlueColorHex]];
         [_submitReview addTarget:self action:@selector(tapSubmitReview:) forControlEvents:UIControlEventTouchUpInside];
-        _submitReview.titleLabel.font = [UIFont systemFontOfSize:24.0f weight:UIFontWeightMedium];
+        _submitReview.titleLabel.font = [Util getMediumFont:24.0];
         _submitReview.layer.cornerRadius = 10;
         _submitReview.layer.masksToBounds = YES;
         [self addSubview:_submitReview];

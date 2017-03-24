@@ -47,7 +47,7 @@
                     [createdString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@", whose seller rating is %d%%,",  (int) (_sellerRating + 0.5)]]];
                 }
                 [createdString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" posted this code %d hours ago.", hoursBetweenDates]]];
-                [createdString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18.0f] range:NSMakeRange(0, seller.username.length)];
+                [createdString addAttribute:NSFontAttributeName value:[Util getMediumFont:18.0] range:NSMakeRange(0, seller.username.length)];
                 _createdLabel.attributedText = createdString;
 //                UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCreatedLabel)];
 //                tapGestureRecognizer.numberOfTapsRequired = 1;

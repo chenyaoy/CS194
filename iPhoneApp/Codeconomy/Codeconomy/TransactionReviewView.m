@@ -27,7 +27,7 @@
         self.layer.masksToBounds = YES;
         
         _review = [[UILabel alloc] init];
-        _review.font = [UIFont systemFontOfSize:20.0f weight:UIFontWeightRegular];
+        _review.font = [Util getRegularFont:20.0];
         _review.text = @"Review";
         [self addSubview:_review];
         
@@ -37,10 +37,10 @@
             NSRange selectedRange = NSMakeRange(9, 13);
             [reviewString beginEditing];
             [reviewString addAttribute:NSFontAttributeName
-                                 value:[UIFont systemFontOfSize:20.0 weight:UIFontWeightLight]
+                                 value:[Util getLightFont:20.0]
                                  range:NSMakeRange(0, reviewString.length)];
             [reviewString addAttribute:NSFontAttributeName
-                                 value:[UIFont systemFontOfSize:20.0 weight:UIFontWeightRegular]
+                                 value:[Util getRegularFont:20.0]
                                  range:selectedRange];
             [reviewString endEditing];
             _workedText.attributedText = reviewString;
@@ -50,10 +50,10 @@
             NSRange selectedRange = NSMakeRange(9, 9);
             [reviewString beginEditing];
             [reviewString addAttribute:NSFontAttributeName
-                                 value:[UIFont systemFontOfSize:20.0 weight:UIFontWeightLight]
+                                 value:[Util getLightFont:20.0]
                                  range:NSMakeRange(0, reviewString.length)];
             [reviewString addAttribute:NSFontAttributeName
-                                 value:[UIFont systemFontOfSize:20.0 weight:UIFontWeightRegular]
+                                 value:[Util getRegularFont:20.0]
                                  range:selectedRange];
             [reviewString endEditing];
             _workedText.attributedText = reviewString;
@@ -63,7 +63,7 @@
         
         _extraComment = [[UILabel alloc] init];
         _extraComment.text = self.transaction.reviewDescription;
-        _extraComment.font = [UIFont systemFontOfSize:20.0f weight:UIFontWeightRegular];
+        _extraComment.font = [Util getRegularFont:20.0];
         [self addSubview:_extraComment];
     }
     return self;

@@ -12,4 +12,5 @@
 - (void)setRightLabel:(NSString *)label;
 - (void)setLeftLabel:(NSString *)label;
 - (void)setRightLabelBold:(NSString *)label;
+- (void)setRightLabelMedium:(NSString *)label;
 @end
